@@ -1,0 +1,63 @@
+{
+  "version": "enrich-jev-v1",
+  "role": "enrich",
+  "provider": "typesafe",
+  "note": "Question set sent to Jev once per distinct review text. The review text is the request state. Definitions follow labels/LABEL_GUIDE.md. No example comes from the golden set.",
+  "short_text_chars": 200,
+  "needs_review_confidence": 0.5,
+  "questions": {
+    "topic": {
+      "type": "choice",
+      "instructions": "This is a user review of the Spotify mobile app. What is the main subject of the review? If the review reports several problems, choose the most serious one; if they are equally serious, choose the one mentioned first. If the review is only positive, choose the first specific feature it praises. Mentioning Premium or being a paying user does not by itself make the subject billing.",
+      "criteria": {
+        "access": "Logging in, signing up, passwords, being logged out, account access, or a hacked account.",
+        "usability": "Navigation, buttons and controls, layout or design, managing the queue or playlists, shuffle behaviour, or too many ads interrupting. Not controls that the review says are locked behind Premium.",
+        "playback": "Music or podcasts not playing, stopping, skipping by themselves, crashing, freezing, lag, connection errors, audio quality, or battery and data use.",
+        "downloads": "Downloading songs, offline listening, saved music, or downloads disappearing. Not about installing the app itself.",
+        "catalog": "Missing songs, artists or podcasts, search, discovery, recommendations, or lyrics not being available. Not content that the review says is locked behind Premium.",
+        "billing": "Price, charges, refunds, subscriptions, payment problems, a paid plan not activating, paywalls, or features that the review says require Premium, such as skips, choosing songs, or lyrics.",
+        "support": "Contacting customer support, or the response from customer support.",
+        "other": "General praise or general criticism with no specific feature, a complaint about an update with no named defect, political or boycott statements, or unrelated or meaningless text."
+      }
+    },
+    "intent": {
+      "type": "choice",
+      "instructions": "This is a user review of the Spotify mobile app. What is the reviewer mainly doing? Check the options in the order listed and choose the first one that applies.",
+      "criteria": {
+        "cancellation": "The reviewer says they have left or will leave: uninstalling, deleting the app, cancelling a subscription, switching to another service, or threatening to do any of these. Uninstalling and reinstalling only to fix a problem does not count.",
+        "complaint": "The reviewer reports a negative experience or a criticism. This includes reviews that mix praise with criticism, and general statements such as 'bad app'.",
+        "request": "The reviewer asks for a change or a new feature and reports no failure and no negative experience.",
+        "praise": "The review is positive and contains no problem and no request.",
+        "unclear": "The text is unrelated to the app, is meaningless, or is only a boycott or political slogan with no product complaint and no statement of personally leaving."
+      }
+    },
+    "severity": {
+      "type": "choice",
+      "instructions": "This is a user review of the Spotify mobile app. How serious is the impact of the most serious problem the reviewer reports on their own use of the app? Judge only the impact that is stated. Angry language, insults such as 'scam', a low rating, and threats to uninstall do not make a problem more serious.",
+      "criteria": {
+        "none": "No problem is reported: praise, a neutral or unclear statement, a political or boycott statement, or only a feature request.",
+        "annoyance": "Dislike, general criticism such as 'bad app', too many ads, a design the reviewer dislikes, or a minor annoyance. Nothing is reported as not working.",
+        "degraded": "A feature works badly, works only sometimes, or is restricted, for example limited skips or lyrics not loading, but the reviewer can still use the app.",
+        "blocked": "A core task is completely blocked: cannot log in, cannot open the app, cannot play music at all, or the app crashes every time.",
+        "harm": "The reviewer states an actual serious financial, privacy or data harm: money charged wrongly or after cancelling, an account actually hacked, or playlists or data actually lost."
+      }
+    },
+    "sentiment": {
+      "type": "score",
+      "instructions": "This is a user review of the Spotify mobile app. What is the overall tone of the review?",
+      "criteria": [
+        "Strongly negative: angry, calls the app the worst, or is leaving in disgust.",
+        "Negative: a clear complaint in a measured tone.",
+        "Neutral, evenly mixed, or unclear.",
+        "Positive, or positive with a small reservation.",
+        "Strongly positive: loves the app or calls it the best."
+      ]
+    }
+  },
+  "quote_question": {
+    "type": "choice",
+    "instructions": "This is a user review of the Spotify mobile app, split into numbered parts. Which part states the most serious problem the reviewer reports? If the review reports no problem, choose the part that best states its main praise or request."
+  },
+  "severity_levels": {"none": 1, "annoyance": 2, "degraded": 3, "blocked": 4, "harm": 5},
+  "sentiment_levels": [-1.0, -0.5, 0.0, 0.5, 1.0]
+}

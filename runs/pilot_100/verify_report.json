@@ -1,0 +1,103 @@
+{
+  "agreement": {
+    "all_three": 0.74,
+    "intent": 0.95,
+    "sentiment_within_tolerance": 0.98,
+    "severity": 0.82,
+    "topic": 0.93
+  },
+  "agreement_counts": {
+    "all_three": 74,
+    "intent": 95,
+    "sentiment_within_tolerance": 98,
+    "severity": 82,
+    "topic": 93
+  },
+  "compared": 100,
+  "confusion_enricher_to_verifier": {
+    "intent": {
+      "cancellation -> unclear": 1,
+      "complaint -> cancellation": 1,
+      "complaint -> unclear": 1,
+      "request -> praise": 1,
+      "unclear -> praise": 1
+    },
+    "severity": {
+      "2 -> 1": 1,
+      "2 -> 3": 6,
+      "3 -> 2": 4,
+      "3 -> 4": 5,
+      "4 -> 2": 1,
+      "4 -> 3": 1
+    },
+    "topic": {
+      "catalog -> other": 1,
+      "catalog -> usability": 1,
+      "other -> billing": 1,
+      "other -> support": 1,
+      "other -> usability": 1,
+      "usability -> playback": 2
+    }
+  },
+  "disagreeing_texts": 26,
+  "enricher_config": "jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1",
+  "independence": "The verifier receives review text and the rubric only; it is never shown the enricher's labels.",
+  "needs_review_as_predictor": {
+    "flagged": 12,
+    "flagged_and_disagree": 7,
+    "precision": 0.5833,
+    "recall": 0.2692
+  },
+  "planted_error_test": {
+    "all_detected": true,
+    "cases": [
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "5d4d3f47-4b3c-4be4-8f11-6cca41d27068",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "b47c203f-366e-4409-922d-cd52aa8bbef6",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "ff14ea84-fdec-4363-9b1b-a23dcab287c5",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "8b6e028a-5f63-4011-9841-cbbade4830eb",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "7a833667-4fcb-4a40-a88d-c55cfeca3d16",
+        "true_topic": "other"
+      }
+    ],
+    "detected": 5,
+    "note": "Synthetic test on a copy of the predictions; the saved enrichment results are not modified.",
+    "planted": 5
+  },
+  "sample": {
+    "drawn": 100,
+    "failed_this_session": 0,
+    "method": "lowest SHA-256(seed:text_sha256) values",
+    "new_this_session": 0,
+    "requested": 100,
+    "seed": "verify-v1",
+    "unit": "distinct completed review texts",
+    "verified": 100
+  },
+  "sentiment_tolerance": 0.5,
+  "severity_mean_absolute_difference": 0.19,
+  "stop_reason": null,
+  "verifier_config": "claude-haiku-4-5+verify-claude-v1.1f1d4cf4+schema-v1"
+}

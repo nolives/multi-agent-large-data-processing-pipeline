@@ -1,0 +1,11 @@
+[ingest] 500 rows · pending 0 · quarantined {}
+[enrich] session 2 (resume), stopped because queue_empty
+  texts completed 0 · quarantined 0 · left pending 0
+  calls 0 (0 failed) · input tokens 0 · cost $0.000000
+  wall time 0.0s · 0.0 texts/s with 1 worker(s)
+  review statuses {'completed': 500}
+[verify] 200 texts compared · agreement {'topic': 0.855, 'intent': 0.93, 'severity': 0.845, 'all_three': 0.69, 'sentiment_within_tolerance': 0.955} · planted errors detected 5/5
+[group] 243 complaint reviews in 29 issues · 0 without a model name
+[rank] 29 issues ranked from 243 complaint records · problems none
+[memo] reused, no new call
+[done] session 2: 0 model calls, $0.000000 of $1.0 cap, 0.788s wall clock. Outputs in runs/check_500/

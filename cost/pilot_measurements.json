@@ -1,0 +1,183 @@
+{
+  "full_corpus_ingest": {
+    "rows": 660622,
+    "seconds": 9.56,
+    "source": "full/data_manifest.json"
+  },
+  "input": {
+    "every_input_id_has_a_record": true,
+    "file": "cost_100.csv",
+    "rows": 100,
+    "sha256": "c884ac3b9be5066995d5063f96ad9af6e5e082975788c1684c4f6b6ea661dd0e"
+  },
+  "provider_prompt_cache": "No cache reads or writes occurred: cache_read_tokens and cache_write_tokens are 0 on every call.",
+  "sessions": [
+    {
+      "attempts": 112,
+      "downstream_calls": 12,
+      "failed_attempts": 0,
+      "issues_named_at_end": 18,
+      "models_configured": {
+        "enrich": "jev-1.13.0",
+        "group": "claude-haiku-4-5",
+        "memo": "claude-opus-5-5",
+        "verify": "claude-haiku-4-5"
+      },
+      "new_enrichment_calls": 100,
+      "records_at_end": {
+        "completed": 100
+      },
+      "run": "pilot_100",
+      "run_type": "cold",
+      "session": 1,
+      "settings": {
+        "max_rps": 10.0,
+        "memo_effort": "high",
+        "save_every": 50,
+        "seed": "verify-v1",
+        "source": "command defaults (not overridden for this session)",
+        "verify_batch": 10,
+        "verify_sample": 100
+      },
+      "spend_cap_usd": 0.8,
+      "stage_seconds": {
+        "enrich": 12.425,
+        "group": 9.242,
+        "ingest": 0.028,
+        "memo": 25.311,
+        "rank": 0.01,
+        "verify": 35.036
+      },
+      "summed_call_seconds": 81.674,
+      "texts_verified_at_end": 100,
+      "unique_texts": 100,
+      "wall_seconds": 82.633,
+      "workers": 1
+    },
+    {
+      "attempts": 0,
+      "downstream_calls": 0,
+      "failed_attempts": 0,
+      "issues_named_at_end": 18,
+      "models_configured": {
+        "enrich": "jev-1.13.0",
+        "group": "claude-haiku-4-5",
+        "memo": "claude-opus-5-5",
+        "verify": "claude-haiku-4-5"
+      },
+      "new_enrichment_calls": 0,
+      "records_at_end": {
+        "completed": 100
+      },
+      "run": "pilot_100",
+      "run_type": "warm",
+      "session": 2,
+      "settings": {
+        "max_rps": 10.0,
+        "memo_effort": "high",
+        "save_every": 50,
+        "seed": "verify-v1",
+        "source": "command defaults (not overridden for this session)",
+        "verify_batch": 10,
+        "verify_sample": 100
+      },
+      "spend_cap_usd": 0.8,
+      "stage_seconds": {
+        "enrich": 0.142,
+        "group": 0.002,
+        "ingest": 0.036,
+        "memo": 0.001,
+        "rank": 0.004,
+        "verify": 0.003
+      },
+      "summed_call_seconds": 0.0,
+      "texts_verified_at_end": 100,
+      "unique_texts": 100,
+      "wall_seconds": 0.824,
+      "workers": 1
+    },
+    {
+      "attempts": 123,
+      "downstream_calls": 23,
+      "failed_attempts": 22,
+      "issues_named_at_end": 0,
+      "models_configured": {
+        "enrich": "jev-1.13.0",
+        "group": "claude-haiku-4-5",
+        "memo": "claude-opus-5-5",
+        "verify": "claude-haiku-4-5"
+      },
+      "new_enrichment_calls": 100,
+      "records_at_end": {
+        "completed": 100
+      },
+      "run": "pilot_100_attempt1",
+      "run_type": "cold_failed_attempt",
+      "session": 1,
+      "settings": {
+        "max_rps": 10.0,
+        "memo_effort": "high",
+        "save_every": 50,
+        "seed": "verify-v1",
+        "source": "command defaults (not overridden for this session)",
+        "verify_batch": 10,
+        "verify_sample": 100
+      },
+      "spend_cap_usd": 1.0,
+      "stage_seconds": {
+        "enrich": 12.271,
+        "group": 19.047,
+        "ingest": 0.034,
+        "memo": 30.997,
+        "rank": 0.012,
+        "verify": 72.111
+      },
+      "summed_call_seconds": 133.98,
+      "texts_verified_at_end": 0,
+      "unique_texts": 100,
+      "wall_seconds": 135.194,
+      "workers": 1
+    }
+  ],
+  "stages": {
+    "enrich": {
+      "effort": "not applicable: Jev has no effort or thinking setting",
+      "label_config": "jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1",
+      "max_requests_per_second": 10.0,
+      "provider": "typesafe",
+      "reviews_per_request": 1,
+      "saved_batch_texts": 50
+    },
+    "group": {
+      "effort": "not applicable: Haiku 4.5 without extended thinking",
+      "issues_per_request": 20,
+      "label_config": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v1+schema-v1",
+      "output_token_cap": 4000,
+      "provider": "anthropic"
+    },
+    "ingest": {
+      "model": "none (code)",
+      "provider": "local"
+    },
+    "memo": {
+      "effort": "high",
+      "label_config": "claude-opus-5-5+memo-claude-v1.b1826c96+schema-v1",
+      "note": "Opus 5.5 always thinks; thinking tokens are billed inside output tokens",
+      "output_token_cap": 16000,
+      "provider": "anthropic"
+    },
+    "rank": {
+      "model": "none (code)",
+      "provider": "local"
+    },
+    "verify": {
+      "declared_sample_texts": 100,
+      "effort": "not applicable: Haiku 4.5 without extended thinking",
+      "label_config": "claude-haiku-4-5+verify-claude-v1.1f1d4cf4+schema-v1",
+      "output_token_cap": 4000,
+      "provider": "anthropic",
+      "reviews_per_request": 10,
+      "sample_seed": "verify-v1"
+    }
+  }
+}

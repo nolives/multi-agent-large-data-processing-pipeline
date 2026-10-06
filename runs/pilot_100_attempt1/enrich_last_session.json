@@ -1,0 +1,31 @@
+{
+  "calls": {
+    "attempts": 100,
+    "cost_usd": 0.005736,
+    "failed": 0,
+    "input_tokens": 136572,
+    "output_tokens": 20416,
+    "succeeded": 100,
+    "usage_unknown": 0
+  },
+  "fatal_detail": null,
+  "label_config": "jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1",
+  "phase": "initial",
+  "review_status_counts": {
+    "completed": 100
+  },
+  "session": 1,
+  "spend_cap_usd": 1.0,
+  "stop_reason": "queue_empty",
+  "texts": {
+    "completed": 100,
+    "fatal": 0,
+    "quarantined": 0,
+    "skipped": 0,
+    "transient": 0
+  },
+  "texts_pending_at_start": 100,
+  "texts_per_second": 8.27,
+  "wall_seconds": 12.09,
+  "workers": 1
+}

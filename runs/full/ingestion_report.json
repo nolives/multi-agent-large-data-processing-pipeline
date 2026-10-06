@@ -1,0 +1,254 @@
+{
+  "accounting": {
+    "accounted_for": true,
+    "distinct_nonempty_texts": 484189,
+    "nonempty_reviews": 660609,
+    "pending_distinct_texts": 484189,
+    "pending_reviews": 660609,
+    "quarantine_reasons": {
+      "empty_review_text": 13
+    },
+    "rejected_rows": 0,
+    "reviews_served_by_exact_text_reuse": 176420,
+    "source_rows": 660622,
+    "status_counts": {
+      "pending": 660609,
+      "quarantined": 13
+    },
+    "stored_review_ids": 660622,
+    "texts_shared_by_several_reviews": 15922
+  },
+  "all_expectations_met": true,
+  "expectation_checks": [
+    {
+      "actual": 97400616,
+      "check": "file_bytes",
+      "expected": 97400616,
+      "ok": true
+    },
+    {
+      "actual": 660622,
+      "check": "records",
+      "expected": 660622,
+      "ok": true
+    },
+    {
+      "actual": 0,
+      "check": "duplicate_review_ids",
+      "expected": 0,
+      "ok": true
+    },
+    {
+      "actual": 13,
+      "check": "empty_review_text",
+      "expected": 13,
+      "ok": true
+    },
+    {
+      "actual": 159701,
+      "check": "missing_app_version",
+      "expected": 159701,
+      "ok": true
+    },
+    {
+      "actual": {
+        "2022-05": 15461,
+        "2022-06": 30338,
+        "2022-07": 32784,
+        "2022-08": 30732,
+        "2022-09": 26933,
+        "2022-10": 27572,
+        "2022-11": 27349,
+        "2022-12": 31744,
+        "2023-01": 28609,
+        "2023-02": 20889,
+        "2023-03": 27238,
+        "2023-04": 25014,
+        "2023-05": 28062,
+        "2023-06": 27117,
+        "2023-07": 85079,
+        "2023-08": 30438,
+        "2023-09": 41634,
+        "2023-10": 89104,
+        "2023-11": 34525
+      },
+      "check": "reviews_by_month",
+      "expected": {
+        "2022-05": 15461,
+        "2022-06": 30338,
+        "2022-07": 32784,
+        "2022-08": 30732,
+        "2022-09": 26933,
+        "2022-10": 27572,
+        "2022-11": 27349,
+        "2022-12": 31744,
+        "2023-01": 28609,
+        "2023-02": 20889,
+        "2023-03": 27238,
+        "2023-04": 25014,
+        "2023-05": 28062,
+        "2023-06": 27117,
+        "2023-07": 85079,
+        "2023-08": 30438,
+        "2023-09": 41634,
+        "2023-10": 89104,
+        "2023-11": 34525
+      },
+      "ok": true
+    },
+    {
+      "actual": {
+        "1": 242620,
+        "2": 31034,
+        "3": 33268,
+        "4": 54140,
+        "5": 299560
+      },
+      "check": "reviews_by_rating",
+      "expected": {
+        "1": 242620,
+        "2": 31034,
+        "3": 33268,
+        "4": 54140,
+        "5": 299560
+      },
+      "ok": true
+    },
+    {
+      "actual": "2022-05-17 00:01:07",
+      "check": "first_review",
+      "expected": "2022-05-17 00:01:07",
+      "ok": true
+    },
+    {
+      "actual": "2023-11-15 23:16:10",
+      "check": "last_review",
+      "expected": "2023-11-15 23:16:10",
+      "ok": true
+    },
+    {
+      "actual": 660609,
+      "check": "nonempty_reviews",
+      "expected": 660609,
+      "ok": true
+    },
+    {
+      "actual": 484189,
+      "check": "distinct_nonempty_texts",
+      "expected": 484189,
+      "ok": true
+    }
+  ],
+  "input": {
+    "bytes": 97400616,
+    "file": "spotify_reviews_18months.csv",
+    "known_course_file": "spotify_reviews_18months.csv",
+    "sha256": "1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6"
+  },
+  "profile": {
+    "counts": {
+      "duplicate_review_ids": 0,
+      "empty_review_text": 13,
+      "missing_app_version": 159701,
+      "records": 660622
+    },
+    "file_sha256": "1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6",
+    "first_review": "2022-05-17 00:01:07",
+    "last_review": "2023-11-15 23:16:10",
+    "parsed_rows_sha256": "eb5ea1e15f020212004a5b1e2f873e45a9f105d1b4516ad077020492364f71ff",
+    "reviews_by_month": {
+      "2022-05": 15461,
+      "2022-06": 30338,
+      "2022-07": 32784,
+      "2022-08": 30732,
+      "2022-09": 26933,
+      "2022-10": 27572,
+      "2022-11": 27349,
+      "2022-12": 31744,
+      "2023-01": 28609,
+      "2023-02": 20889,
+      "2023-03": 27238,
+      "2023-04": 25014,
+      "2023-05": 28062,
+      "2023-06": 27117,
+      "2023-07": 85079,
+      "2023-08": 30438,
+      "2023-09": 41634,
+      "2023-10": 89104,
+      "2023-11": 34525
+    },
+    "reviews_by_rating": {
+      "1": 242620,
+      "2": 31034,
+      "3": 33268,
+      "4": 54140,
+      "5": 299560
+    }
+  },
+  "quality": {
+    "distinct_app_versions": 452,
+    "invalid_likes": 0,
+    "invalid_rating": 0,
+    "max_review_likes": 13824,
+    "most_repeated_texts": [
+      {
+        "first_review_id": "8917f987-432e-4ca3-b0ac-910879171fe2",
+        "n_reviews": 12845
+      },
+      {
+        "first_review_id": "8ef3b139-9aae-4415-95f0-746dc9b89c19",
+        "n_reviews": 5551
+      },
+      {
+        "first_review_id": "7b8c2cfc-8783-4c46-a325-8ae9753ccd27",
+        "n_reviews": 4096
+      },
+      {
+        "first_review_id": "6e2370a1-c3e4-4a1d-8be0-0a89cb88f77e",
+        "n_reviews": 3948
+      },
+      {
+        "first_review_id": "131f8a0a-b9ef-4ef9-ada8-566de2c1ee8c",
+        "n_reviews": 3359
+      },
+      {
+        "first_review_id": "0c20367b-820a-4a8a-a666-f9c282fbef4b",
+        "n_reviews": 3136
+      },
+      {
+        "first_review_id": "f79f4637-e878-4aac-9d13-e1ada2e0d5df",
+        "n_reviews": 2769
+      },
+      {
+        "first_review_id": "72fe91ad-5dd0-404a-9c0d-92d797f1c3af",
+        "n_reviews": 2134
+      },
+      {
+        "first_review_id": "0c4da106-ab23-4e43-952b-889e69009698",
+        "n_reviews": 1973
+      },
+      {
+        "first_review_id": "cdcdc095-63e0-4783-97a0-2d54a45e107f",
+        "n_reviews": 1901
+      }
+    ],
+    "multiline_text": 68,
+    "notes": [
+      "text_without_ascii_letters is a rough signal for emoji-only or non-Latin-script text, not a language detector.",
+      "review_timestamp has no stated timezone; months are taken from the source string as written."
+    ],
+    "reviews_with_likes": 55140,
+    "text_length_chars": {
+      "max": 1693,
+      "median": 32,
+      "min": 1,
+      "p90": 207,
+      "p99": 490,
+      "total": 49430325
+    },
+    "text_without_ascii_letters": 15765,
+    "unparseable_timestamp": 0
+  },
+  "rejected_rows": [],
+  "run_id": "full"
+}

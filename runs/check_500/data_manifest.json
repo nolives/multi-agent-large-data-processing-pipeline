@@ -1,0 +1,29 @@
+{
+  "code": {
+    "git_commit": "49268673313327ce9f4d6a409e52f2d48b71d769",
+    "uncommitted_changes": true
+  },
+  "created_at_utc": "2026-10-06T17:31:46+00:00",
+  "ingest_seconds": 0.04,
+  "input": {
+    "bytes": 76170,
+    "columns": [
+      "review_id",
+      "review_text",
+      "review_rating",
+      "review_likes",
+      "app_version",
+      "review_timestamp"
+    ],
+    "known_course_file": "checkpoint_500.csv",
+    "path": "data/checkpoint_500.csv",
+    "sha256": "a94e31663ee7b7eaa77e23b7a8425b530cc0c866ed5e714953172a0afef6a12f"
+  },
+  "outputs": {
+    "ingestion_report.json": "c7fd920615294d37ef098c899d55dfb05578ed124a46580167076a519ff6585d",
+    "quarantine.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "python": "3.14.7",
+  "run_id": "check_500",
+  "state_store": "state.db (SQLite; tables reviews, texts, meta). Pending work: SELECT review_id FROM reviews WHERE status = 'pending'."
+}

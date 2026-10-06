@@ -1,0 +1,178 @@
+{
+  "group_config": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v1+schema-v1",
+  "issues": [
+    {
+      "aspect": "account",
+      "complaint_count": 1,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "access.account",
+      "named_by": "code_fallback",
+      "title": "access: account",
+      "topic": "access"
+    },
+    {
+      "aspect": "login",
+      "complaint_count": 1,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "access.login",
+      "named_by": "code_fallback",
+      "title": "access: login",
+      "topic": "access"
+    },
+    {
+      "aspect": "paywalled-controls",
+      "complaint_count": 6,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "billing.paywalled-controls",
+      "named_by": "code_fallback",
+      "title": "billing: paywalled controls",
+      "topic": "billing"
+    },
+    {
+      "aspect": "plans",
+      "complaint_count": 2,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "billing.plans",
+      "named_by": "code_fallback",
+      "title": "billing: plans",
+      "topic": "billing"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 2,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "catalog.general",
+      "named_by": "code_fallback",
+      "title": "catalog: general",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "lyrics",
+      "complaint_count": 2,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "catalog.lyrics",
+      "named_by": "code_fallback",
+      "title": "catalog: lyrics",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "recommendations",
+      "complaint_count": 2,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "catalog.recommendations",
+      "named_by": "code_fallback",
+      "title": "catalog: recommendations",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "downloading",
+      "complaint_count": 1,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "downloads.downloading",
+      "named_by": "code_fallback",
+      "title": "downloads: downloading",
+      "topic": "downloads"
+    },
+    {
+      "aspect": "offline",
+      "complaint_count": 1,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "downloads.offline",
+      "named_by": "code_fallback",
+      "title": "downloads: offline",
+      "topic": "downloads"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 11,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "other.general",
+      "named_by": "code_fallback",
+      "title": "other: general",
+      "topic": "other"
+    },
+    {
+      "aspect": "update",
+      "complaint_count": 4,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "other.update",
+      "named_by": "code_fallback",
+      "title": "other: update",
+      "topic": "other"
+    },
+    {
+      "aspect": "crashes",
+      "complaint_count": 1,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "playback.crashes",
+      "named_by": "code_fallback",
+      "title": "playback: crashes",
+      "topic": "playback"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 4,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "playback.general",
+      "named_by": "code_fallback",
+      "title": "playback: general",
+      "topic": "playback"
+    },
+    {
+      "aspect": "ads",
+      "complaint_count": 7,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "usability.ads",
+      "named_by": "code_fallback",
+      "title": "usability: ads",
+      "topic": "usability"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 1,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "usability.general",
+      "named_by": "code_fallback",
+      "title": "usability: general",
+      "topic": "usability"
+    },
+    {
+      "aspect": "queue-and-playlists",
+      "complaint_count": 2,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "usability.queue-and-playlists",
+      "named_by": "code_fallback",
+      "title": "usability: queue and playlists",
+      "topic": "usability"
+    },
+    {
+      "aspect": "update",
+      "complaint_count": 3,
+      "description": "",
+      "example_review_ids": [],
+      "issue_id": "usability.update",
+      "named_by": "code_fallback",
+      "title": "usability: update",
+      "topic": "usability"
+    }
+  ],
+  "membership_rule": "issue_id = <topic>.<aspect>; see labels/issues.json",
+  "rules": "issues-v1",
+  "stop_reason": null
+}

@@ -1,0 +1,46 @@
+{
+  "version": "issues-v1",
+  "note": "Deterministic issue grouping. A complaint or cancellation record joins issue '<topic>.<aspect>', where the aspect is the first one listed for its topic whose entities appear in the record's entity list; otherwise 'general'. Entity names come from labels/entities.json.",
+  "topics": {
+    "access": [
+      {"aspect": "login", "entities": ["login", "password"]},
+      {"aspect": "account", "entities": ["account"]}
+    ],
+    "usability": [
+      {"aspect": "ads", "entities": ["ads"]},
+      {"aspect": "shuffle-and-skips", "entities": ["shuffle", "skips"]},
+      {"aspect": "queue-and-playlists", "entities": ["queue", "playlists", "liked songs"]},
+      {"aspect": "interface", "entities": ["interface", "widget"]},
+      {"aspect": "update", "entities": ["update"]}
+    ],
+    "playback": [
+      {"aspect": "crashes", "entities": ["crashes"]},
+      {"aspect": "buffering", "entities": ["buffering"]},
+      {"aspect": "sound-quality", "entities": ["sound quality"]},
+      {"aspect": "devices", "entities": ["bluetooth", "car", "smart speaker", "wear os"]},
+      {"aspect": "podcasts", "entities": ["podcasts"]},
+      {"aspect": "update", "entities": ["update"]}
+    ],
+    "downloads": [
+      {"aspect": "offline", "entities": ["offline mode"]},
+      {"aspect": "downloading", "entities": ["downloads"]}
+    ],
+    "catalog": [
+      {"aspect": "lyrics", "entities": ["lyrics"]},
+      {"aspect": "recommendations", "entities": ["recommendations", "ai dj"]},
+      {"aspect": "search", "entities": ["search"]},
+      {"aspect": "podcasts-and-audiobooks", "entities": ["podcasts", "audiobooks", "joe rogan"]}
+    ],
+    "billing": [
+      {"aspect": "charges-and-refunds", "entities": ["payment", "refund"]},
+      {"aspect": "price", "entities": ["price"]},
+      {"aspect": "paywalled-controls", "entities": ["shuffle", "skips", "lyrics", "queue"]},
+      {"aspect": "ads-for-free-users", "entities": ["ads", "free version"]},
+      {"aspect": "plans", "entities": ["subscription", "family plan", "student plan", "premium"]}
+    ],
+    "support": [],
+    "other": [
+      {"aspect": "update", "entities": ["update"]}
+    ]
+  }
+}

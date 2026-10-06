@@ -1,0 +1,32 @@
+{
+  "note": "Editable assumptions for the full-run projection. Nothing here changes the measured pilot results.",
+  "budget_usd": 40.0,
+  "projection": {
+    "source_rows": 660622,
+    "nonempty_reviews": 660609,
+    "empty_text_quarantines": 13,
+    "distinct_nonempty_texts": 484189
+  },
+  "controls": {
+    "max_workers": 8,
+    "max_requests_per_second": 60,
+    "provider_requests_per_second_limit": 80,
+    "max_fallback_fraction": 0.02,
+    "output_token_cap_per_request": {"enrich": "not applicable: Jev returns fixed typed answers and output tokens are free", "verify": 4000, "group": 4000, "memo": 16000}
+  },
+  "verification": {"full_run_sample_texts": 2000},
+  "fixed_overhead": {"issues_to_name_max": 36, "memos": 1},
+  "local_compute_usd_per_hour": null,
+  "scenarios": {
+    "base": {
+      "description": "Exact-text reuse on, 8 workers, few retries, no fallback.",
+      "workers": 8, "parallel_efficiency": 0.8, "enrich_retry_fraction": 0.01, "token_margin": 0.0,
+      "fallback_fraction": 0.0, "verify_retry_fraction": 0.0, "memo_attempts": 1, "memo_size_multiplier": 1.5
+    },
+    "conservative": {
+      "description": "Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, the full declared fallback quota, one rejected memo.",
+      "workers": 4, "parallel_efficiency": 0.6, "enrich_retry_fraction": 0.05, "token_margin": 0.15,
+      "fallback_fraction": 0.02, "verify_retry_fraction": 0.2, "memo_attempts": 2, "memo_size_multiplier": 2.0
+    }
+  }
+}

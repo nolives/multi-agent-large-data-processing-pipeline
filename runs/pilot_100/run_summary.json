@@ -1,0 +1,35 @@
+{
+  "calls_this_session": {},
+  "cost_usd_this_session": 0,
+  "input": "data/cost_100.csv",
+  "models": {
+    "enrich": "jev-1.13.0",
+    "group": "claude-haiku-4-5",
+    "memo": "claude-opus-5-5",
+    "verify": "claude-haiku-4-5"
+  },
+  "review_status_counts": {
+    "completed": 100
+  },
+  "run_id": "pilot_100",
+  "session": 2,
+  "spend_cap_usd": 0.8,
+  "stage_seconds": {
+    "enrich": 0.142,
+    "group": 0.002,
+    "ingest": 0.036,
+    "memo": 0.001,
+    "rank": 0.004,
+    "verify": 0.003
+  },
+  "stages_run": [
+    "ingest",
+    "enrich",
+    "verify",
+    "group",
+    "rank",
+    "memo"
+  ],
+  "wall_seconds": 0.824,
+  "workers": 1
+}

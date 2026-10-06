@@ -1,0 +1,29 @@
+{
+  "code": {
+    "git_commit": "49268673313327ce9f4d6a409e52f2d48b71d769",
+    "uncommitted_changes": true
+  },
+  "created_at_utc": "2026-10-05T22:16:56+00:00",
+  "ingest_seconds": 9.56,
+  "input": {
+    "bytes": 97400616,
+    "columns": [
+      "review_id",
+      "review_text",
+      "review_rating",
+      "review_likes",
+      "app_version",
+      "review_timestamp"
+    ],
+    "known_course_file": "spotify_reviews_18months.csv",
+    "path": "data/spotify_reviews_18months.csv",
+    "sha256": "1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6"
+  },
+  "outputs": {
+    "ingestion_report.json": "8ceac75c2c37f1d1afd9f1f8dac3db485c225bcf0dd537ea0265e621fe3432cc",
+    "quarantine.jsonl": "31f416b24b92f1b72b4b1526c864d2a5955b7ba435a01b93ef8512d0e879df24"
+  },
+  "python": "3.14.7",
+  "run_id": "full",
+  "state_store": "state.db (SQLite; tables reviews, texts, meta). Pending work: SELECT review_id FROM reviews WHERE status = 'pending'."
+}

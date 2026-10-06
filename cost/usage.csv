@@ -1,0 +1,17 @@
+run,session,run_type,stage,provider,model,billing_item,calls_with_item,billed_units,price_per_million_units,cost_usd
+pilot_100,1,cold,enrich,typesafe,jev-1.13.0,input_tokens,100,136572,0.042,0.00573602
+pilot_100,1,cold,enrich,typesafe,jev-1.13.0,output_tokens,100,20412,0,0.00000000
+pilot_100,1,cold,group,anthropic,claude-haiku-4-5-20251001,input_tokens,1,3337,1,0.00333700
+pilot_100,1,cold,group,anthropic,claude-haiku-4-5-20251001,output_tokens,1,802,5,0.00401000
+pilot_100,1,cold,memo,anthropic,claude-opus-5-5,input_tokens,1,7807,4,0.03122800
+pilot_100,1,cold,memo,anthropic,claude-opus-5-5,output_tokens,1,2685,20,0.05370000
+pilot_100,1,cold,verify,anthropic,claude-haiku-4-5-20251001,input_tokens,10,17123,1,0.01712300
+pilot_100,1,cold,verify,anthropic,claude-haiku-4-5-20251001,output_tokens,10,2913,5,0.01456500
+pilot_100_attempt1,1,cold_failed_attempt,enrich,typesafe,jev-1.13.0,input_tokens,100,136572,0.042,0.00573602
+pilot_100_attempt1,1,cold_failed_attempt,enrich,typesafe,jev-1.13.0,output_tokens,100,20416,0,0.00000000
+pilot_100_attempt1,1,cold_failed_attempt,group,anthropic,claude-haiku-4-5,input_tokens,2,6600,1,0.00660000
+pilot_100_attempt1,1,cold_failed_attempt,group,anthropic,claude-haiku-4-5,output_tokens,2,1502,5,0.00751000
+pilot_100_attempt1,1,cold_failed_attempt,memo,anthropic,claude-opus-5-5,input_tokens,1,7460,4,0.02984000
+pilot_100_attempt1,1,cold_failed_attempt,memo,anthropic,claude-opus-5-5,output_tokens,1,3078,20,0.06156000
+pilot_100_attempt1,1,cold_failed_attempt,verify,anthropic,claude-haiku-4-5,input_tokens,20,34246,1,0.03424600
+pilot_100_attempt1,1,cold_failed_attempt,verify,anthropic,claude-haiku-4-5,output_tokens,20,5683,5,0.02841500

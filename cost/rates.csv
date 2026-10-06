@@ -1,0 +1,11 @@
+provider,model,billing_item,unit,price_per_million_units,currency,source_url,checked_date,notes
+typesafe,jev-1.13.0,input_tokens,token,0.042,USD,https://docs.typesafe.ai/models,2026-10-05,"Published as $42 per billion input tokens"
+typesafe,jev-1.13.0,output_tokens,token,0,USD,https://docs.typesafe.ai/models,2026-10-05,"Output tokens are free"
+anthropic,claude-haiku-4-5,input_tokens,token,1.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Base input, standard tier"
+anthropic,claude-haiku-4-5,cache_write_tokens,token,1.25,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"5-minute cache write"
+anthropic,claude-haiku-4-5,cache_read_tokens,token,0.10,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Cache hit"
+anthropic,claude-haiku-4-5,output_tokens,token,5.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Output, standard tier"
+anthropic,claude-opus-5-5,input_tokens,token,4.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Base input, standard tier"
+anthropic,claude-opus-5-5,cache_write_tokens,token,5.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"5-minute cache write"
+anthropic,claude-opus-5-5,cache_read_tokens,token,0.20,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Cache hit"
+anthropic,claude-opus-5-5,output_tokens,token,20.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Output including thinking tokens, standard tier"

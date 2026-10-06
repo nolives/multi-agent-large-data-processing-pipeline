@@ -1,0 +1,11 @@
+[ingest] 500 rows · pending 500 · quarantined {}
+[enrich] session 1 (initial), stopped because queue_empty
+  texts completed 479 · quarantined 0 · left pending 0
+  calls 479 (0 failed) · input tokens 653,542 · cost $0.027449
+  wall time 59.96s · 7.99 texts/s with 1 worker(s)
+  review statuses {'completed': 500}
+[verify] 200 texts compared · agreement {'topic': 0.855, 'intent': 0.93, 'severity': 0.845, 'all_three': 0.69, 'sentiment_within_tolerance': 0.955} · planted errors detected 5/5
+[group] 243 complaint reviews in 29 issues · 0 without a model name
+[rank] 29 issues ranked from 243 complaint records · problems none
+[memo] valid · recommends billing_support
+[done] session 1: 502 model calls, $0.231921 of $1.0 cap, 181.085s wall clock. Outputs in runs/check_500/

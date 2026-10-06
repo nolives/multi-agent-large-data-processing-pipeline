@@ -1,0 +1,118 @@
+{
+  "agreement": {
+    "all_three": 0.69,
+    "intent": 0.93,
+    "sentiment_within_tolerance": 0.955,
+    "severity": 0.845,
+    "topic": 0.855
+  },
+  "agreement_counts": {
+    "all_three": 138,
+    "intent": 186,
+    "sentiment_within_tolerance": 191,
+    "severity": 169,
+    "topic": 171
+  },
+  "compared": 200,
+  "confusion_enricher_to_verifier": {
+    "intent": {
+      "complaint -> cancellation": 2,
+      "complaint -> request": 2,
+      "complaint -> unclear": 2,
+      "praise -> unclear": 1,
+      "unclear -> complaint": 1,
+      "unclear -> praise": 6
+    },
+    "severity": {
+      "1 -> 2": 1,
+      "2 -> 1": 3,
+      "2 -> 3": 9,
+      "3 -> 2": 6,
+      "3 -> 4": 7,
+      "4 -> 1": 1,
+      "4 -> 2": 2,
+      "4 -> 3": 2
+    },
+    "topic": {
+      "access -> playback": 1,
+      "billing -> other": 2,
+      "billing -> playback": 1,
+      "billing -> usability": 1,
+      "catalog -> other": 4,
+      "catalog -> playback": 1,
+      "catalog -> usability": 1,
+      "other -> billing": 1,
+      "other -> catalog": 1,
+      "other -> playback": 1,
+      "other -> usability": 2,
+      "playback -> billing": 2,
+      "playback -> other": 1,
+      "playback -> usability": 2,
+      "usability -> billing": 1,
+      "usability -> catalog": 1,
+      "usability -> other": 4,
+      "usability -> playback": 2
+    }
+  },
+  "disagreeing_texts": 62,
+  "enricher_config": "jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1",
+  "independence": "The verifier receives review text and the rubric only; it is never shown the enricher's labels.",
+  "needs_review_as_predictor": {
+    "flagged": 33,
+    "flagged_and_disagree": 23,
+    "precision": 0.697,
+    "recall": 0.371
+  },
+  "planted_error_test": {
+    "all_detected": true,
+    "cases": [
+      {
+        "detected": true,
+        "planted_topic": "downloads",
+        "review_id": "0e5a2a0d-7f67-48a5-9edd-27064f670656",
+        "true_topic": "playback"
+      },
+      {
+        "detected": true,
+        "planted_topic": "support",
+        "review_id": "61e0ddbb-6ec4-4d3a-acd3-41eb5f64afb7",
+        "true_topic": "billing"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "475aa270-a637-4332-ba8d-48def4869f98",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "0d361ea6-3089-41c2-9e0f-4cd6a04f0dd8",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "playback",
+        "review_id": "02311997-e9a2-41f9-acd2-303988b849a4",
+        "true_topic": "usability"
+      }
+    ],
+    "detected": 5,
+    "note": "Synthetic test on a copy of the predictions; the saved enrichment results are not modified.",
+    "planted": 5
+  },
+  "sample": {
+    "drawn": 200,
+    "failed_this_session": 0,
+    "method": "lowest SHA-256(seed:text_sha256) values",
+    "new_this_session": 0,
+    "requested": 200,
+    "seed": "verify-v1",
+    "unit": "distinct completed review texts",
+    "verified": 200
+  },
+  "sentiment_tolerance": 0.5,
+  "severity_mean_absolute_difference": 0.175,
+  "stop_reason": null,
+  "verifier_config": "claude-haiku-4-5+verify-claude-v1.1f1d4cf4+schema-v1"
+}

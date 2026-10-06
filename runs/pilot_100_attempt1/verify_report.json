@@ -1,0 +1,52 @@
+{
+  "agreement": {
+    "all_three": null,
+    "intent": null,
+    "sentiment_within_tolerance": null,
+    "severity": null,
+    "topic": null
+  },
+  "agreement_counts": {
+    "all_three": 0,
+    "intent": 0,
+    "sentiment_within_tolerance": 0,
+    "severity": 0,
+    "topic": 0
+  },
+  "compared": 0,
+  "confusion_enricher_to_verifier": {
+    "intent": {},
+    "severity": {},
+    "topic": {}
+  },
+  "disagreeing_texts": 0,
+  "enricher_config": "jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1",
+  "independence": "The verifier receives review text and the rubric only; it is never shown the enricher's labels.",
+  "needs_review_as_predictor": {
+    "flagged": 0,
+    "flagged_and_disagree": 0,
+    "precision": null,
+    "recall": null
+  },
+  "planted_error_test": {
+    "all_detected": true,
+    "cases": [],
+    "detected": 0,
+    "note": "Synthetic test on a copy of the predictions; the saved enrichment results are not modified.",
+    "planted": 0
+  },
+  "sample": {
+    "drawn": 100,
+    "failed_this_session": 100,
+    "method": "lowest SHA-256(seed:text_sha256) values",
+    "new_this_session": 0,
+    "requested": 100,
+    "seed": "verify-v1",
+    "unit": "distinct completed review texts",
+    "verified": 0
+  },
+  "sentiment_tolerance": 0.5,
+  "severity_mean_absolute_difference": null,
+  "stop_reason": null,
+  "verifier_config": "claude-haiku-4-5+verify-claude-v1.1f1d4cf4+schema-v1"
+}

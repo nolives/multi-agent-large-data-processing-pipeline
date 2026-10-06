@@ -1,0 +1,3 @@
+{"at":"2026-10-05T23:32:31.553+00:00","event":"enrich_start","label_config":"jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1","pending_texts":5,"phase":"initial","session":1,"spend_cap_usd":0.01,"workers":1}
+{"at":"2026-10-05T23:32:32.372+00:00","completed":5,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.000283,"transient":0}
+{"at":"2026-10-05T23:32:32.375+00:00","calls":{"attempts":5,"cost_usd":0.000283,"failed":0,"input_tokens":6738,"output_tokens":997,"succeeded":5,"usage_unknown":0},"event":"enrich_stop","session":1,"stop_reason":"queue_empty","texts":{"completed":5,"fatal":0,"quarantined":0,"skipped":0,"transient":0},"wall_seconds":0.82}

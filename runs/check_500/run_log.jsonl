@@ -1,0 +1,14 @@
+{"at":"2026-10-06T17:28:45.387+00:00","event":"enrich_start","label_config":"jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1","pending_texts":479,"phase":"initial","session":1,"spend_cap_usd":1.0,"workers":1}
+{"at":"2026-10-06T17:28:51.700+00:00","completed":50,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.002863,"transient":0}
+{"at":"2026-10-06T17:28:57.801+00:00","completed":100,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.005736,"transient":0}
+{"at":"2026-10-06T17:29:03.943+00:00","completed":150,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.008591,"transient":0}
+{"at":"2026-10-06T17:29:10.192+00:00","completed":200,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.011447,"transient":0}
+{"at":"2026-10-06T17:29:16.619+00:00","completed":250,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.014334,"transient":0}
+{"at":"2026-10-06T17:29:22.716+00:00","completed":300,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.017195,"transient":0}
+{"at":"2026-10-06T17:29:29.162+00:00","completed":350,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.020035,"transient":0}
+{"at":"2026-10-06T17:29:35.175+00:00","completed":400,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.022899,"transient":0}
+{"at":"2026-10-06T17:29:41.627+00:00","completed":450,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.025794,"transient":0}
+{"at":"2026-10-06T17:29:45.343+00:00","completed":479,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.027449,"transient":0}
+{"at":"2026-10-06T17:29:45.348+00:00","calls":{"attempts":479,"cost_usd":0.027449,"failed":0,"input_tokens":653542,"output_tokens":97700,"succeeded":479,"usage_unknown":0},"event":"enrich_stop","session":1,"stop_reason":"queue_empty","texts":{"completed":479,"fatal":0,"quarantined":0,"skipped":0,"transient":0},"wall_seconds":59.96}
+{"at":"2026-10-06T17:31:46.681+00:00","event":"enrich_start","label_config":"jev-1.13.0+enrich-jev-v1.dfe5df15+schema-v1","pending_texts":0,"phase":"resume","session":2,"spend_cap_usd":1.0,"workers":1}
+{"at":"2026-10-06T17:31:46.682+00:00","calls":{"attempts":0,"cost_usd":0,"failed":0,"input_tokens":0,"output_tokens":0,"succeeded":0,"usage_unknown":0},"event":"enrich_stop","session":2,"stop_reason":"queue_empty","texts":{"completed":0,"fatal":0,"quarantined":0,"skipped":0,"transient":0},"wall_seconds":0.0}
