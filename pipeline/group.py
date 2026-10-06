@@ -1,11 +1,12 @@
 """Stage 4, group (role: group). Code assigns every complaint to one stable issue; a model only names the issues.
 
 Issue membership is deterministic: issue_id = "<topic>.<aspect>", decided by the rules in labels/issues.json from the
-record's topic and entity list. The naming model sees a bounded evidence pack (a few examples per issue), and its
+record's topic, entity list and text. The naming model sees a bounded evidence pack (a few examples per issue), and its
 accepted titles are saved so that ranking never needs a model.
 """
 
 import json
+import re
 from pathlib import Path
 
 from .common import write_json
@@ -36,13 +37,15 @@ OUTPUT_SCHEMA = {
 
 def load_rules(path):
     data = json.loads(Path(path).read_text(encoding="utf-8"))
-    return data["version"], {topic: [(a["aspect"], set(a["entities"])) for a in aspects] for topic, aspects in data["topics"].items()}
+    return data["version"], {topic: [(a["aspect"], set(a["entities"]), re.compile("|".join(a["patterns"]), re.IGNORECASE) if a.get("patterns") else None)
+                                     for a in aspects] for topic, aspects in data["topics"].items()}
 
 
-def assign_issue(topic, entity_list, rules):
+def assign_issue(topic, entity_list, text, rules):
+    """The first aspect of the topic whose entities or text patterns match; otherwise the topic's general issue."""
     found = set(entity_list)
-    for aspect, names in rules.get(topic, ()):
-        if found & names:
+    for aspect, names, pattern in rules.get(topic, ()):
+        if found & names or (pattern and pattern.search(text)):
             return f"{topic}.{aspect}"
     return f"{topic}.general"
 
@@ -50,8 +53,9 @@ def assign_issue(topic, entity_list, rules):
 def build_membership(db, rules):
     """Rebuild issue membership for every completed complaint or cancellation record. No model involved."""
     db.executescript(SCHEMA)
-    by_text = {sha: assign_issue(topic, json.loads(ents), rules) for sha, topic, ents in db.execute(
-        f"SELECT text_sha256, topic, entities FROM enrichments WHERE intent IN ({','.join('?' * len(COMPLAINT_INTENTS))})", COMPLAINT_INTENTS)}
+    by_text = {sha: assign_issue(topic, json.loads(ents), text, rules) for sha, topic, ents, text in db.execute(
+        "SELECT e.text_sha256, e.topic, e.entities, r.review_text FROM enrichments e JOIN reviews r ON r.review_id = e.source_review_id "
+        f"WHERE e.intent IN ({','.join('?' * len(COMPLAINT_INTENTS))})", COMPLAINT_INTENTS)}
     db.execute("DELETE FROM memberships")
     db.executemany("INSERT INTO memberships (review_id, issue_id) VALUES (?, ?)",
                    ((rid, by_text[sha]) for rid, sha in db.execute("SELECT review_id, text_sha256 FROM reviews WHERE status = 'completed'")

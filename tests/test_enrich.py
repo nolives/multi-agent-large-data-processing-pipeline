@@ -12,6 +12,7 @@ from pathlib import Path
 
 import httpx
 
+from pipeline import jev
 from pipeline.common import FIELDS
 from pipeline.enrich import Enricher
 from pipeline.extract import entities, load_lexicon, parts
@@ -58,7 +59,7 @@ class EnrichTests(unittest.TestCase):
             body = json.loads(request.content)
             self.requests.append(body["state"])
             return handler(body)
-        return Enricher(self.run_dir, prompt_path=ROOT / "prompts/enrich_jev_v1.json", lexicon_path=ROOT / "labels/entities.json",
+        return Enricher(self.run_dir, prompt_path=ROOT / "prompts/enrich_jev_v2.json", lexicon_path=ROOT / "labels/entities.json",
                         rates_path=ROOT / "cost/rates.csv", model="jev-1.13.0", api_key="test-key", max_spend_usd=cap,
                         transport=httpx.MockTransport(transport), sleep=lambda seconds: None, **options)
 
@@ -118,9 +119,12 @@ class EnrichTests(unittest.TestCase):
         self.assertEqual(self.statuses(), {"pending": 6, "quarantined": 1})
 
     def test_spend_cap_stops_work_and_resume_finishes_without_repaying(self):
-        # Each call reserves about $0.00009 worst case and settles at $0.000021 actual (500 tokens x $0.042/M),
-        # so a $0.00012 cap admits two calls and refuses the reservation for the third.
-        first = self.enricher(answer, cap=0.00012, save_every=1).run()
+        # A call settles at $0.000021 (500 tokens x $0.042/M) but reserves a worst case based on its request size.
+        # This cap covers one settled call plus the second call's reservation, so the third reservation is refused.
+        prompt = json.loads((ROOT / "prompts/enrich_jev_v2.json").read_text())
+        second = json.dumps(jev.build_body("Too many ads", prompt, "jev-1.13.0", []), ensure_ascii=False).encode("utf-8")
+        cap = 500 * 0.042e-6 + (len(second) // 2) * 0.042e-6 + 1e-9
+        first = self.enricher(answer, cap=cap, save_every=1).run()
         self.assertEqual((first["stop_reason"], first["texts"]["completed"], first["phase"]), ("spend_cap", 2, "initial"))
         done_before = set(self.requests)
         second = self.enricher(answer).run()
@@ -134,7 +138,7 @@ class EnrichTests(unittest.TestCase):
     def test_changed_configuration_is_refused_for_the_same_run(self):
         self.enricher(answer).run()
         with self.assertRaises(SystemExit):
-            Enricher(self.run_dir, prompt_path=ROOT / "prompts/enrich_jev_v1.json", lexicon_path=ROOT / "labels/entities.json",
+            Enricher(self.run_dir, prompt_path=ROOT / "prompts/enrich_jev_v2.json", lexicon_path=ROOT / "labels/entities.json",
                      rates_path=ROOT / "cost/rates.csv", model="jev-9.9.9", api_key="k", max_spend_usd=1).run()
 
     def test_praise_with_a_severe_answer_is_set_to_one_and_flagged(self):

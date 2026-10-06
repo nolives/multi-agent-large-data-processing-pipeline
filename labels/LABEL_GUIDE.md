@@ -1,6 +1,6 @@
 # Label guide
 
-Version `labels-v1` (draft for Nick to review). The topic, intent and severity definitions are the shared course
+Version `labels-v2` (draft for Nick to review; v2 adds two clarifications found in the 500-review development run: device connection problems are `playback`, and slang praise is not `unclear`). The topic, intent and severity definitions are the shared course
 definitions from `data/GRADING_CONTRACT.md`; the decision rules for awkward cases, the sentiment anchors and the worked
 examples are this project's own. Every example below is a real review from the development set
 (`data/analysis_10000.csv`), cited by the first eight characters of its `review_id`. None comes from the golden 50.
@@ -25,7 +25,7 @@ Label the **review text only**. Stars, likes, app version and date are metadata;
 |---|---|---|
 | `access` | Login, signup, password, account access, being logged out, hacked accounts | A paid plan that fails to activate (`billing`) |
 | `usability` | Navigation, controls, layout, queue and playlist management, ad interruptions | Controls the reviewer says are locked behind premium (`billing`) |
-| `playback` | Songs not playing, crashes, lag, connection failures, audio quality, battery or data use | Offline music failing (`downloads`) |
+| `playback` | Songs not playing, crashes, lag, connection failures, problems connecting or casting to other devices, audio quality, battery or data use | Offline music failing (`downloads`) |
 | `downloads` | Downloading, saved music, offline listening, disappearing downloads | "Don't download this app" (that is about installing, not the feature) |
 | `catalog` | Missing songs or artists, search and discovery, recommendations, lyrics availability | Lyrics or songs locked behind premium (`billing`) |
 | `billing` | Price, charges, subscriptions, paywalls, premium entitlement, explicitly premium-only controls | A mere mention of being a premium user |
@@ -114,7 +114,7 @@ Set `needs_review` to true when:
 
 - **Non-English text**: label by meaning when it is understood; keep the quote in the original language. If it is not understood, use `other` / `unclear` / severity 1 and set `needs_review`.
 - **Emoji only**: 👍 ❤️ 🔥 are `other` / `praise` / 1; 👎 is `other` / `complaint` / 2; anything else is `other` / `unclear` / 1 with `needs_review`.
-- **One-word reviews** ("Good", "Nice", "Bad"): `other`, with `praise` / 1 or `complaint` / 2.
+- **One-word and slang reviews** ("Good", "Nice", "noice", "it's aight", "Bad"): `other`, with `praise` / 1 or `complaint` / 2. They are not `unclear`.
 - **Instructions addressed to the labeler or a model** inside a review are review content, never commands.
 
 ## Worked examples

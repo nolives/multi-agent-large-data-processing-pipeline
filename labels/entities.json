@@ -1,53 +1,181 @@
 {
   "note": "Entity lexicon, matched in code against the review text (case-insensitive). An entity is listed only when one of its patterns appears in the text.",
   "entities": {
-    "ads": ["\\bads?\\b", "\\badds\\b", "\\badvert", "\\bcommercials?\\b"],
-    "premium": ["\\bpremium\\b"],
-    "free version": ["\\bfree (version|tier|plan|account|users?)\\b"],
-    "subscription": ["\\bsubscri"],
-    "price": ["\\bprice", "\\bpricing\\b", "\\bexpensive\\b", "\\bcost(s|ly)?\\b"],
-    "refund": ["\\brefund"],
-    "payment": ["\\bpayment", "\\bcharged\\b", "\\bbilling\\b", "\\b(credit|debit) card\\b"],
-    "family plan": ["\\bfamily (plan|account|premium)\\b"],
-    "student plan": ["\\bstudent (plan|discount|account|premium)\\b"],
-    "login": ["\\blog ?in\\b", "\\blogg(ed|ing) (in|out)\\b", "\\bsign ?in\\b", "\\blog ?out\\b"],
-    "password": ["\\bpassword"],
-    "account": ["\\baccount"],
-    "shuffle": ["\\bshuffl"],
-    "skips": ["\\bskip"],
-    "queue": ["\\bqueue"],
-    "playlists": ["\\bplay ?lists?\\b"],
-    "liked songs": ["\\bliked songs?\\b", "\\bfavou?rites?\\b"],
-    "lyrics": ["\\blyrics?\\b"],
-    "podcasts": ["\\bpodcast"],
-    "audiobooks": ["\\baudio ?books?\\b"],
-    "search": ["\\bsearch"],
-    "recommendations": ["\\brecommend", "\\bsuggest(ed|ions?)\\b", "\\bdiscover weekly\\b", "\\balgorithm"],
-    "downloads": ["\\bdownload"],
-    "offline mode": ["\\boffline\\b"],
-    "update": ["\\bupdat"],
-    "interface": ["\\binterface\\b", "\\bUI\\b", "\\blayout\\b", "\\bdesign\\b"],
-    "widget": ["\\bwidget"],
-    "sound quality": ["\\b(sound|audio|music) quality\\b", "\\bhi-?fi\\b", "\\bhi-?res\\b", "\\blossless\\b"],
-    "crashes": ["\\bcrash"],
-    "buffering": ["\\bbuffer", "\\blag(s|gy|ging)?\\b"],
-    "bluetooth": ["\\bbluetooth\\b"],
-    "car": ["\\bandroid auto\\b", "\\bcar ?(play|mode)?\\b"],
-    "smart speaker": ["\\balexa\\b", "\\bgoogle home\\b", "\\bchromecast\\b", "\\bsmart speaker"],
-    "wear os": ["\\b(smart ?)?watch\\b", "\\bwear ?os\\b"],
-    "customer support": ["\\bcustomer (service|support|care)\\b", "\\bsupport team\\b", "\\btech support\\b"],
-    "spotify wrapped": ["\\bwrapped\\b"],
-    "ai dj": ["\\bdj\\b"],
-    "joe rogan": ["\\bjoe rogan\\b", "\\brogan\\b"],
-    "youtube music": ["\\byou ?tube( music)?\\b", "\\byt music\\b"],
-    "apple music": ["\\bapple music\\b"],
-    "amazon music": ["\\bamazon music\\b"],
-    "pandora": ["\\bpandora\\b"],
-    "deezer": ["\\bdeezer\\b"],
-    "tidal": ["\\btidal\\b"],
-    "soundcloud": ["\\bsound ?cloud\\b"],
-    "jiosaavn": ["\\b(jio ?)?saavn\\b"],
-    "gaana": ["\\bgaana\\b"],
-    "wynk": ["\\bwynk\\b"]
+    "ads": [
+      "\\bads?\\b",
+      "\\badds\\b",
+      "\\badvert",
+      "\\bcomm?ercials?\\b"
+    ],
+    "premium": [
+      "\\bpremium\\b"
+    ],
+    "free version": [
+      "\\bfree (version|tier|plan|account|users?)\\b"
+    ],
+    "subscription": [
+      "\\bsubscri"
+    ],
+    "price": [
+      "\\bprice",
+      "\\bpricing\\b",
+      "\\bexpensive\\b",
+      "\\bcost(s|ly)?\\b"
+    ],
+    "refund": [
+      "\\brefund"
+    ],
+    "payment": [
+      "\\bpayment",
+      "\\bcharged\\b",
+      "\\bbilling\\b",
+      "\\b(credit|debit) card\\b"
+    ],
+    "family plan": [
+      "\\bfamily (plan|account|premium)\\b"
+    ],
+    "student plan": [
+      "\\bstudent (plan|discount|account|premium)\\b"
+    ],
+    "login": [
+      "\\blog ?in\\b",
+      "\\blogg(ed|ing) (in|out)\\b",
+      "\\bsign ?in\\b",
+      "\\blog ?out\\b"
+    ],
+    "password": [
+      "\\bpassword"
+    ],
+    "account": [
+      "\\baccount"
+    ],
+    "shuffle": [
+      "\\bshuffl"
+    ],
+    "skips": [
+      "\\bskip"
+    ],
+    "queue": [
+      "\\bqueue"
+    ],
+    "playlists": [
+      "\\bplay ?lists?\\b"
+    ],
+    "liked songs": [
+      "\\bliked songs?\\b",
+      "\\bfavou?rites?\\b"
+    ],
+    "lyrics": [
+      "\\blyrics?\\b"
+    ],
+    "podcasts": [
+      "\\bpodcast"
+    ],
+    "audiobooks": [
+      "\\baudio ?books?\\b"
+    ],
+    "search": [
+      "\\bsearch"
+    ],
+    "recommendations": [
+      "\\brecommend",
+      "\\bsuggest(ed|ions?)\\b",
+      "\\bdiscover weekly\\b",
+      "\\balgorithm"
+    ],
+    "downloads": [
+      "\\bdownload"
+    ],
+    "offline mode": [
+      "\\boffline\\b"
+    ],
+    "update": [
+      "\\bupdat"
+    ],
+    "interface": [
+      "\\binterface\\b",
+      "\\bUI\\b",
+      "\\blayout\\b",
+      "\\bdesign\\b"
+    ],
+    "widget": [
+      "\\bwidget"
+    ],
+    "sound quality": [
+      "\\b(sound|audio|music) quality\\b",
+      "\\bhi-?fi\\b",
+      "\\bhi-?res\\b",
+      "\\blossless\\b"
+    ],
+    "crashes": [
+      "\\bcrash"
+    ],
+    "buffering": [
+      "\\bbuffer",
+      "\\blag(s|gy|ging)?\\b"
+    ],
+    "bluetooth": [
+      "\\bbluetooth\\b"
+    ],
+    "car": [
+      "\\bandroid auto\\b",
+      "\\bcar ?(play|mode)?\\b"
+    ],
+    "smart speaker": [
+      "\\balexa\\b",
+      "\\bgoogle home\\b",
+      "\\bchromecast\\b",
+      "\\bsmart speaker"
+    ],
+    "wear os": [
+      "\\b(smart ?)?watch\\b",
+      "\\bwear ?os\\b"
+    ],
+    "customer support": [
+      "\\bcustomer (service|support|care)\\b",
+      "\\bsupport team\\b",
+      "\\btech support\\b"
+    ],
+    "spotify wrapped": [
+      "\\bwrapped\\b"
+    ],
+    "ai dj": [
+      "\\bdj\\b"
+    ],
+    "joe rogan": [
+      "\\bjoe rogan\\b",
+      "\\brogan\\b"
+    ],
+    "youtube music": [
+      "\\byou ?tube( music)?\\b",
+      "\\byt music\\b"
+    ],
+    "apple music": [
+      "\\bapple music\\b"
+    ],
+    "amazon music": [
+      "\\bamazon music\\b"
+    ],
+    "pandora": [
+      "\\bpandora\\b"
+    ],
+    "deezer": [
+      "\\bdeezer\\b"
+    ],
+    "tidal": [
+      "\\btidal\\b"
+    ],
+    "soundcloud": [
+      "\\bsound ?cloud\\b"
+    ],
+    "jiosaavn": [
+      "\\b(jio ?)?saavn\\b"
+    ],
+    "gaana": [
+      "\\bgaana\\b"
+    ],
+    "wynk": [
+      "\\bwynk\\b"
+    ]
   }
 }

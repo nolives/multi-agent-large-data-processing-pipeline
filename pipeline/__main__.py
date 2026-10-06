@@ -27,7 +27,7 @@ def add_run_options(p):
     p.add_argument("--limit", type=int, help="Label at most this many distinct texts in this session")
     p.add_argument("--save-every", type=int, default=50, help="Texts per saved enrichment batch")
     p.add_argument("--enrich-model", default="jev-1.13.0", help="Pinned enrichment model ID")
-    p.add_argument("--enrich-prompt", type=Path, default=Path("prompts/enrich_jev_v1.json"))
+    p.add_argument("--enrich-prompt", type=Path, default=Path("prompts/enrich_jev_v2.json"))
     p.add_argument("--lexicon", type=Path, default=Path("labels/entities.json"))
     p.add_argument("--rates", type=Path, default=Path("cost/rates.csv"))
 
@@ -183,7 +183,7 @@ def build_parser():
     p.add_argument("--group-model", default="claude-haiku-4-5")
     p.add_argument("--memo-model", default="claude-opus-5-5")
     p.add_argument("--memo-effort", default="high")
-    p.add_argument("--verify-prompt", type=Path, default=Path("prompts/verify_claude_v1.md"))
+    p.add_argument("--verify-prompt", type=Path, default=Path("prompts/verify_claude_v2.md"))
     p.add_argument("--group-prompt", type=Path, default=Path("prompts/group_claude_v1.md"))
     p.add_argument("--memo-prompt", type=Path, default=Path("prompts/memo_claude_v2.md"))
     p.add_argument("--issue-rules", type=Path, default=Path("labels/issues.json"))

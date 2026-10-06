@@ -1,46 +1,310 @@
 {
-  "version": "issues-v1",
-  "note": "Deterministic issue grouping. A complaint or cancellation record joins issue '<topic>.<aspect>', where the aspect is the first one listed for its topic whose entities appear in the record's entity list; otherwise 'general'. Entity names come from labels/entities.json.",
+  "version": "issues-v2",
+  "note": "Deterministic issue grouping. A complaint or cancellation record joins issue '<topic>.<aspect>', where the aspect is the first one listed for its topic that matches: one of its entities is in the record's entity list (names from labels/entities.json), or one of its patterns (case-insensitive regular expressions) matches the review text. Otherwise 'general'. v2 adds text patterns, written after reading the catch-all issues of the 500-review development run.",
   "topics": {
     "access": [
-      {"aspect": "login", "entities": ["login", "password"]},
-      {"aspect": "account", "entities": ["account"]}
+      {
+        "aspect": "login",
+        "entities": [
+          "login",
+          "password"
+        ],
+        "patterns": [
+          "\\bsign(ing|ed)? ?(in|up)\\b",
+          "\\bverif",
+          "\\botp\\b"
+        ]
+      },
+      {
+        "aspect": "account",
+        "entities": [
+          "account"
+        ],
+        "patterns": [
+          "\\bhack",
+          "\\bbanned\\b"
+        ]
+      }
     ],
     "usability": [
-      {"aspect": "ads", "entities": ["ads"]},
-      {"aspect": "shuffle-and-skips", "entities": ["shuffle", "skips"]},
-      {"aspect": "queue-and-playlists", "entities": ["queue", "playlists", "liked songs"]},
-      {"aspect": "interface", "entities": ["interface", "widget"]},
-      {"aspect": "update", "entities": ["update"]}
+      {
+        "aspect": "ads",
+        "entities": [
+          "ads"
+        ]
+      },
+      {
+        "aspect": "shuffle-and-skips",
+        "entities": [
+          "shuffle",
+          "skips"
+        ],
+        "patterns": [
+          "\\b(choose|pick|select|play) (a|any|the|my|specific|certain)( \\w+)? songs?\\b",
+          "\\brepeat\\b",
+          "\\bloop\\b"
+        ]
+      },
+      {
+        "aspect": "queue-and-playlists",
+        "entities": [
+          "queue",
+          "playlists",
+          "liked songs"
+        ]
+      },
+      {
+        "aspect": "interface",
+        "entities": [
+          "interface",
+          "widget"
+        ],
+        "patterns": [
+          "\\bhome ?(screen|page)\\b",
+          "\\bicons?\\b",
+          "\\bnavigat",
+          "\\buser.?friendly\\b",
+          "\\bconfusing\\b"
+        ]
+      },
+      {
+        "aspect": "update",
+        "entities": [
+          "update"
+        ]
+      }
     ],
     "playback": [
-      {"aspect": "crashes", "entities": ["crashes"]},
-      {"aspect": "buffering", "entities": ["buffering"]},
-      {"aspect": "sound-quality", "entities": ["sound quality"]},
-      {"aspect": "devices", "entities": ["bluetooth", "car", "smart speaker", "wear os"]},
-      {"aspect": "podcasts", "entities": ["podcasts"]},
-      {"aspect": "update", "entities": ["update"]}
+      {
+        "aspect": "crashes",
+        "entities": [
+          "crashes"
+        ],
+        "patterns": [
+          "\\bforce (close|stop)",
+          "\\bshut(s|ting)? ?down",
+          "\\bcloses? (by )?itself\\b"
+        ]
+      },
+      {
+        "aspect": "connection-errors",
+        "entities": [],
+        "patterns": [
+          "\\b(no|not?|without) (an? )?(internet|network|connection)",
+          "\\binternet connection\\b",
+          "\\bwi-?fi\\b",
+          "\\bmobile data\\b",
+          "\\boffline\\b"
+        ]
+      },
+      {
+        "aspect": "devices",
+        "entities": [
+          "bluetooth",
+          "car",
+          "smart speaker",
+          "wear os"
+        ],
+        "patterns": [
+          "\\bcast(ing)?\\b",
+          "\\bother devices?\\b",
+          "\\bconsole\\b",
+          "\\bgoogle assistant\\b",
+          "\\bspeakers?\\b",
+          "\\btv\\b",
+          "\\bheadphones?\\b",
+          "\\bearbuds?\\b"
+        ]
+      },
+      {
+        "aspect": "stops-or-pauses",
+        "entities": [
+          "buffering"
+        ],
+        "patterns": [
+          "\\b(keeps?|kept|randomly|suddenly|just) (on )?(stop|paus|skipp)",
+          "\\bstop(s|ped|ping)? (playing|working|mid|halfway|randomly|by itself)",
+          "\\bpaus(es|ed|ing)\\b",
+          "\\bfreez",
+          "\\bglitch"
+        ]
+      },
+      {
+        "aspect": "wont-load-or-play",
+        "entities": [],
+        "patterns": [
+          "\\b(won.?t|can.?t|cannot|doesn.?t|does not|not|unable to) (even )?(let me )?(open|load|play|start|work)",
+          "\\bnot (working|opening|loading|playing)\\b",
+          "\\bblack screen\\b",
+          "\\bloading\\b",
+          "\\bstuck\\b"
+        ]
+      },
+      {
+        "aspect": "sound-quality",
+        "entities": [
+          "sound quality"
+        ],
+        "patterns": [
+          "\\bvolume\\b"
+        ]
+      },
+      {
+        "aspect": "podcasts",
+        "entities": [
+          "podcasts"
+        ]
+      },
+      {
+        "aspect": "battery-and-data",
+        "entities": [],
+        "patterns": [
+          "\\bbattery\\b",
+          "\\bstorage\\b",
+          "\\bdata usage\\b",
+          "\\bwaste of data\\b"
+        ]
+      },
+      {
+        "aspect": "update",
+        "entities": [
+          "update"
+        ]
+      }
     ],
     "downloads": [
-      {"aspect": "offline", "entities": ["offline mode"]},
-      {"aspect": "downloading", "entities": ["downloads"]}
+      {
+        "aspect": "offline",
+        "entities": [
+          "offline mode"
+        ]
+      },
+      {
+        "aspect": "downloading",
+        "entities": [
+          "downloads"
+        ]
+      }
     ],
     "catalog": [
-      {"aspect": "lyrics", "entities": ["lyrics"]},
-      {"aspect": "recommendations", "entities": ["recommendations", "ai dj"]},
-      {"aspect": "search", "entities": ["search"]},
-      {"aspect": "podcasts-and-audiobooks", "entities": ["podcasts", "audiobooks", "joe rogan"]}
+      {
+        "aspect": "lyrics",
+        "entities": [
+          "lyrics"
+        ]
+      },
+      {
+        "aspect": "recommendations",
+        "entities": [
+          "recommendations",
+          "ai dj"
+        ]
+      },
+      {
+        "aspect": "search",
+        "entities": [
+          "search"
+        ]
+      },
+      {
+        "aspect": "podcasts-and-audiobooks",
+        "entities": [
+          "podcasts",
+          "audiobooks",
+          "joe rogan"
+        ]
+      },
+      {
+        "aspect": "missing-content",
+        "entities": [],
+        "patterns": [
+          "\\b(missing|removed|unavailable|not available|no longer|can.?t find|don.?t have|doesn.?t have|not present)\\b"
+        ]
+      }
     ],
     "billing": [
-      {"aspect": "charges-and-refunds", "entities": ["payment", "refund"]},
-      {"aspect": "price", "entities": ["price"]},
-      {"aspect": "paywalled-controls", "entities": ["shuffle", "skips", "lyrics", "queue"]},
-      {"aspect": "ads-for-free-users", "entities": ["ads", "free version"]},
-      {"aspect": "plans", "entities": ["subscription", "family plan", "student plan", "premium"]}
+      {
+        "aspect": "charges-and-refunds",
+        "entities": [
+          "payment",
+          "refund"
+        ]
+      },
+      {
+        "aspect": "price",
+        "entities": [
+          "price"
+        ]
+      },
+      {
+        "aspect": "paywalled-controls",
+        "entities": [
+          "shuffle",
+          "skips",
+          "lyrics",
+          "queue"
+        ],
+        "patterns": [
+          "\\b(choose|pick|select|play) (a|any|the|my|specific|certain)( \\w+)? songs?\\b",
+          "\\bbasic (features?|things?|functions?)\\b"
+        ]
+      },
+      {
+        "aspect": "ads-for-free-users",
+        "entities": [
+          "ads",
+          "free version"
+        ]
+      },
+      {
+        "aspect": "plans",
+        "entities": [
+          "subscription",
+          "family plan",
+          "student plan",
+          "premium"
+        ]
+      }
     ],
     "support": [],
     "other": [
-      {"aspect": "update", "entities": ["update"]}
+      {
+        "aspect": "boycott-or-protest",
+        "entities": [
+          "joe rogan"
+        ],
+        "patterns": [
+          "\\bb(o|u)?y(c|k)ott?",
+          "\\bswed(e|a)n",
+          "\\bqur.?an\\b",
+          "\\bkoran\\b",
+          "\\bisrael",
+          "\\bpalestin",
+          "\\bpolitic",
+          "\\bcensor",
+          "\\bmuslim",
+          "\\bmusalman",
+          "\\blgbt"
+        ]
+      },
+      {
+        "aspect": "update",
+        "entities": [
+          "update"
+        ]
+      },
+      {
+        "aspect": "bugs",
+        "entities": [
+          "crashes"
+        ],
+        "patterns": [
+          "\\bbugs?\\b",
+          "\\bglitch",
+          "\\bnot (working|opening)\\b",
+          "\\bdoes ?n.?t work\\b"
+        ]
+      }
     ]
   }
 }
