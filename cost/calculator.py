@@ -31,6 +31,7 @@ def load_rates(path, multiplier=1.0):
     for row in rows:
         # Prices are quoted per million units; divide first, then multiply by billed units.
         row["unit_price"] = float(row["price_per_million_units"]) * multiplier / 1_000_000
+        row["multiplier"] = multiplier
     return rows
 
 
@@ -43,6 +44,10 @@ def unit_price(rates, provider, model, item):
 
 
 def call_cost(call, rates):
+    if call["usage_unknown"]:
+        # No usage was returned (for example a timeout). The charge is unresolved; it is carried as the worst-case
+        # reservation logged at run time, a labeled estimate, and scales with rates like any other API charge.
+        return call["logged_cost_usd"] * rates[0]["multiplier"]
     return sum(call[item] * unit_price(rates, call["provider"], call["model"], item) for item in ITEMS if call[item])
 
 
@@ -94,24 +99,45 @@ def measure(calls, records, measurements, rates):
     logged = sum(c["logged_cost_usd"] for c in calls)
     recomputed = sum(call_cost(c, rates) for c in calls)
     return {"sessions": sessions, "usage": usage, "logged_total": logged, "recomputed_total": recomputed, "attempts": len(calls),
+            "unknown_usage_estimate": sum(call_cost(c, rates) for c in calls if c["usage_unknown"]),
             "unknown_usage_calls": sum(c["usage_unknown"] for c in calls),
             "records": {"total": len(records), "completed": sum(r["status"] == "completed" for r in records),
                         "quarantined": sum(r["status"] == "quarantined" for r in records)}}
 
 
+def worker_speeds(measurements):
+    """Measured enrichment speed for each worker count that ran, from cold sessions' enrichment stage clocks."""
+    by_workers = {}
+    for s in measurements["sessions"]:
+        texts = s.get("texts_enriched", s["unique_texts"] if s["run_type"] == "cold" else 0)
+        if s["run_type"] == "cold" and texts:
+            row = by_workers.setdefault(s["workers"], {"workers": s["workers"], "texts": 0, "seconds": 0.0, "rate_limited": 0, "failed": 0})
+            row["texts"] += texts
+            row["seconds"] += s["stage_seconds"]["enrich"]
+            row["rate_limited"] += s.get("rate_limited_attempts", 0)
+            row["failed"] += s["failed_attempts"]
+    for row in by_workers.values():
+        row["texts_per_second"] = row["texts"] / row["seconds"]
+    return dict(sorted(by_workers.items()))
+
+
 def per_unit(calls, rates, measurements):
-    """Unit usage from the measured cold run: what one text, one issue or one memo cost and took."""
-    cold = next(s for s in measurements["sessions"] if s["run_type"] == "cold")
-    mine = [c for c in calls if c["run"] == cold["run"] and c["session"] == cold["session"]]
+    """Unit usage from the measured cold sessions: what one text, one issue or one memo cost and took."""
+    cold = [s for s in measurements["sessions"] if s["run_type"] == "cold"]
+    keys = {(s["run"], s["session"]) for s in cold}
+    mine = [c for c in calls if (c["run"], c["session"]) in keys]
     def stage(role):
         ok = [c for c in mine if c["role"] == role and c["outcome"] == "succeeded"]
         return {"calls": len(ok), "cost": sum(call_cost(c, rates) for c in ok), "input": sum(c["input_tokens"] for c in ok),
-                "provider": ok[0]["provider"], "model": ok[0]["model"], "seconds": cold["stage_seconds"][role]}
+                "provider": ok[0]["provider"], "model": ok[0]["model"],
+                "seconds": sum(s["stage_seconds"].get(role, 0) for s in cold if any(c["role"] == role and c["session"] == s["session"] for c in mine))}
     e, v, g, m = stage("enrich"), stage("verify"), stage("group"), stage("memo")
-    texts, verified, issues = cold["unique_texts"], cold["texts_verified_at_end"], cold["issues_named_at_end"]
+    texts, verified, issues = e["calls"], cold[0]["texts_verified_at_end"], cold[0]["issues_named_at_end"]
+    speeds = worker_speeds(measurements)
     return {
+        "worker_speeds": speeds,
         "enrich_input_tokens_per_text": e["input"] / texts, "enrich_cost_per_text": e["cost"] / texts,
-        "enrich_texts_per_second_one_worker": texts / e["seconds"],
+        "enrich_texts_per_second_one_worker": speeds[1]["texts_per_second"] if 1 in speeds else None,
         "enrich_input_price": unit_price(rates, e["provider"], e["model"], "input_tokens"),
         "verify_cost_per_text": v["cost"] / verified, "verify_seconds_per_text": v["seconds"] / verified,
         "group_cost_per_issue": g["cost"] / issues, "group_seconds_per_call": g["seconds"] / g["calls"],
@@ -119,25 +145,29 @@ def per_unit(calls, rates, measurements):
     }
 
 
-def project(unit, assumptions, measurements, name, reuse=True):
-    """One full-run scenario. Each stage is scaled by its own work count; fixed overhead is added once."""
-    a, sc, p, controls = assumptions, assumptions["scenarios"][name], assumptions["projection"], assumptions["controls"]
+def project(unit, assumptions, measurements, name, reuse=True, volume="projection"):
+    """One scenario for a given volume. Each stage is scaled by its own work count; fixed overhead is added once."""
+    a, sc, p, controls = assumptions, assumptions["scenarios"][name], assumptions[volume], assumptions["controls"]
     texts = p["distinct_nonempty_texts"] if reuse else p["nonempty_reviews"]
     workers = min(sc["workers"], controls["max_workers"])
     fallback = min(sc["fallback_fraction"], controls["max_fallback_fraction"])
-    rate = min(workers * unit["enrich_texts_per_second_one_worker"] * (sc["parallel_efficiency"] if workers > 1 else 1.0),
-               controls["max_requests_per_second"], controls["provider_requests_per_second_limit"])
+    measured = unit["worker_speeds"].get(workers)
+    if measured:
+        raw, how = measured["texts_per_second"], f"measured with {workers} worker(s) on {measured['texts']:,} texts"
+    else:
+        raw = workers * unit["enrich_texts_per_second_one_worker"] * sc["parallel_efficiency"]
+        how = f"modeled: {workers} workers at {sc['parallel_efficiency']:.0%} of linear from the one-worker measurement"
+    rate = min(raw, controls["max_requests_per_second"], controls["provider_requests_per_second_limit"])
     enrich_requests = texts * (1 + sc["enrich_retry_fraction"])
     sample = a["verification"]["full_run_sample_texts"]
     issues = a["fixed_overhead"]["issues_to_name_max"]
     ingest = measurements.get("full_corpus_ingest", {}).get("seconds")
     stages = [
-        {"stage": "ingest", "kind": "fixed, local", "work": f"{p['source_rows']:,} rows", "cost": 0.0, "seconds": ingest,
-         "basis": "measured on the full file" if ingest else "not measured"},
+        {"stage": "ingest", "kind": "fixed, local", "work": "660,622 rows", "cost": 0.0, "seconds": ingest,
+         "basis": "measured: the full file is ingested and profiled whatever subset is classified" if ingest else "not measured"},
         {"stage": "enrich", "kind": "variable", "work": f"{texts:,} texts x {1 + sc['enrich_retry_fraction']:.2f} attempts",
          "cost": enrich_requests * unit["enrich_input_tokens_per_text"] * (1 + sc["token_margin"]) * unit["enrich_input_price"],
-         "seconds": enrich_requests / rate, "basis": f"{unit['enrich_input_tokens_per_text']:,.1f} input tokens per text; {rate:.1f} texts/s "
-         + ("(measured, one worker)" if workers == 1 else f"(modeled: {workers} workers at {sc['parallel_efficiency']:.0%} of linear)")},
+         "seconds": enrich_requests / rate, "basis": f"{unit['enrich_input_tokens_per_text']:,.1f} input tokens per text; {rate:.1f} texts/s ({how})"},
         {"stage": "fallback", "kind": "variable, capped", "work": f"{texts * fallback:,.0f} texts ({fallback:.1%} of texts)",
          "cost": texts * fallback * unit["verify_cost_per_text"], "seconds": texts * fallback * unit["verify_seconds_per_text"],
          "basis": "modeled at the verifier's measured per-text cost; no fallback role exists yet"},
@@ -156,17 +186,34 @@ def project(unit, assumptions, measurements, name, reuse=True):
     known = sum(s["seconds"] for s in stages if s["seconds"] is not None)
     api = sum(s["cost"] for s in stages)
     hourly = a["local_compute_usd_per_hour"]
-    return {"name": name, "reuse": reuse, "description": sc["description"], "stages": stages, "api_cost": api, "seconds": known,
+    return {"name": name, "reuse": reuse, "volume": volume, "description": sc["description"], "stages": stages, "api_cost": api, "seconds": known,
             "workers": workers, "texts": texts, "texts_per_second": rate, "local_cost": None if hourly is None else hourly * known / 3600,
             "over_budget": api > a["budget_usd"]}
 
 
+def combined_cold(m):
+    """The cold measurement as one row. It is a single session for the pilot, or several when a run is done in slices."""
+    parts = [s for s in m["sessions"] if s["run_type"] == "cold"]
+    stages = defaultdict(lambda: {"attempts": 0, "failed": 0, "cost": 0.0, "models": set(), **{i: 0 for i in ITEMS}})
+    seconds = defaultdict(float)
+    for s in parts:
+        for name, value in s["stage_seconds"].items():
+            seconds[name] += value
+        for role, st in s["stages"].items():
+            for key in ("attempts", "failed", "cost", *ITEMS):
+                stages[role][key] += st[key]
+            stages[role]["models"] |= st["models"]
+    last = parts[-1]
+    return {"stages": stages, "stage_seconds": seconds, "workers": ", ".join(str(x) for x in sorted({s["workers"] for s in parts})),
+            "sessions": len(parts), "unique_texts": last["unique_texts"], "api_cost": sum(s["api_cost"] for s in parts),
+            "wall_seconds": sum(s["wall_seconds"] for s in parts), "completed": last["completed"], "failed_records": last["failed_records"]}
+
+
 def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplier):
     out = io.StringIO()
-    w = lambda line="": out.write(line + "\n")
+    w = lambda line="", end="\n": out.write(line + end)
     inp = measurements["input"]
-    cold = next(s for s in m["sessions"] if s["run_type"] == "cold")
-    warm = next(s for s in m["sessions"] if s["run_type"] == "warm")
+    cold, warm = combined_cold(m), next(s for s in m["sessions"] if s["run_type"] == "warm")
     w(f"# {inp['rows']:,}-review cost and runtime report")
     w()
     w("Generated by `python3 cost/calculator.py` from saved pilot measurements. No API key or model call is needed to reproduce it.")
@@ -178,7 +225,8 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w(f"- Input: `{inp['file']}`, {inp['rows']} rows, SHA-256 `{inp['sha256']}`. Every input ID has a saved record: {inp['every_input_id_has_a_record']}.")
     w(f"- Records: {m['records']['completed']} completed, {m['records']['quarantined']} quarantined, "
       f"{m['records']['total'] - m['records']['completed'] - m['records']['quarantined']} failed. Unique texts: {cold['unique_texts']}.")
-    w(f"- Cold run: empty result cache, {cold['workers']} worker, all six stages. Warm run: the same command again on the saved results.")
+    w(f"- Cold run: empty result cache, all six stages, {cold['sessions']} session(s) with {cold['workers']} worker(s): {money(cold['api_cost'])} API in "
+      f"{duration(cold['wall_seconds'])} of wall clock. Warm run: the same command again on the saved results.")
     w(f"- Provider prompt caching: {measurements['provider_prompt_cache']}")
     w()
     w("| Run | Type | Completed | Failed | Result-cache hits | Attempts (failed) | New enrichment calls | Downstream calls | API cost | Wall clock | Summed call time | Records/s | Cost per 1,000 rows | Cost per completed record |")
@@ -210,11 +258,25 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
                  else f"{info['issues_per_request']} issues per request" if "issues_per_request" in info else "n/a")
         if st:
             w(f"| {stage} | {info['provider']} | `{', '.join(sorted(st['models']))}` | {info['effort']} | `{info['label_config']}` | {batch} | "
-              f"{cold['workers']} | {st['attempts']} | {st['failed']} | {st['input_tokens']:,} | {st['output_tokens']:,} | "
+              f"{cold['workers'] if stage == 'enrich' else 1} | {st['attempts']:,} | {st['failed']} | {st['input_tokens']:,} | {st['output_tokens']:,} | "
               f"{st['cache_read_tokens']:,} / {st['cache_write_tokens']:,} | {money(st['cost'])} | {duration(cold['stage_seconds'][stage])} |")
         else:
             w(f"| {stage} | local | none (code) | n/a | n/a | n/a | 1 | 0 | 0 | 0 | 0 | 0 / 0 | $0.0000 | {duration(cold['stage_seconds'][stage])} |")
     w()
+    if len(unit["worker_speeds"]) > 1:
+        w("### Measured enrichment speed by worker count")
+        w()
+        w("Each row is a different slice of the same random sample, run cold. The slices are not the identical reviews, so this is an approximate comparison.")
+        w()
+        w("| Workers | Texts enriched | Enrichment wall clock | Texts per second | Speed-up over one worker | Rate-limited attempts | Failed attempts |")
+        w("|---|---|---|---|---|---|---|")
+        one = unit["worker_speeds"].get(1)
+        for row in unit["worker_speeds"].values():
+            w(f"| {row['workers']} | {row['texts']:,} | {duration(row['seconds'])} | {row['texts_per_second']:.1f} | "
+              f"{row['texts_per_second'] / one['texts_per_second']:.2f}x |" if one else f"| {row['workers']} | {row['texts']:,} | {duration(row['seconds'])} | {row['texts_per_second']:.1f} | n/a |"
+              , end="")
+            w(f" {row['rate_limited']} | {row['failed']} |")
+        w()
     w("### Cost arithmetic")
     w()
     w("`item_cost = billed_units x price_per_unit`, summed over mutually exclusive items (uncached input, cache write, cache read, output). "
@@ -228,7 +290,9 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w()
     w(f"- Recomputed from usage and rates: {money(m['recomputed_total'], 6)} across all {m['attempts']} logged attempts. "
       f"Cost logged at run time: {money(m['logged_total'], 6)}." + ("" if multiplier != 1 else f" Difference: {money(abs(m['recomputed_total'] - m['logged_total']), 9)}."))
-    w(f"- Calls with unknown usage (for example timeouts): {m['unknown_usage_calls']}." + (" These are charged at their reservation as a labeled estimate." if m["unknown_usage_calls"] else ""))
+    w(f"- Calls with unknown usage (for example timeouts): {m['unknown_usage_calls']}." + (
+        f" The provider returned no usage for them, so their true charge is unresolved. They are carried as an **estimate** of {money(m['unknown_usage_estimate'], 6)} "
+        "in total (the worst-case reservation made before each call) and do not appear in `usage.csv`, which lists reported usage only." if m["unknown_usage_calls"] else ""))
     w("- `usage.csv` lists billed units per run, stage, model and billing item; each row maps to the calls in `pilot_calls.jsonl` with the same run, session, role and model.")
     w("- Reconciliation with the providers' usage dashboards has not been done; these figures are computed from the usage each response reported.")
     w()
@@ -249,16 +313,21 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
       f"{money(unit['group_cost_per_issue'], 5)} per named issue, {money(unit['memo_cost'])} per memo.")
     w(f"- These are estimates from {inp['rows']:,} reviews. They say little about rare failures or sustained throughput, and are refreshed at each checkpoint (100, 500, 10,000) before the full run.")
     w()
-    w("| Scenario | Exact-text reuse | Workers | Enrichment rate | API cost | Elapsed (known stages) | Local compute | Budget check |")
-    w("|---|---|---|---|---|---|---|---|")
+    plan = assumptions.get("planned_run")
+    if plan:
+        w(f"- **Planned final run:** {plan['description']} It covers {plan['source_rows']:,} rows: {plan['nonempty_reviews']:,} nonempty reviews "
+          f"({plan['distinct_nonempty_texts']:,} distinct texts) and {plan['empty_text_quarantines']} empty-text quarantines.")
+    w()
+    w("| Volume | Scenario | Exact-text reuse | Workers | Enrichment rate | API cost | Elapsed (known stages) | Local compute | Budget check |")
+    w("|---|---|---|---|---|---|---|---|---|")
     for s in scenarios:
-        w(f"| {s['name']} | {'yes' if s['reuse'] else 'no'} | {s['workers']} | {s['texts_per_second']:.1f} texts/s | {money(s['api_cost'], 2)} | {duration(s['seconds'])} | "
+        w(f"| {'planned final run' if s['volume'] == 'planned_run' else 'full corpus'} | {s['name']} | {'yes' if s['reuse'] else 'no'} | {s['workers']} | {s['texts_per_second']:.1f} texts/s | {money(s['api_cost'], 2)} | {duration(s['seconds'])} | "
           f"{money(s['local_cost'], 2)} | {'**EXCEEDS the $%g budget**' % assumptions['budget_usd'] if s['over_budget'] else 'within $%g' % assumptions['budget_usd']} |")
     w()
     for s in scenarios:
         if not s["reuse"]:
             continue
-        w(f"### Scenario: {s['name']}")
+        w(f"### Scenario: {s['name']}, {'planned final run' if s['volume'] == 'planned_run' else 'full corpus'}")
         w()
         w(s["description"])
         w()
@@ -268,7 +337,7 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
             w(f"| {st['stage']} | {st['kind']} | {st['work']} | {money(st['cost'])} | {duration(st['seconds'])} | {st['basis']} |")
         w(f"| **total** | | | **{money(s['api_cost'], 2)}** | **{duration(s['seconds'])}** | fixed overhead counted once |")
         w()
-    over = [s["name"] + ("" if s["reuse"] else " (no reuse)") for s in scenarios if s["over_budget"]]
+    over = [("planned run " if s["volume"] == "planned_run" else "full corpus ") + s["name"] + ("" if s["reuse"] else " (no reuse)") for s in scenarios if s["over_budget"]]
     w("> **Budget warning:** " + ", ".join(over) + f" exceed the declared budget of ${assumptions['budget_usd']:g}." if over
       else f"All scenarios are within the declared budget of ${assumptions['budget_usd']:g}.")
     w()
@@ -280,7 +349,7 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w(f"- **Output-token caps per request:** verify {c['output_token_cap_per_request']['verify']:,}, group {c['output_token_cap_per_request']['group']:,}, "
       f"memo {c['output_token_cap_per_request']['memo']:,}. Enrichment: {c['output_token_cap_per_request']['enrich']}.")
     w(f"- **Maximum concurrency:** {c['max_workers']} workers, at most {c['max_requests_per_second']} request starts per second shared across workers "
-      f"(provider limit {c['provider_requests_per_second_limit']} per second). Only one worker has been measured; multi-worker rates are modeled.")
+      f"(provider limit {c['provider_requests_per_second_limit']} per second). Worker counts measured so far: {', '.join(str(k) for k in unit['worker_speeds'])}; other counts are modeled.")
     w(f"- **Maximum fallback fraction:** {c['max_fallback_fraction']:.0%} of texts. No fallback model is used in the measured pilot.")
     w("- **Retries:** rate-limit and server errors are retried with exponential backoff and jitter, at most 5 attempts for enrichment and 4 for Claude roles; "
       "invalid output is retried once and then quarantined; a stage stops after repeated identical failures.")
@@ -315,10 +384,13 @@ def compute(args, multiplier=None, overrides=None):
                 assumptions[key] = value
             else:
                 assumptions["projection"][key] = value
+                assumptions.pop("planned_run", None)  # a volume what-if replaces the fixed plans
     m = measure(calls, records, measurements, rates)
     unit = per_unit(calls, rates, measurements)
     scenarios = [project(unit, assumptions, measurements, name) for name in assumptions["scenarios"]]
     scenarios.append(project(unit, assumptions, measurements, "base", reuse=False))
+    if "planned_run" in assumptions:
+        scenarios += [project(unit, assumptions, measurements, name, volume="planned_run") for name in assumptions["scenarios"]]
     return m, unit, scenarios, assumptions, measurements, rates
 
 
@@ -362,13 +434,12 @@ def main():
     what_if = args.rate_multiplier != 1 or any(v is not None for v in overrides.values())
     m, unit, scenarios, assumptions, measurements, rates = compute(args, overrides=overrides)
     report = build_report(m, unit, scenarios, assumptions, measurements, rates, args.rate_multiplier)
-    cold = next(s for s in m["sessions"] if s["run_type"] == "cold")
-    warm = next(s for s in m["sessions"] if s["run_type"] == "warm")
+    cold, warm = combined_cold(m), next(s for s in m["sessions"] if s["run_type"] == "warm")
     print(f"Measured cold run: {money(cold['api_cost'])} API, {duration(cold['wall_seconds'])} wall clock, {cold['completed']} completed, {cold['failed_records']} failed")
     print(f"Measured warm run: {money(warm['api_cost'])} API, {duration(warm['wall_seconds'])}, {warm['new_enrichment_calls']} new enrichment calls")
     print(f"All logged attempts, including the failed first attempt: {money(m['recomputed_total'])}")
     for s in scenarios:
-        print(f"Full run, {s['name']}{'' if s['reuse'] else ' without reuse'}: {money(s['api_cost'], 2)} API, {duration(s['seconds'])}"
+        print(f"{'Planned 100k run' if s['volume'] == 'planned_run' else 'Full corpus'}, {s['name']}{'' if s['reuse'] else ' without reuse'}: {money(s['api_cost'], 2)} API, {duration(s['seconds'])}"
               + ("  ** EXCEEDS BUDGET **" if s["over_budget"] else ""))
     if what_if:
         print("What-if view only: report.md and usage.csv were not rewritten.")

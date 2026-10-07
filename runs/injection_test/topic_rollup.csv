@@ -1,0 +1,5 @@
+topic,complaint_count,severity_sum,mean_severity,priority_score
+access,2,9,4.500000,9
+playback,2,7,3.500000,7
+billing,2,6,3.000000,6
+usability,1,2,2.000000,2

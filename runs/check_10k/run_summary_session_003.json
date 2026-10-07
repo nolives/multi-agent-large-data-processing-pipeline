@@ -1,0 +1,46 @@
+{
+  "calls_this_session": {
+    "enrich": {
+      "attempts": 2001,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.121494,
+      "input_tokens": 2890337,
+      "output_tokens": 411153,
+      "succeeded": 2000
+    }
+  },
+  "cost_usd_this_session": 0.121494,
+  "input": "data/analysis_10000.csv",
+  "models": {
+    "enrich": "jev-1.13.0",
+    "group": "claude-haiku-4-5",
+    "memo": "claude-opus-5-5",
+    "verify": "claude-haiku-4-5"
+  },
+  "review_status_counts": {
+    "completed": 5489,
+    "pending": 4511
+  },
+  "run_id": "check_10k",
+  "session": 3,
+  "settings": {
+    "max_rps": 60.0,
+    "memo_effort": "high",
+    "save_every": 200,
+    "seed": "verify-v1",
+    "verify_batch": 10,
+    "verify_sample": 500
+  },
+  "spend_cap_usd": 0.4,
+  "stage_seconds": {
+    "enrich": 85.637,
+    "ingest": 0.125
+  },
+  "stages_run": [
+    "ingest",
+    "enrich"
+  ],
+  "wall_seconds": 85.771,
+  "workers": 4
+}

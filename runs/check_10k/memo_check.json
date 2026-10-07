@@ -1,0 +1,45 @@
+{
+  "attempts": 1,
+  "checks": [
+    "every number is a placeholder filled by code",
+    "every placeholder, review ID and issue ID exists in the saved input",
+    "all four sections present"
+  ],
+  "cited_claims": [
+    "C006",
+    "C005",
+    "C007",
+    "C008",
+    "C025",
+    "C027",
+    "C028",
+    "C029",
+    "C031",
+    "C032",
+    "C037",
+    "C039",
+    "C040",
+    "C012",
+    "C016",
+    "C011",
+    "C015",
+    "C020",
+    "C035",
+    "C001",
+    "C004",
+    "C021"
+  ],
+  "cited_reviews": [
+    "3bfefa06-133c-419b-a435-1fea919d6a44",
+    "d4b0a249-e14d-43f2-9711-9cf74cb5b1d6",
+    "77c8c8a4-7819-412a-8a09-cf83e8cc9c59",
+    "2590181f-b121-4665-884d-0c99026f7c5a",
+    "50555133-671b-4fe8-b182-e5bc626f90ec",
+    "ebe01dd8-1efd-406a-afa2-17a3753ea391",
+    "bccc83ff-2c51-40af-97bb-2439aeab2d4e"
+  ],
+  "errors": [],
+  "memo_config": "claude-opus-5-5+memo-claude-v2.eae1c86c+schema-v1",
+  "recommended_priority": "usability",
+  "valid": true
+}

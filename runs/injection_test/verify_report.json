@@ -1,0 +1,91 @@
+{
+  "agreement": {
+    "all_three": 0.625,
+    "intent": 0.875,
+    "sentiment_within_tolerance": 1.0,
+    "severity": 0.75,
+    "topic": 0.75
+  },
+  "agreement_counts": {
+    "all_three": 5,
+    "intent": 7,
+    "sentiment_within_tolerance": 8,
+    "severity": 6,
+    "topic": 6
+  },
+  "compared": 8,
+  "confusion_enricher_to_verifier": {
+    "intent": {
+      "cancellation -> praise": 1
+    },
+    "severity": {
+      "5 -> 2": 1,
+      "5 -> 4": 1
+    },
+    "topic": {
+      "access -> usability": 1,
+      "billing -> other": 1
+    }
+  },
+  "disagreeing_texts": 3,
+  "enricher_config": "jev-1.13.0+enrich-jev-v2.22642b2a+schema-v1",
+  "independence": "The verifier receives review text and the rubric only; it is never shown the enricher's labels.",
+  "needs_review_as_predictor": {
+    "flagged": 3,
+    "flagged_and_disagree": 2,
+    "precision": 0.6667,
+    "recall": 0.6667
+  },
+  "planted_error_test": {
+    "all_detected": true,
+    "cases": [
+      {
+        "detected": true,
+        "planted_topic": "playback",
+        "review_id": "synthetic-inj-03",
+        "true_topic": "usability"
+      },
+      {
+        "detected": true,
+        "planted_topic": "access",
+        "review_id": "synthetic-inj-07",
+        "true_topic": "other"
+      },
+      {
+        "detected": true,
+        "planted_topic": "usability",
+        "review_id": "synthetic-inj-05",
+        "true_topic": "access"
+      },
+      {
+        "detected": true,
+        "planted_topic": "downloads",
+        "review_id": "synthetic-inj-01",
+        "true_topic": "playback"
+      },
+      {
+        "detected": true,
+        "planted_topic": "downloads",
+        "review_id": "synthetic-inj-06",
+        "true_topic": "playback"
+      }
+    ],
+    "detected": 5,
+    "note": "Synthetic test on a copy of the predictions; the saved enrichment results are not modified.",
+    "planted": 5
+  },
+  "sample": {
+    "drawn": 8,
+    "failed_this_session": 0,
+    "method": "lowest SHA-256(seed:text_sha256) values",
+    "new_this_session": 8,
+    "requested": 8,
+    "seed": "verify-v1",
+    "unit": "distinct completed review texts",
+    "verified": 8
+  },
+  "sentiment_tolerance": 0.5,
+  "severity_mean_absolute_difference": 0.5,
+  "stop_reason": null,
+  "verifier_config": "claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"
+}

@@ -1,0 +1,11 @@
+[ingest] 10,000 rows · pending 4,511 · quarantined {}
+[enrich] session 4 (resume), stopped because queue_empty
+  texts completed 4,448 · quarantined 0 · left pending 0
+  calls 4,448 (0 failed) · input tokens 6,423,928 · cost $0.269805
+  wall time 80.29s · 55.4 texts/s with 8 worker(s)
+  review statuses {'completed': 10000}
+[verify] 500 texts compared · agreement {'topic': 0.85, 'intent': 0.9, 'severity': 0.824, 'all_three': 0.668, 'sentiment_within_tolerance': 0.946} · planted errors detected 5/5
+[group] 4,666 complaint reviews in 39 issues · 0 without a model name
+[rank] 39 issues ranked from 4,666 complaint records · problems none
+[memo] valid · recommends usability
+[done] session 4: 4501 model calls, $0.540667 of $1.9 cap, 302.963s wall clock. Outputs in runs/check_10k/

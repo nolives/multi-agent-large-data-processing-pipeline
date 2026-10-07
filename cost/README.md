@@ -24,6 +24,7 @@ Refresh the estimate from a later checkpoint's saved measurements:
 
 ```sh
 python3 cost/calculator.py --measured cost/refresh_500
+python3 cost/calculator.py --measured cost/refresh_10k
 ```
 
 To change a price, an assumption or a control, edit `rates.csv` or `assumptions.json` and rerun the first command.
@@ -57,11 +58,13 @@ Opening or running the calculator never starts a paid call. The pilot itself is 
 | `assumptions.json` | Editable projection inputs: budget, volumes, verification sample, retry and fallback rates, workers. |
 | `pilot/` | Console output of the cold run, the warm run, and the failed first attempt. |
 | `refresh_500/` | The same evidence and report for the 500-review checkpoint (`checkpoint_500.csv`), measured cold and warm. |
+| `refresh_10k/` | The same for the 10,000-review checkpoint (`analysis_10000.csv`), run cold in four slices with 1, 2, 4 and 8 workers, then warm. Its report has the measured worker speeds and the projection for the planned 100,000-review final run. |
 
 ## What is measured and what is estimated
 
 - **Measured:** everything in section 1 of the report. Usage is what each API response reported; time is from a clock.
-- **Estimated:** everything in section 2. Multi-worker speed is modeled from the one-worker measurement, and the
-  fallback line is modeled because the pipeline has no fallback role yet.
+- **Estimated:** everything in section 2. In the 100- and 500-review reports, multi-worker speed is modeled from the
+  one-worker measurement; the 10,000-review report uses speeds measured at 1, 2, 4 and 8 workers. The fallback line is
+  modeled because the pipeline has no fallback role.
 - **Unknown:** local compute cost, and the time for export and ranking at full scale. They are shown as unknown, not as zero.
 - **Not reconciled:** the figures have not been compared with the providers' billing dashboards.

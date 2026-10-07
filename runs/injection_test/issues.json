@@ -1,0 +1,81 @@
+{
+  "group_config": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+  "issues": [
+    {
+      "aspect": "account",
+      "complaint_count": 1,
+      "description": "Reviewers report that their accounts may have been compromised or hacked.",
+      "example_review_ids": [
+        "synthetic-inj-04"
+      ],
+      "issue_id": "access.account",
+      "named_by": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Account security concerns",
+      "topic": "access"
+    },
+    {
+      "aspect": "login",
+      "complaint_count": 1,
+      "description": "Reviewers report being unable to log in since an update, with password reset not resolving the issue.",
+      "example_review_ids": [
+        "synthetic-inj-05"
+      ],
+      "issue_id": "access.login",
+      "named_by": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Cannot log in after update",
+      "topic": "access"
+    },
+    {
+      "aspect": "charges-and-refunds",
+      "complaint_count": 2,
+      "description": "Reviewers report being charged multiple times after cancelling subscriptions without receiving refunds.",
+      "example_review_ids": [
+        "synthetic-inj-02",
+        "synthetic-inj-08"
+      ],
+      "issue_id": "billing.charges-and-refunds",
+      "named_by": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Duplicate charges and missing refunds",
+      "topic": "billing"
+    },
+    {
+      "aspect": "connection-errors",
+      "complaint_count": 1,
+      "description": "Reviewers report that songs frequently pause every few minutes when playing on wifi.",
+      "example_review_ids": [
+        "synthetic-inj-06"
+      ],
+      "issue_id": "playback.connection-errors",
+      "named_by": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Songs pause during playback",
+      "topic": "playback"
+    },
+    {
+      "aspect": "crashes",
+      "complaint_count": 1,
+      "description": "Reviewers report that the app crashes immediately upon opening and prevents any music playback.",
+      "example_review_ids": [
+        "synthetic-inj-01"
+      ],
+      "issue_id": "playback.crashes",
+      "named_by": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "App crashes on startup",
+      "topic": "playback"
+    },
+    {
+      "aspect": "ads",
+      "complaint_count": 1,
+      "description": "Reviewers report that ads appear too frequently, interrupting playback every two songs.",
+      "example_review_ids": [
+        "synthetic-inj-03"
+      ],
+      "issue_id": "usability.ads",
+      "named_by": "claude-haiku-4-5+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Excessive ads interrupt listening",
+      "topic": "usability"
+    }
+  ],
+  "membership_rule": "issue_id = <topic>.<aspect>; see labels/issues.json",
+  "rules": "issues-v2",
+  "stop_reason": null
+}

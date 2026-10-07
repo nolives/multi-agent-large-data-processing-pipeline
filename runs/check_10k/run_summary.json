@@ -1,0 +1,43 @@
+{
+  "calls_this_session": {},
+  "cost_usd_this_session": 0,
+  "input": "data/analysis_10000.csv",
+  "models": {
+    "enrich": "jev-1.13.0",
+    "group": "claude-haiku-4-5",
+    "memo": "claude-opus-5-5",
+    "verify": "claude-haiku-4-5"
+  },
+  "review_status_counts": {
+    "completed": 10000
+  },
+  "run_id": "check_10k",
+  "session": 5,
+  "settings": {
+    "max_rps": 60.0,
+    "memo_effort": "high",
+    "save_every": 200,
+    "seed": "verify-v1",
+    "verify_batch": 10,
+    "verify_sample": 500
+  },
+  "spend_cap_usd": 0.5,
+  "stage_seconds": {
+    "enrich": 0.139,
+    "group": 0.041,
+    "ingest": 0.126,
+    "memo": 0.01,
+    "rank": 0.186,
+    "verify": 0.018
+  },
+  "stages_run": [
+    "ingest",
+    "enrich",
+    "verify",
+    "group",
+    "rank",
+    "memo"
+  ],
+  "wall_seconds": 1.159,
+  "workers": 8
+}

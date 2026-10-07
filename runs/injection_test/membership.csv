@@ -1,0 +1,8 @@
+issue_id,review_id
+access.account,synthetic-inj-04
+access.login,synthetic-inj-05
+billing.charges-and-refunds,synthetic-inj-02
+billing.charges-and-refunds,synthetic-inj-08
+playback.connection-errors,synthetic-inj-06
+playback.crashes,synthetic-inj-01
+usability.ads,synthetic-inj-03

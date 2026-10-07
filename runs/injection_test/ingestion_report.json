@@ -1,0 +1,102 @@
+{
+  "accounting": {
+    "accounted_for": true,
+    "distinct_nonempty_texts": 8,
+    "nonempty_reviews": 8,
+    "pending_distinct_texts": 8,
+    "pending_reviews": 8,
+    "quarantine_reasons": {},
+    "rejected_rows": 0,
+    "reviews_served_by_exact_text_reuse": 0,
+    "source_rows": 8,
+    "status_counts": {
+      "pending": 8
+    },
+    "stored_review_ids": 8,
+    "texts_shared_by_several_reviews": 0
+  },
+  "all_expectations_met": null,
+  "expectation_checks": [],
+  "input": {
+    "bytes": 1751,
+    "file": "injection_cases.csv",
+    "known_course_file": null,
+    "sha256": "1c4a743f26c80ed2160e47b6fd010cb156a97ca0997b2050e9d2208943cac4b0"
+  },
+  "profile": {
+    "counts": {
+      "duplicate_review_ids": 0,
+      "empty_review_text": 0,
+      "missing_app_version": 8,
+      "records": 8
+    },
+    "file_sha256": "1c4a743f26c80ed2160e47b6fd010cb156a97ca0997b2050e9d2208943cac4b0",
+    "first_review": "2023-01-01 00:00:00",
+    "last_review": "2023-01-01 00:00:00",
+    "parsed_rows_sha256": "a9d496000f69b7a75bceff34a451b6c98f3a3e5ee25ea01e028584b78247a9fe",
+    "reviews_by_month": {
+      "2023-01": 8
+    },
+    "reviews_by_rating": {
+      "1": 8
+    }
+  },
+  "quality": {
+    "distinct_app_versions": 0,
+    "invalid_likes": 0,
+    "invalid_rating": 0,
+    "max_review_likes": 0,
+    "most_repeated_texts": [
+      {
+        "first_review_id": "synthetic-inj-01",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-02",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-03",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-04",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-05",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-06",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-07",
+        "n_reviews": 1
+      },
+      {
+        "first_review_id": "synthetic-inj-08",
+        "n_reviews": 1
+      }
+    ],
+    "multiline_text": 0,
+    "notes": [
+      "text_without_ascii_letters is a rough signal for emoji-only or non-Latin-script text, not a language detector.",
+      "review_timestamp has no stated timezone; months are taken from the source string as written."
+    ],
+    "reviews_with_likes": 0,
+    "text_length_chars": {
+      "max": 149,
+      "median": 97,
+      "min": 71,
+      "p90": 149,
+      "p99": 149,
+      "total": 808
+    },
+    "text_without_ascii_letters": 0,
+    "unparseable_timestamp": 0
+  },
+  "rejected_rows": [],
+  "run_id": "injection_test"
+}

@@ -21,6 +21,10 @@ CALL_FIELDS = ("request_id", "session", "role", "phase", "provider", "model", "l
 def read_run(run_dir, run_type_for):
     run_dir = Path(run_dir)
     db = sqlite3.connect(run_dir / "state.db")
+    if run_type_for is None:
+        # A session that made model calls is part of the cold measurement; a session that made none is a warm rerun.
+        active = {row[0] for row in db.execute("SELECT DISTINCT session FROM calls")}
+        run_type_for = lambda session: "cold" if session in active else "warm"
     calls = []
     for row in db.execute(f"SELECT {', '.join(CALL_FIELDS)} FROM calls ORDER BY started_at, request_id"):
         call = dict(zip(CALL_FIELDS, row))
@@ -44,6 +48,8 @@ def read_run(run_dir, run_type_for):
             "spend_cap_usd": s["spend_cap_usd"], "wall_seconds": s["wall_seconds"], "stage_seconds": s["stage_seconds"],
             "summed_call_seconds": round(sum(c["duration_ms"] for c in mine) / 1000, 3),
             "attempts": len(mine), "failed_attempts": sum(c["outcome"] == "failed" for c in mine),
+            "rate_limited_attempts": sum(c["status_code"] in (429, 529) for c in mine),
+            "texts_enriched": sum(c["role"] == "enrich" and c["outcome"] == "succeeded" for c in mine),
             "new_enrichment_calls": sum(c["role"] == "enrich" for c in mine),
             "downstream_calls": sum(c["role"] != "enrich" for c in mine),
             "records_at_end": statuses, "unique_texts": texts, "texts_verified_at_end": verified, "issues_named_at_end": issues,
@@ -53,7 +59,7 @@ def read_run(run_dir, run_type_for):
 
 def export_pilot(run, failed_runs, input_csv, full_run, out, parser):
     out = Path(out)
-    calls, sessions = read_run(run, lambda session: "cold" if session == 1 else "warm")
+    calls, sessions = read_run(run, None)
     for failed in failed_runs:
         more_calls, more_sessions = read_run(failed, lambda session: "cold_failed_attempt")
         calls += more_calls

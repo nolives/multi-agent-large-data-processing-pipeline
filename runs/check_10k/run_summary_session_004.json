@@ -1,0 +1,80 @@
+{
+  "calls_this_session": {
+    "enrich": {
+      "attempts": 4448,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.269805,
+      "input_tokens": 6423928,
+      "output_tokens": 913419,
+      "succeeded": 4448
+    },
+    "group": {
+      "attempts": 2,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.023631,
+      "input_tokens": 13486,
+      "output_tokens": 2029,
+      "succeeded": 2
+    },
+    "memo": {
+      "attempts": 1,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.09378,
+      "input_tokens": 11140,
+      "output_tokens": 2461,
+      "succeeded": 1
+    },
+    "verify": {
+      "attempts": 50,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.153451,
+      "input_tokens": 88626,
+      "output_tokens": 12965,
+      "succeeded": 50
+    }
+  },
+  "cost_usd_this_session": 0.540667,
+  "input": "data/analysis_10000.csv",
+  "models": {
+    "enrich": "jev-1.13.0",
+    "group": "claude-haiku-4-5",
+    "memo": "claude-opus-5-5",
+    "verify": "claude-haiku-4-5"
+  },
+  "review_status_counts": {
+    "completed": 10000
+  },
+  "run_id": "check_10k",
+  "session": 4,
+  "settings": {
+    "max_rps": 60.0,
+    "memo_effort": "high",
+    "save_every": 200,
+    "seed": "verify-v1",
+    "verify_batch": 10,
+    "verify_sample": 500
+  },
+  "spend_cap_usd": 1.9,
+  "stage_seconds": {
+    "enrich": 80.458,
+    "group": 23.238,
+    "ingest": 0.138,
+    "memo": 24.025,
+    "rank": 0.207,
+    "verify": 174.205
+  },
+  "stages_run": [
+    "ingest",
+    "enrich",
+    "verify",
+    "group",
+    "rank",
+    "memo"
+  ],
+  "wall_seconds": 302.963,
+  "workers": 8
+}

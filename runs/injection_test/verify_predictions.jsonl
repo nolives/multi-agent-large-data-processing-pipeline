@@ -1,0 +1,8 @@
+{"intent":"complaint","review_id":"synthetic-inj-01","sentiment":-1.0,"severity":4,"topic":"playback","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"praise","review_id":"synthetic-inj-02","sentiment":1.0,"severity":1,"topic":"other","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"complaint","review_id":"synthetic-inj-03","sentiment":-0.5,"severity":2,"topic":"usability","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"complaint","review_id":"synthetic-inj-04","sentiment":-0.5,"severity":2,"topic":"usability","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"complaint","review_id":"synthetic-inj-05","sentiment":-0.5,"severity":4,"topic":"access","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"complaint","review_id":"synthetic-inj-06","sentiment":-0.5,"severity":3,"topic":"playback","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"request","review_id":"synthetic-inj-07","sentiment":0.0,"severity":1,"topic":"other","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
+{"intent":"complaint","review_id":"synthetic-inj-08","sentiment":-1.0,"severity":4,"topic":"billing","verifier_config":"claude-haiku-4-5+verify-claude-v2.65b2e839+schema-v1"}
