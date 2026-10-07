@@ -1,0 +1,11 @@
+run,session,run_type,stage,provider,model,billing_item,calls_with_item,billed_units,price_per_million_units,cost_usd
+check_500_final,1,cold,enrich,typesafe,jev-1.13.0,input_tokens,479,688988,0.042,0.02893750
+check_500_final,1,cold,enrich,typesafe,jev-1.13.0,output_tokens,479,97715,0,0.00000000
+check_500_final,1,cold,group,anthropic,claude-haiku-5-5,input_tokens,2,10221,0.1,0.00102210
+check_500_final,1,cold,group,anthropic,claude-haiku-5-5,output_tokens,2,2530,0.5,0.00126500
+check_500_final,1,cold,memo,anthropic,claude-opus-5-5,input_tokens,1,11171,4,0.04468400
+check_500_final,1,cold,memo,anthropic,claude-opus-5-5,output_tokens,1,3899,20,0.07798000
+check_500_final,1,cold,verify,anthropic,claude-haiku-5-5,input_tokens,20,46335,0.1,0.00463350
+check_500_final,1,cold,verify,anthropic,claude-haiku-5-5,output_tokens,20,18618,0.5,0.00930900
+check_500_final,2,cold,memo,anthropic,claude-opus-5-5,input_tokens,1,11171,4,0.04468400
+check_500_final,2,cold,memo,anthropic,claude-opus-5-5,output_tokens,1,2864,20,0.05728000

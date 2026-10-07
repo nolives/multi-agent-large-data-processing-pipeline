@@ -59,6 +59,10 @@ Each row is a different slice of the same random sample, run cold. The slices ar
 | anthropic | `claude-opus-5-5` | cache_write_tokens | token | 5 | USD | 2026-10-05 | https://platform.claude.com/docs/en/about-claude/pricing |
 | anthropic | `claude-opus-5-5` | cache_read_tokens | token | 0.2 | USD | 2026-10-05 | https://platform.claude.com/docs/en/about-claude/pricing |
 | anthropic | `claude-opus-5-5` | output_tokens | token | 20 | USD | 2026-10-05 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | input_tokens | token | 0.1 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | cache_write_tokens | token | 0.125 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | cache_read_tokens | token | 0.01 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | output_tokens | token | 0.5 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
 
 - Recomputed from usage and rates: $0.783233 across all 8502 logged attempts. Cost logged at run time: $0.783233. Difference: $0.000000000.
 - Calls with unknown usage (for example timeouts): 1. The provider returned no usage for them, so their true charge is unresolved. They are carried as an **estimate** of $0.000099 in total (the worst-case reservation made before each call) and do not appear in `usage.csv`, which lists reported usage only.

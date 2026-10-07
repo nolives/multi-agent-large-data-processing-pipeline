@@ -48,6 +48,10 @@ The warm run made 0 new enrichment calls and 0 downstream calls, for an incremen
 | anthropic | `claude-opus-5-5` | cache_write_tokens | token | 5 | USD | 2026-10-05 | https://platform.claude.com/docs/en/about-claude/pricing |
 | anthropic | `claude-opus-5-5` | cache_read_tokens | token | 0.2 | USD | 2026-10-05 | https://platform.claude.com/docs/en/about-claude/pricing |
 | anthropic | `claude-opus-5-5` | output_tokens | token | 20 | USD | 2026-10-05 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | input_tokens | token | 0.1 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | cache_write_tokens | token | 0.125 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | cache_read_tokens | token | 0.01 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
+| anthropic | `claude-haiku-5-5` | output_tokens | token | 0.5 | USD | 2026-10-07 | https://platform.claude.com/docs/en/about-claude/pricing |
 
 - Recomputed from usage and rates: $0.303606 across all 235 logged attempts. Cost logged at run time: $0.303606. Difference: $0.000000000.
 - Calls with unknown usage (for example timeouts): 0.

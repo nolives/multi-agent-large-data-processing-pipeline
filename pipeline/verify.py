@@ -122,8 +122,8 @@ def planted_error_check(pairs, count, seed):
             "note": "Synthetic test on a copy of the predictions; the saved enrichment results are not modified."}
 
 
-def verify(run_dir, db, caller, *, prompt_path, model, sample_size, seed, session, batch_size=10, planted=5):
-    system, config = role_config(prompt_path, model, SCHEMA_VERSION)
+def verify(run_dir, db, caller, *, prompt_path, model, sample_size, seed, session, batch_size=10, planted=5, effort=None):
+    system, config = role_config(prompt_path, model, SCHEMA_VERSION, effort)
     db.executescript(SCHEMA)
     chosen = sample(db, sample_size, seed)
     done = {row[0] for row in db.execute("SELECT text_sha256 FROM verifications WHERE verifier_config = ?", (config,))}
@@ -138,7 +138,7 @@ def verify(run_dir, db, caller, *, prompt_path, model, sample_size, seed, sessio
         labels = None
         for _ in range(2):  # invalid output is retried once
             kind, data, calls = caller.call(role=ROLE, model=model, label_config=config, system=system, user=user,
-                                            schema=OUTPUT_SCHEMA, max_tokens=4000, review_ids=[row[1] for row in batch])
+                                            schema=OUTPUT_SCHEMA, max_tokens=4000, review_ids=[row[1] for row in batch], effort=effort)
             if kind == "ok":
                 try:
                     labels = parse_labels(data, local)

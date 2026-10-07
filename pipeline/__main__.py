@@ -32,6 +32,11 @@ def add_run_options(p):
     p.add_argument("--rates", type=Path, default=Path("cost/rates.csv"))
 
 
+def effort_for(model, effort):
+    """The effort setting to send, or None for Haiku 4.5, which does not accept one."""
+    return None if model.startswith("claude-haiku-4-5") else effort
+
+
 def print_enrich(run_id, summary):
     t, c = summary["texts"], summary["calls"]
     print(f"[enrich] session {summary['session']} ({summary['phase']}), stopped because {summary['stop_reason']}")
@@ -104,12 +109,12 @@ def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
             caller = claude_factory(ledger)
         v = stage("verify", lambda: verify(run_dir, db, caller, prompt_path=args.verify_prompt, model=args.verify_model,
                                            sample_size=args.verify_sample, seed=args.seed, session=session,
-                                           batch_size=args.verify_batch))
+                                           batch_size=args.verify_batch, effort=effort_for(args.verify_model, args.verify_effort)))
         print(f"[verify] {v['compared']} texts compared · agreement {v['agreement']} · planted errors detected "
               f"{v['planted_error_test']['detected']}/{v['planted_error_test']['planted']}" + (f" · stopped: {v['stop_reason']}" if v["stop_reason"] else ""))
     if last >= 3:
         g = stage("group", lambda: group(run_dir, db, caller, rules_path=args.issue_rules, prompt_path=args.group_prompt,
-                                         model=args.group_model, session=session))
+                                         model=args.group_model, session=session, effort=effort_for(args.group_model, args.group_effort)))
         print(f"[group] {g['members']:,} complaint reviews in {g['issues']} issues · {g['unnamed']} without a model name"
               + (f" · stopped: {g['stop_reason']}" if g["stop_reason"] else ""))
     if last >= 4:
@@ -120,7 +125,7 @@ def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
         r = stage("rank", export_and_rank)
         print(f"[rank] {r['issues']} issues ranked from {r['grouped_complaint_records']:,} complaint records · problems {r['problems'] or 'none'}")
     if last >= 5:
-        effort = None if "haiku" in args.memo_model else args.memo_effort  # Haiku 4.5 does not accept an effort setting
+        effort = effort_for(args.memo_model, args.memo_effort)
         m = stage("memo", lambda: memo(run_dir, db, caller, prompt_path=args.memo_prompt, model=args.memo_model, session=session, effort=effort))
         print(f"[memo] {'reused, no new call' if m.get('reused') else 'valid' if m['valid'] else 'REJECTED: ' + '; '.join(m['errors'])}"
               + (f" · recommends {m['recommended_priority']}" if m.get("recommended_priority") else ""))
@@ -137,7 +142,9 @@ def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
                "spend_cap_usd": args.max_spend_usd, "workers": args.workers, "review_status_counts": statuses,
                "models": {"enrich": args.enrich_model, "verify": args.verify_model, "group": args.group_model, "memo": args.memo_model},
                "settings": {"max_rps": args.max_rps, "save_every": args.save_every, "verify_sample": args.verify_sample,
-                            "verify_batch": args.verify_batch, "seed": args.seed, "memo_effort": args.memo_effort}}
+                            "verify_batch": args.verify_batch, "seed": args.seed, "memo_effort": effort_for(args.memo_model, args.memo_effort),
+                            "verify_effort": effort_for(args.verify_model, args.verify_effort),
+                            "group_effort": effort_for(args.group_model, args.group_effort)}}
     write_json(run_dir / f"run_summary_session_{session:03d}.json", summary)
     write_json(run_dir / "run_summary.json", summary)
     print(f"[done] session {session}: {sum(r['attempts'] for r in by_role.values())} model calls, "
@@ -179,8 +186,10 @@ def build_parser():
     p.add_argument("--verify-sample", type=int, default=100, help="Distinct texts the independent verifier re-labels")
     p.add_argument("--verify-batch", type=int, default=10, help="Reviews per verifier request")
     p.add_argument("--seed", default="verify-v1", help="Seed for the verification sample")
-    p.add_argument("--verify-model", default="claude-haiku-4-5")
-    p.add_argument("--group-model", default="claude-haiku-4-5")
+    p.add_argument("--verify-model", default="claude-haiku-5-5")
+    p.add_argument("--group-model", default="claude-haiku-5-5")
+    p.add_argument("--verify-effort", default="low", help="Thinking effort for the verifier (lowest level that passes the evaluations)")
+    p.add_argument("--group-effort", default="low", help="Thinking effort for issue naming")
     p.add_argument("--memo-model", default="claude-opus-5-5")
     p.add_argument("--memo-effort", default="high")
     p.add_argument("--verify-prompt", type=Path, default=Path("prompts/verify_claude_v2.md"))

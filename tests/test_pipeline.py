@@ -143,7 +143,7 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(report["planted_error_test"]["all_detected"])
 
     def test_alias_answered_by_dated_snapshot_is_accepted_and_logged_exactly(self):
-        _, run = self.run_all()
+        _, run = self.run_all("--verify-model", "claude-haiku-4-5")
         import sqlite3
         db = sqlite3.connect(run / "state.db")
         models = dict(db.execute("SELECT role, model FROM calls WHERE outcome = 'succeeded' GROUP BY role"))
@@ -151,12 +151,22 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(models["verify"], "claude-haiku-4-5-20251001")
 
     def test_verifier_stops_after_repeated_invalid_output(self):
-        self.claude.served = {"claude-haiku-4-5": "some-other-model"}
+        self.claude.served = {"claude-haiku-5-5": "some-other-model"}
         _, run = self.run_all("--verify-batch", "3", "--stop-after", "verify")
         report = json.loads((run / "verify_report.json").read_text())
         self.assertEqual((report["stop_reason"], report["compared"]), ("repeated_invalid_output", 0))
         # Two of the three batches are tried, each retried once, and then the stage stops instead of paying for the third.
         self.assertEqual(sum("second labeler" in b["system"] for b in self.claude.requests), 4)
+
+    def test_effort_is_sent_where_supported_and_named_in_the_configuration(self):
+        _, run = self.run_all()
+        verify = [b for b in self.claude.requests if "second labeler" in b["system"]]
+        self.assertTrue(verify and all(b["model"] == "claude-haiku-5-5" and b["output_config"]["effort"] == "low" for b in verify))
+        self.assertIn("claude-haiku-5-5@effort-low+verify-claude-v2", json.loads((run / "verify_report.json").read_text())["verifier_config"])
+        self.claude.requests.clear()
+        self.run_all("--run-id", "older", "--verify-model", "claude-haiku-4-5", "--group-model", "claude-haiku-4-5")
+        older = [b for b in self.claude.requests if b["model"] == "claude-haiku-4-5"]
+        self.assertTrue(older and all("effort" not in b["output_config"] for b in older))
 
     def test_verifier_never_sees_the_enrichers_labels(self):
         self.run_all()

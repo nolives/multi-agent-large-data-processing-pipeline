@@ -9,3 +9,7 @@ anthropic,claude-opus-5-5,input_tokens,token,4.00,USD,https://platform.claude.co
 anthropic,claude-opus-5-5,cache_write_tokens,token,5.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"5-minute cache write"
 anthropic,claude-opus-5-5,cache_read_tokens,token,0.20,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Cache hit"
 anthropic,claude-opus-5-5,output_tokens,token,20.00,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-05,"Output including thinking tokens, standard tier"
+anthropic,claude-haiku-5-5,input_tokens,token,0.10,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-07,"Base input for prompts up to 100,000 tokens; every prompt in this pipeline is far below that"
+anthropic,claude-haiku-5-5,cache_write_tokens,token,0.125,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-07,"5-minute cache write, prompts up to 100,000 tokens"
+anthropic,claude-haiku-5-5,cache_read_tokens,token,0.01,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-07,"Cache hit, prompts up to 100,000 tokens"
+anthropic,claude-haiku-5-5,output_tokens,token,0.50,USD,https://platform.claude.com/docs/en/about-claude/pricing,2026-10-07,"Output including thinking tokens, prompts up to 100,000 tokens"

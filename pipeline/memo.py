@@ -158,7 +158,7 @@ def render(text, claims, facts):
 
 def memo(run_dir, db, caller, *, prompt_path, model, session, effort=None):
     run_dir = Path(run_dir)
-    system, config = role_config(prompt_path, model, SCHEMA_VERSION)
+    system, config = role_config(prompt_path, model, SCHEMA_VERSION, effort)
     model_input, claims, facts, evidence, issue_ids = build_input(run_dir, db)
     if not model_input["ranking"]:
         write_json(run_dir / "memo_check.json", {"valid": False, "errors": ["no ranked issues: nothing to recommend"], "memo_config": config})

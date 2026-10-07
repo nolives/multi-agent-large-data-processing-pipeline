@@ -72,11 +72,15 @@ def phase_for(db, role, session):
     return "resume" if earlier else "initial"
 
 
-def role_config(prompt_path, model, schema_version):
-    """Read a role prompt file ("version: <name>" on line one, instructions after) and derive its configuration ID."""
+def role_config(prompt_path, model, schema_version, effort=None):
+    """Read a role prompt file ("version: <name>" on line one, instructions after) and derive its configuration ID.
+
+    The ID names the model, its effort setting when one is sent, the prompt version with a content hash, and the schema.
+    """
     import hashlib
     raw = Path(prompt_path).read_bytes()
     first, _, body = raw.decode("utf-8").partition("\n")
     if not first.startswith("version:"):
         raise ValueError(f"{prompt_path} must start with a 'version:' line")
-    return body.strip(), f"{model}+{first.split(':', 1)[1].strip()}.{hashlib.sha256(raw).hexdigest()[:8]}+{schema_version}"
+    setting = f"@effort-{effort}" if effort else ""
+    return body.strip(), f"{model}{setting}+{first.split(':', 1)[1].strip()}.{hashlib.sha256(raw).hexdigest()[:8]}+{schema_version}"

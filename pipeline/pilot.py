@@ -70,11 +70,14 @@ def export_pilot(run, failed_runs, input_csv, full_run, out, parser):
         input_ids = [row["review_id"] for row in csv.DictReader(f)]
     # Settings were not saved by the first pilot sessions; they ran with the command's defaults, read here from the parser.
     defaults = vars(parser.parse_args(["run", "--input", str(input_csv), "--max-spend-usd", "0"]))
-    fallback = {k: defaults[k] for k in ("max_rps", "save_every", "verify_sample", "verify_batch", "seed", "memo_effort")}
+    # Sessions before the Haiku 5.5 switch ran Haiku 4.5, which has no effort setting.
+    fallback = {**{k: defaults[k] for k in ("max_rps", "save_every", "verify_sample", "verify_batch", "seed", "memo_effort")},
+                "verify_effort": None, "group_effort": None}
     for s in sessions:
         s["settings"] = s["settings"] or {**fallback, "source": "command defaults (not overridden for this session)"}
     configs = {c["role"]: c["label_config"] for c in calls if c["run"] == Path(run).name}
-    settings = sessions[0]["settings"]
+    settings = {"verify_effort": None, "group_effort": None, **sessions[0]["settings"]}
+    no_effort = "not applicable: Haiku 4.5 without extended thinking"
     measurements = {
         "input": {"file": Path(input_csv).name, "sha256": file_sha(input_csv), "rows": len(input_ids),
                   "every_input_id_has_a_record": sorted(input_ids) == sorted(r["review_id"] for r in records)},
@@ -83,10 +86,10 @@ def export_pilot(run, failed_runs, input_csv, full_run, out, parser):
             "ingest": {"provider": "local", "model": "none (code)"},
             "enrich": {"provider": "typesafe", "effort": "not applicable: Jev has no effort or thinking setting", "label_config": configs.get("enrich"),
                        "reviews_per_request": 1, "saved_batch_texts": settings["save_every"], "max_requests_per_second": settings["max_rps"]},
-            "verify": {"provider": "anthropic", "effort": "not applicable: Haiku 4.5 without extended thinking", "label_config": configs.get("verify"),
+            "verify": {"provider": "anthropic", "effort": settings["verify_effort"] or no_effort, "label_config": configs.get("verify"),
                        "reviews_per_request": settings["verify_batch"], "declared_sample_texts": settings["verify_sample"],
                        "sample_seed": settings["seed"], "output_token_cap": 4000},
-            "group": {"provider": "anthropic", "effort": "not applicable: Haiku 4.5 without extended thinking", "label_config": configs.get("group"),
+            "group": {"provider": "anthropic", "effort": settings["group_effort"] or no_effort, "label_config": configs.get("group"),
                       "issues_per_request": 20, "output_token_cap": 4000},
             "rank": {"provider": "local", "model": "none (code)"},
             "memo": {"provider": "anthropic", "effort": settings["memo_effort"], "label_config": configs.get("memo"),

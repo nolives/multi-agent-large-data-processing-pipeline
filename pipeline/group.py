@@ -79,10 +79,10 @@ def evidence_pack(db, issue_ids):
     return pack
 
 
-def group(run_dir, db, caller, *, rules_path, prompt_path, model, session):
+def group(run_dir, db, caller, *, rules_path, prompt_path, model, session, effort=None):
     rules_version, rules = load_rules(rules_path)
     counts = build_membership(db, rules)
-    system, config = role_config(prompt_path, model, f"{rules_version}+{SCHEMA_VERSION}")
+    system, config = role_config(prompt_path, model, f"{rules_version}+{SCHEMA_VERSION}", effort)
     named = {row[0] for row in db.execute("SELECT issue_id FROM issue_names")}
     # An accepted name is kept: only issues seen for the first time are sent to the model.
     unnamed = sorted(set(counts) - named)
@@ -96,7 +96,7 @@ def group(run_dir, db, caller, *, rules_path, prompt_path, model, session):
         names = None
         for _ in range(2):
             kind, data, calls = caller.call(role=ROLE, model=model, label_config=config, system=system, user=user,
-                                            schema=OUTPUT_SCHEMA, max_tokens=4000, review_ids=review_ids)
+                                            schema=OUTPUT_SCHEMA, max_tokens=4000, review_ids=review_ids, effort=effort)
             if kind == "ok":
                 got = {i.get("issue_id"): i for i in data.get("issues", []) if isinstance(i, dict)}
                 if set(got) == {item["issue_id"] for item in batch} and all(

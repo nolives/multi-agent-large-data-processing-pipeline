@@ -1,0 +1,55 @@
+{
+  "calls_this_session": {
+    "memo": {
+      "attempts": 1,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.101964,
+      "input_tokens": 11171,
+      "output_tokens": 2864,
+      "succeeded": 1
+    }
+  },
+  "cost_usd_this_session": 0.101964,
+  "input": "data/checkpoint_500.csv",
+  "models": {
+    "enrich": "jev-1.13.0",
+    "group": "claude-haiku-5-5",
+    "memo": "claude-opus-5-5",
+    "verify": "claude-haiku-5-5"
+  },
+  "review_status_counts": {
+    "completed": 500
+  },
+  "run_id": "check_500_final",
+  "session": 2,
+  "settings": {
+    "group_effort": "low",
+    "max_rps": 10.0,
+    "memo_effort": "high",
+    "save_every": 50,
+    "seed": "verify-v1",
+    "verify_batch": 10,
+    "verify_effort": "low",
+    "verify_sample": 200
+  },
+  "spend_cap_usd": 0.5,
+  "stage_seconds": {
+    "enrich": 0.137,
+    "group": 0.003,
+    "ingest": 0.039,
+    "memo": 25.988,
+    "rank": 0.009,
+    "verify": 0.003
+  },
+  "stages_run": [
+    "ingest",
+    "enrich",
+    "verify",
+    "group",
+    "rank",
+    "memo"
+  ],
+  "wall_seconds": 26.804,
+  "workers": 1
+}
