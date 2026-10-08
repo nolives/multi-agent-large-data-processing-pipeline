@@ -29,7 +29,11 @@ REQUIRED = ("topic", "intent", "sentiment", "severity", "evidence_quote")
 
 def read_rows(path):
     with Path(path).open(encoding="utf-8-sig", newline="") as f:
-        return [{k: row.get(k) or "" for k in COLUMNS} for row in csv.DictReader(f, strict=True)]
+        rows = [{k: row.get(k) or "" for k in COLUMNS} for row in csv.DictReader(f, strict=True)]
+    for row in rows:
+        for flag in ("needs_review", "ambiguous"):
+            row[flag] = row[flag].strip().lower()  # a spreadsheet app rewrites true/false as TRUE/FALSE
+    return rows
 
 
 def save_rows(path, rows):

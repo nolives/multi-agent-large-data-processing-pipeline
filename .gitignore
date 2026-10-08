@@ -19,3 +19,4 @@ __pycache__/
 
 # Course assignment brief (large embedded images; kept locally)
 Final Assignment - Multi Agent Large Data Processing Pipeline*.md
+evals/*.backup_*.csv
