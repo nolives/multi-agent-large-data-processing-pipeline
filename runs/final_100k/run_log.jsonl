@@ -1,0 +1,25 @@
+{"at":"2026-10-11T22:07:56.329+00:00","event":"enrich_start","label_config":"jev-1.13.0+enrich-jev-v2.22642b2a+schema-v1","pending_texts":78099,"phase":"initial","session":1,"spend_cap_usd":10.0,"workers":8}
+{"at":"2026-10-11T22:08:02.093+00:00","completed":200,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.012091,"transient":0}
+{"at":"2026-10-11T22:08:07.821+00:00","completed":400,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.024138,"transient":0}
+{"at":"2026-10-11T22:08:13.535+00:00","completed":600,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.036217,"transient":0}
+{"at":"2026-10-11T22:08:19.158+00:00","completed":800,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.04836,"transient":0}
+{"at":"2026-10-11T22:08:24.748+00:00","completed":1000,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.060413,"transient":0}
+{"at":"2026-10-11T22:08:30.430+00:00","completed":1200,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.07247,"transient":0}
+{"at":"2026-10-11T22:08:36.066+00:00","completed":1400,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.08458,"transient":0}
+{"at":"2026-10-11T22:08:41.628+00:00","completed":1600,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.096672,"transient":0}
+{"at":"2026-10-11T22:08:47.180+00:00","completed":1800,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.10879,"transient":0}
+{"at":"2026-10-11T22:08:52.862+00:00","completed":2000,"event":"batch_saved","fatal":0,"quarantined":0,"session":1,"skipped":0,"spent_usd":0.120831,"transient":0}
+{"at":"2026-10-11T22:10:20.773+00:00","event":"enrich_start","label_config":"jev-1.13.0+enrich-jev-v2.22642b2a+schema-v1","pending_texts":76099,"phase":"resume","session":2,"spend_cap_usd":9.5,"workers":8}
+{"at":"2026-10-11T22:10:26.618+00:00","completed":200,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.012121,"transient":0}
+{"at":"2026-10-11T22:10:32.406+00:00","completed":400,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.024209,"transient":0}
+{"at":"2026-10-11T22:10:38.102+00:00","completed":600,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.036277,"transient":0}
+{"at":"2026-10-11T22:10:43.739+00:00","completed":800,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.048348,"transient":0}
+{"at":"2026-10-11T22:10:49.346+00:00","completed":1000,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.060557,"transient":0}
+{"at":"2026-10-11T22:10:55.111+00:00","completed":1200,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.072707,"transient":0}
+{"at":"2026-10-11T22:11:00.772+00:00","completed":1400,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.084714,"transient":0}
+{"at":"2026-10-11T22:11:06.437+00:00","completed":1600,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.096774,"transient":0}
+{"at":"2026-10-11T22:11:12.117+00:00","completed":1800,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.108813,"transient":0}
+{"at":"2026-10-11T22:11:17.802+00:00","completed":2000,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.120918,"transient":0}
+{"at":"2026-10-11T22:11:23.396+00:00","completed":2200,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.133078,"transient":0}
+{"at":"2026-10-11T22:11:29.231+00:00","completed":2400,"event":"batch_saved","fatal":0,"quarantined":0,"session":2,"skipped":0,"spent_usd":0.145198,"transient":0}
+{"at":"2026-10-11T22:11:30.086+00:00","detail":"Ctrl+C arrived while a batch was being saved. The exception was not caught there, so the process exited with a traceback and wrote no checkpoint or summary. The save is one transaction, so the batch in progress was rolled back and the database is intact.","estimate_basis":"one batch of 200 requests had finished when the interrupt landed; its calls were paid but never logged. Cost estimated at the session's average per call.","event":"session_crashed_on_interrupt","fix":"Ctrl+C now sets a stop flag instead of raising, and a resume writes a checkpoint of the saved state if the previous session left none.","saved_reviews":14557,"saved_texts":2000,"session":1,"unlogged_cost_usd_estimate":0.0121,"unlogged_paid_calls_estimate":200}

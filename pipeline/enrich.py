@@ -11,6 +11,7 @@ last saved batch and never pays again for a text that is already completed.
 import hashlib
 import json
 import random
+import signal
 import threading
 import time
 import uuid
@@ -250,6 +251,30 @@ class Enricher:
                            "label_config": self.label_config, "workers": self.workers, "spend_cap_usd": self.ledger.cap})
 
         already = db.execute("SELECT COUNT(*) FROM enrichments").fetchone()[0]
+        checkpoints = self.run_dir / "checkpoints"
+        if phase == "resume" and pending:
+            # If the previous session died without writing its checkpoint (a crash or a kill), snapshot the saved state now,
+            # before any new work, so the before-and-after evidence of a resume always exists.
+            done = [row[0] for row in db.execute("SELECT review_id FROM reviews WHERE status = 'completed' ORDER BY row_num")]
+            known = {json.loads(f.read_text(encoding="utf-8"))["completed_count"] for f in checkpoints.glob("*.json")} if checkpoints.exists() else set()
+            if len(done) not in known:
+                write_json(checkpoints / f"{session:03d}_a_saved_state_at_resume_start.json",
+                           {"session": session, "phase": phase, "stop_reason": "previous_session_ended_without_a_checkpoint", "saved_at": utc_now(),
+                            "note": "Written at the start of this session from the saved state, before any new call.",
+                            "completed_count": len(done), "completed_ids": done})
+                append_jsonl(log, {"event": "recovered_saved_state", "at": utc_now(), "session": session, "completed_reviews": len(done)})
+
+        # Ctrl+C asks for a clean stop: no new requests start, requests in flight finish, and their results are saved.
+        # The handler only sets a flag, so an interrupt can never land in the middle of a save. A second Ctrl+C aborts.
+        previous_handler = None
+        def on_interrupt(signum, frame):
+            if self.stop_flag.is_set():
+                signal.signal(signal.SIGINT, previous_handler)
+                raise KeyboardInterrupt
+            self.stop("interrupted")
+            print("\n[enrich] interrupt received: finishing requests in flight and saving. Press Ctrl+C again to abort without saving this batch.", flush=True)
+        if threading.current_thread() is threading.main_thread():
+            previous_handler = signal.signal(signal.SIGINT, on_interrupt)
         if pending and self.progress:
             print(f"[enrich] session {session} ({phase}): {len(pending):,} texts to label, {already:,} already completed and not sent again", flush=True)
         counts = {"completed": 0, "quarantined": 0, "transient": 0, "skipped": 0, "fatal": 0}
@@ -283,6 +308,8 @@ class Enricher:
                     print(f"[enrich] saved {already + counts['completed']:,} of {already + len(pending):,} texts · "
                           f"{counts['completed'] / elapsed:.0f} texts/s · ${self.ledger.spent:.4f} spent", flush=True)
 
+        if previous_handler is not None:
+            signal.signal(signal.SIGINT, previous_handler)
         wall = time.monotonic() - self.started
         totals = db.execute(
             "SELECT COUNT(*), COALESCE(SUM(outcome = 'succeeded'), 0), COALESCE(SUM(input_tokens), 0), COALESCE(SUM(output_tokens), 0), "

@@ -1,0 +1,136 @@
+{
+  "accounting": {
+    "accounted_for": true,
+    "distinct_nonempty_texts": 78099,
+    "nonempty_reviews": 100000,
+    "pending_distinct_texts": 76099,
+    "pending_reviews": 85443,
+    "quarantine_reasons": {
+      "empty_review_text": 13
+    },
+    "rejected_rows": 0,
+    "reviews_served_by_exact_text_reuse": 21901,
+    "source_rows": 100013,
+    "status_counts": {
+      "completed": 14557,
+      "pending": 85443,
+      "quarantined": 13
+    },
+    "stored_review_ids": 100013,
+    "texts_shared_by_several_reviews": 2592
+  },
+  "all_expectations_met": null,
+  "expectation_checks": [],
+  "input": {
+    "bytes": 14734591,
+    "file": "final_100k.csv",
+    "known_course_file": null,
+    "sha256": "b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842"
+  },
+  "profile": {
+    "counts": {
+      "duplicate_review_ids": 0,
+      "empty_review_text": 13,
+      "missing_app_version": 24251,
+      "records": 100013
+    },
+    "file_sha256": "b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842",
+    "first_review": "2022-05-17 00:16:43",
+    "last_review": "2023-11-15 23:05:35",
+    "parsed_rows_sha256": "d8edeccf26b516776f90dd5fb597baecb10f9272c00746607ec3cda2b0c8b209",
+    "reviews_by_month": {
+      "2022-05": 2379,
+      "2022-06": 4605,
+      "2022-07": 4915,
+      "2022-08": 4715,
+      "2022-09": 4063,
+      "2022-10": 4118,
+      "2022-11": 4071,
+      "2022-12": 4813,
+      "2023-01": 4324,
+      "2023-02": 3130,
+      "2023-03": 4144,
+      "2023-04": 3833,
+      "2023-05": 4260,
+      "2023-06": 4067,
+      "2023-07": 12849,
+      "2023-08": 4769,
+      "2023-09": 6380,
+      "2023-10": 13398,
+      "2023-11": 5180
+    },
+    "reviews_by_rating": {
+      "1": 36544,
+      "2": 4638,
+      "3": 5093,
+      "4": 8017,
+      "5": 45721
+    }
+  },
+  "quality": {
+    "distinct_app_versions": 333,
+    "invalid_likes": 0,
+    "invalid_rating": 0,
+    "max_review_likes": 4836,
+    "most_repeated_texts": [
+      {
+        "first_review_id": "f1891e81-cbfd-4c89-8b4f-fc7f4272fe10",
+        "n_reviews": 2021
+      },
+      {
+        "first_review_id": "a5e186e5-cf4b-4d6e-9476-ecfa2da31411",
+        "n_reviews": 827
+      },
+      {
+        "first_review_id": "10cef869-ca99-42f6-a0c5-3960bbf7ecb7",
+        "n_reviews": 637
+      },
+      {
+        "first_review_id": "b27461de-5927-4da7-bfba-e430ed27bd94",
+        "n_reviews": 588
+      },
+      {
+        "first_review_id": "f8800afd-0b5c-4f2a-9889-8ba62e7ff133",
+        "n_reviews": 498
+      },
+      {
+        "first_review_id": "b8aab4bf-bfba-44e0-98c8-1b53a018795b",
+        "n_reviews": 452
+      },
+      {
+        "first_review_id": "f41d79b8-3097-4d76-8860-dae36f1152a6",
+        "n_reviews": 405
+      },
+      {
+        "first_review_id": "afe8e501-21d3-4b6b-b56d-90d1780166c1",
+        "n_reviews": 309
+      },
+      {
+        "first_review_id": "f401957b-7c48-4db1-b794-75c5f73e402f",
+        "n_reviews": 290
+      },
+      {
+        "first_review_id": "ffebe898-6a0d-46e8-9919-f3bc9d88c9a2",
+        "n_reviews": 284
+      }
+    ],
+    "multiline_text": 18,
+    "notes": [
+      "text_without_ascii_letters is a rough signal for emoji-only or non-Latin-script text, not a language detector.",
+      "review_timestamp has no stated timezone; months are taken from the source string as written."
+    ],
+    "reviews_with_likes": 8181,
+    "text_length_chars": {
+      "max": 615,
+      "median": 32,
+      "min": 1,
+      "p90": 207,
+      "p99": 490,
+      "total": 7475184
+    },
+    "text_without_ascii_letters": 2405,
+    "unparseable_timestamp": 0
+  },
+  "rejected_rows": [],
+  "run_id": "final_100k"
+}
