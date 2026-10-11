@@ -44,7 +44,7 @@ export function createApp(db: Db = databaseFromEnv()) {
       db.query(`SELECT COUNT(*) AS reviews, COUNT(*) FILTER (WHERE status = 'completed') AS completed, COUNT(issue_id) AS complaints,
                 COUNT(*) FILTER (WHERE needs_review) AS needs_review, COUNT(*) FILTER (WHERE cache_source_id IS NOT NULL) AS reused,
                 (SELECT COUNT(*) FROM issues) AS issues, MIN(review_timestamp) AS first_review, MAX(review_timestamp) AS last_review FROM reviews`),
-      document(db, 'verify_report'), document(db, 'golden_report'), document(db, 'model_calls'), document(db, 'ingestion_report'),
+      document(db, 'verify_report'), document(db, 'golden_report'), document(db, 'model_calls'), document(db, 'full_corpus_ingestion'),
     ]);
     const t = totals.rows[0] as Record<string, unknown>;
     const v = verify as { compared: number; agreement: Record<string, number>; verifier_config: string; sample: unknown } | null;
@@ -61,7 +61,7 @@ export function createApp(db: Db = databaseFromEnv()) {
       verification: v && { compared: v.compared, agreement: v.agreement, verifier_config: v.verifier_config, sample: v.sample },
       golden: g && { scored: g.scored, ambiguous_cases: g.ambiguous_cases, enricher_vs_human: g.enricher_vs_human },
       model_calls: calls,
-      source_file_profile: full?.profile?.counts ?? null,
+      full_corpus: full?.profile?.counts ?? null,
     });
   }));
 

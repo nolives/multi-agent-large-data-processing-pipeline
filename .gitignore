@@ -24,3 +24,6 @@ evals/*.backup_*.csv
 # Dashboard build output and dependencies
 node_modules/
 dashboard/*/dist/
+
+# Local editor and preview settings
+.claude/

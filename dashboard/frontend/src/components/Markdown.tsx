@@ -26,7 +26,13 @@ export function Markdown({ text, claimIssue }: { text: string; claimIssue: Recor
       if (!cells.every((c) => /^:?-+:?$/.test(c))) { if (list.length) flush(); table.push(cells); }
       continue;
     }
-    if (line.startsWith('- ')) { if (table.length) flush(); list.push(<li key={list.length}>{inline(line.slice(2), claimIssue)}</li>); continue; }
+    const bullet = /^(\s*)- (.*)$/.exec(line);
+    if (bullet) {
+      if (table.length) flush();
+      // A nested bullet keeps its place in the same list, indented under its parent.
+      list.push(<li key={list.length} style={bullet[1].length ? { marginLeft: 20, listStyleType: 'circle' } : undefined}>{inline(bullet[2], claimIssue)}</li>);
+      continue;
+    }
     flush();
     if (!line.trim()) continue;
     if (line.startsWith('# ')) blocks.push(<h1 key={blocks.length} className="text-[20px] font-semibold mb-2">{inline(line.slice(2), claimIssue)}</h1>);

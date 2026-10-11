@@ -48,7 +48,9 @@ a:hover { text-decoration-color: var(--ink); }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--series); outline-offset: 2px; border-radius: 4px; }
 
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; min-width: 0; overflow-wrap: anywhere; }
+/* Grid items may shrink below their content's natural width, so wide tables scroll inside their card instead of widening the page. */
+.grid > * { min-width: 0; }
 .muted { color: var(--muted); }
 .ink-2 { color: var(--ink-2); }
 .num { font-variant-numeric: tabular-nums; }

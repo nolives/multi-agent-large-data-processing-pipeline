@@ -24,7 +24,7 @@ export function Quality() {
           const rows: [string, string][] = [['Topic', 'topic_agreement'], ['Intent', 'intent_agreement'], ['Severity, exact', 'severity_agreement'],
                                             ['Severity, within one level', 'severity_within_one'], ['Topic, intent and severity together', 'all_three_agreement']];
           return (
-            <>
+            <div className="grid gap-4">
               <div className="grid gap-4 lg:grid-cols-2">
                 <Card title="Hand-labeled golden set" note={g ? `${o.golden!.scored} reviews labeled by hand before any model prediction; ${o.golden!.ambiguous_cases} were marked ambiguous.` : 'Not published for this run.'}>
                   {g && (
@@ -55,7 +55,7 @@ export function Quality() {
                   <p className="muted text-[13px] mt-3">
                     {fmt(o.totals.reused_from_identical_text)} reviews ({pct(o.totals.reused_from_identical_text, o.totals.reviews)}) reuse the labels of an identical text.{' '}
                     {fmt(o.totals.needs_review)} are flagged for review.
-                    {o.source_file_profile && ` The full source file of ${fmt(o.source_file_profile.records)} rows was ingested and profiled.`}
+                    {o.full_corpus && ` The full source file of ${fmt(o.full_corpus.records)} rows was ingested and profiled (${fmt(o.full_corpus.empty_review_text)} empty texts, ${fmt(o.full_corpus.duplicate_review_ids)} repeated IDs); this run classified ${fmt(o.totals.reviews)} of them.`}
                   </p>
                 </Card>
                 <Card title="Model calls behind this run" note={o.model_calls ? `Total logged cost $${o.model_calls.total_cost_usd.toFixed(2)}, computed from reported usage.` : undefined}>
@@ -75,7 +75,7 @@ export function Quality() {
                   <li>The first and last calendar months of the window are partial.</li>
                 </ul>
               </Card>
-            </>
+            </div>
           );
         }}
       </Async>

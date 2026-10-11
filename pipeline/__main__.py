@@ -179,6 +179,7 @@ def build_parser():
     p.add_argument("--run-id", required=True)
     p.add_argument("--runs-dir", type=Path, default=Path("runs"))
     p.add_argument("--golden-report", type=Path, default=Path("evals/golden/golden_report.json"))
+    p.add_argument("--full-corpus-run", default="full", help="Run ID holding the full source file's ingestion report")
 
     p = commands.add_parser("enrich", help="PAID: label pending reviews with Jev. Resumes from saved progress.")
     p.add_argument("--run-id", required=True, help="A run already created by ingest")

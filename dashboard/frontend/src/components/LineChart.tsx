@@ -38,7 +38,7 @@ export function LineChart({ points, format, height = 220, partial = [] }: {
   };
 
   return (
-    <div ref={box} className="relative">
+    <div ref={box} className="relative" style={{ width: '100%', overflow: 'hidden' }}>
       <svg width={width} height={height} role="img" aria-label="Trend by month. Values are also in the table below."
            onPointerMove={(e) => nearest(e.clientX, e.currentTarget)} onPointerLeave={() => setHover(null)} style={{ display: 'block', touchAction: 'none' }}>
         {ticks.map((t) => (

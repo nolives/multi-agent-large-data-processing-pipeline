@@ -50,7 +50,7 @@ export function Overview() {
                     <td className="r">{a.numbers.mean_severity.value}</td><td className="r">{a.numbers.share_of_complaints.value}</td></tr>)}</tbody></table></div>
               </Card>
               <Card title="Top issues by priority score" note={<>Score = complaint count × mean severity. <a href="#/issues">See the full ranking</a>.</>}>
-                <BarList unit="priority score" data={(issues.data?.issues ?? []).slice(0, 8).map((i) => ({
+                <BarList unit="priority score" wideLabels data={(issues.data?.issues ?? []).slice(0, 8).map((i) => ({
                   key: i.issue_id, label: i.title, value: i.priority_score, href: `#/issues/${i.issue_id}`,
                   detail: `${fmt(i.complaint_count)} complaints, mean severity ${Number(i.mean_severity).toFixed(2)}`,
                 }))} />

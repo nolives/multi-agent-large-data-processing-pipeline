@@ -45,7 +45,7 @@ def review_rows(db):
                source if done and source != rid else None, issue if done else None)
 
 
-def publish(run_dir, database_url, golden_report=None):
+def publish(run_dir, database_url, golden_report=None, full_corpus_run=None):
     import psycopg  # imported here so the rest of the pipeline does not need the Postgres driver
 
     run_dir = Path(run_dir)
@@ -61,6 +61,9 @@ def publish(run_dir, database_url, golden_report=None):
         documents["verify_report"] = read_json(run_dir / "verify_report.json")
     if golden_report and Path(golden_report).exists():
         documents["golden_report"] = read_json(golden_report)
+    if full_corpus_run and (Path(full_corpus_run) / "ingestion_report.json").exists():
+        # The profile of the whole source file, which is ingested in full whatever subset this run classifies.
+        documents["full_corpus_ingestion"] = read_json(Path(full_corpus_run) / "ingestion_report.json")
     calls = [dict(zip(("role", "model", "attempts", "failed", "input_tokens", "output_tokens", "cost_usd"), row)) for row in state.execute(
         "SELECT role, model, COUNT(*), SUM(outcome = 'failed'), SUM(input_tokens), SUM(output_tokens), ROUND(SUM(cost_usd), 6) "
         "FROM calls GROUP BY role, model ORDER BY role, model")]
@@ -121,7 +124,7 @@ def main_publish(args):
     if not url:
         raise SystemExit("DATABASE_URL is not set. Add your Postgres connection string to .env (see .env.example).")
     try:
-        result = publish(args.runs_dir / args.run_id, url, args.golden_report)
+        result = publish(args.runs_dir / args.run_id, url, args.golden_report, args.runs_dir / args.full_corpus_run)
     except Exception as e:  # never echo the connection string, which drivers sometimes include in messages
         raise SystemExit("Publish failed: " + str(e).replace(url, "<DATABASE_URL>")) from None
     print(json.dumps(result, indent=1))

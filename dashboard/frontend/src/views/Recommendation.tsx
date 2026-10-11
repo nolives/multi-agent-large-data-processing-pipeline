@@ -9,7 +9,7 @@ export function Recommendation() {
       {(memo) => {
         const claimIssue = Object.fromEntries(memo.claims.map((c) => [c.claim_id, c.issue_id]));
         // The memo file ends with an appendix of tables; the page shows those from the database instead.
-        const body = memo.markdown.split('\n---\n')[0];
+        const body = memo.markdown.split('\n---\n')[0].replace(/^# .*\n+/, '');
         const allMatch = memo.claims.every((c) => c.matches_saved_ranking);
         return (
           <div className="grid gap-4">

@@ -12,7 +12,7 @@ export interface Overview {
   golden: { scored: number; ambiguous_cases: number; enricher_vs_human: Record<string, Record<string, number>> } | null;
   model_calls: { by_role: { role: string; model: string; attempts: number; failed: number; input_tokens: number; output_tokens: number; cost_usd: number }[];
                  total_cost_usd: number } | null;
-  source_file_profile: Record<string, number> | null;
+  full_corpus: Record<string, number> | null;
 }
 
 export interface Issue {

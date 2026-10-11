@@ -59,15 +59,16 @@ export interface BarDatum { key: string; label: ReactNode; value: number; displa
  * Horizontal bars for comparing magnitudes. One series, so one color; `emphasis` on some rows grays the rest.
  * Every value is printed at the bar's end, so nothing depends on hover.
  */
-export function BarList({ data, unit, max }: { data: BarDatum[]; unit: string; max?: number }) {
+export function BarList({ data, unit, max, wideLabels = false }: { data: BarDatum[]; unit: string; max?: number; wideLabels?: boolean }) {
   const top = max ?? Math.max(1, ...data.map((d) => d.value));
   const anyEmphasis = data.some((d) => d.emphasis);
   return (
     <div role="list" aria-label={unit}>
       {data.map((d) => (
-        <div className="bar-row" role="listitem" key={d.key} title={d.detail ?? `${d.display ?? fmt(d.value)} ${unit}`}>
-          <div className="text-[13.5px] truncate">{d.href ? <a href={d.href}>{d.label}</a> : d.label}</div>
-          <div className="bar-track"><div className={`bar-fill ${anyEmphasis && !d.emphasis ? 'deemph' : ''}`} style={{ width: `${(100 * d.value) / top}%` }} /></div>
+        <div className="bar-row" role="listitem" key={d.key} title={d.detail ?? `${d.display ?? fmt(d.value)} ${unit}`}
+             style={wideLabels ? { gridTemplateColumns: 'minmax(150px, 52%) 1fr auto' } : undefined}>
+          <div className={`text-[13.5px] ${wideLabels ? 'leading-snug' : 'truncate'}`}>{d.href ? <a href={d.href}>{d.label}</a> : d.label}</div>
+          <div className="bar-track"><div className={`bar-fill ${anyEmphasis && !d.emphasis ? 'deemph' : ''}`} style={{ width: `${(100 * d.value) / top}%`, minWidth: d.value ? undefined : 0 }} /></div>
           <div className="num text-[13.5px] font-medium text-right" style={{ minWidth: 56 }}>{d.display ?? fmt(d.value)}</div>
         </div>
       ))}
