@@ -2,6 +2,7 @@
 
     ingest   read and profile a CSV, queue pending work            (no model calls)
     rank     recompute the ranking from saved files                (no model calls)
+    publish  load a run's saved results into the dashboard database (no model calls)
     enrich   PAID: label pending reviews
     run      PAID: every stage in order for one input CSV; saved work is reused, so a rerun resumes
 """
@@ -174,6 +175,11 @@ def build_parser():
     p.add_argument("--full-run", type=Path, help="A full-corpus run directory, for its measured ingestion time")
     p.add_argument("--out", type=Path, default=Path("cost"))
 
+    p = commands.add_parser("publish", help="Load a run's saved results into the dashboard database. No model calls.")
+    p.add_argument("--run-id", required=True)
+    p.add_argument("--runs-dir", type=Path, default=Path("runs"))
+    p.add_argument("--golden-report", type=Path, default=Path("evals/golden/golden_report.json"))
+
     p = commands.add_parser("enrich", help="PAID: label pending reviews with Jev. Resumes from saved progress.")
     p.add_argument("--run-id", required=True, help="A run already created by ingest")
     add_run_options(p)
@@ -226,6 +232,10 @@ def main():
               f"Problems: {report['problems'] or 'none'}")
         for row in rows[:10]:
             print(f"  {row['rank']:>2}  {row['issue_id']:<34} count {row['complaint_count']:>7,}  mean {row['mean_severity']}  score {row['priority_score']:>8,}")
+
+    elif args.command == "publish":
+        from .publish import main_publish
+        main_publish(args)
 
     elif args.command == "pilot-export":
         from .pilot import export_pilot

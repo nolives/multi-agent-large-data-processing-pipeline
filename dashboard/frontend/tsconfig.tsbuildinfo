@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/components/linechart.tsx","./src/components/markdown.tsx","./src/components/ui.tsx","./src/views/issues.tsx","./src/views/overview.tsx","./src/views/quality.tsx","./src/views/recommendation.tsx","./src/views/reviewtrace.tsx"],"version":"5.9.3"}
