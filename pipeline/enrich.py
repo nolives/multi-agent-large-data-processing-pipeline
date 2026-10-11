@@ -31,6 +31,7 @@ ROLE = "enrich"
 RETRYABLE = {408, 409, 429, 500, 502, 503, 504, 529}
 MAX_BACKOFF_SECONDS = 30
 TRANSIENT_STREAK_LIMIT = 10
+MAX_TOTAL_ATTEMPTS = 15  # across sessions; a text that still fails after this many attempts is quarantined
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS enrichments (
@@ -233,6 +234,10 @@ class Enricher:
         db.execute("INSERT OR REPLACE INTO meta (key, value) VALUES ('label_config', ?)", (self.label_config,))
         db.commit()
 
+        # Bounded recovery: a text whose requests keep failing across sessions is quarantined with its reason, not retried forever.
+        db.execute("UPDATE reviews SET status = 'quarantined', reason = 'api_failures_after_retries' WHERE status = 'pending' AND attempts >= ?",
+                   (MAX_TOTAL_ATTEMPTS,))
+        db.commit()
         pending = db.execute(
             "SELECT t.text_sha256, t.first_review_id, r.review_text FROM texts t JOIN reviews r ON r.review_id = t.first_review_id "
             "WHERE r.status = 'pending' ORDER BY r.row_num" + (" LIMIT ?" if limit else ""), (limit,) if limit else ()).fetchall()

@@ -350,7 +350,7 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
       f"memo {c['output_token_cap_per_request']['memo']:,}. Enrichment: {c['output_token_cap_per_request']['enrich']}.")
     w(f"- **Maximum concurrency:** {c['max_workers']} workers, at most {c['max_requests_per_second']} request starts per second shared across workers "
       f"(provider limit {c['provider_requests_per_second_limit']} per second). Worker counts measured so far: {', '.join(str(k) for k in unit['worker_speeds'])}; other counts are modeled.")
-    w(f"- **Maximum fallback fraction:** {c['max_fallback_fraction']:.0%} of texts. No fallback model is used in the measured pilot.")
+    w(f"- **Maximum fallback fraction:** {c['max_fallback_fraction']:.0%} of texts. " + c.get("fallback_note", "No fallback model is used in the measured pilot."))
     w("- **Retries:** rate-limit and server errors are retried with exponential backoff and jitter, at most 5 attempts for enrichment and 4 for Claude roles; "
       "invalid output is retried once and then quarantined; a stage stops after repeated identical failures.")
     w("- **Recovery:** results are saved in one transaction per batch; a rerun resumes from saved work and makes no call for a completed text.")

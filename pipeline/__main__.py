@@ -97,10 +97,10 @@ def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
         print_enrich(run_id, summary)
         if summary["stop_reason"].startswith("fatal"):
             raise SystemExit("Enrichment stopped on a configuration error; later stages were not run.")
-        if summary["stop_reason"] != "queue_empty" and last > 1:
-            # Interrupted, or stopped by a spend or time cap: progress is saved. Later stages wait for a complete
-            # enrichment, so no verification or memo call is paid for on partial results.
-            print(f"[stopped] Enrichment stopped early ({summary['stop_reason']}) with work still pending. Saved progress is in {run_dir}/. "
+        if summary["texts_pending_at_end"] and last > 1 and not args.allow_partial:
+            # Anything still pending blocks the later stages: an interruption, a spend or time cap, a --limit, or texts
+            # whose retries ran out. Progress is saved, and no verification or memo call is paid for on partial results.
+            print(f"[stopped] {summary['texts_pending_at_end']:,} texts are still pending ({summary['stop_reason']}). Saved progress is in {run_dir}/. "
                   "Run the same command again to resume; completed reviews are not sent again.")
             raise SystemExit(130 if summary["stop_reason"] == "interrupted" else 2)
 
@@ -133,7 +133,8 @@ def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
         print(f"[rank] {r['issues']} issues ranked from {r['grouped_complaint_records']:,} complaint records · problems {r['problems'] or 'none'}")
     if last >= 5:
         effort = effort_for(args.memo_model, args.memo_effort)
-        m = stage("memo", lambda: memo(run_dir, db, caller, prompt_path=args.memo_prompt, model=args.memo_model, session=session, effort=effort))
+        m = stage("memo", lambda: memo(run_dir, db, caller, prompt_path=args.memo_prompt, model=args.memo_model, session=session, effort=effort,
+                                       full_corpus_run=args.runs_dir / args.full_corpus_run))
         print(f"[memo] {'reused, no new call' if m.get('reused') else 'valid' if m['valid'] else 'REJECTED: ' + '; '.join(m['errors'])}"
               + (f" · recommends {m['recommended_priority']}" if m.get("recommended_priority") else ""))
 
@@ -196,6 +197,8 @@ def build_parser():
     p.add_argument("--run-id", help="Stable name for this run (default: the input file name without .csv)")
     add_run_options(p)
     p.add_argument("--stop-after", choices=STAGES, default="memo")
+    p.add_argument("--allow-partial", action="store_true", help="Run the later stages even if some texts are still pending")
+    p.add_argument("--full-corpus-run", default="full", help="Run ID holding the full source file's ingestion report, cited by the memo")
     p.add_argument("--verify-sample", type=int, default=100, help="Distinct texts the independent verifier re-labels")
     p.add_argument("--verify-batch", type=int, default=10, help="Reviews per verifier request")
     p.add_argument("--seed", default="verify-v1", help="Seed for the verification sample")
@@ -207,7 +210,7 @@ def build_parser():
     p.add_argument("--memo-effort", default="high")
     p.add_argument("--verify-prompt", type=Path, default=Path("prompts/verify_claude_v2.md"))
     p.add_argument("--group-prompt", type=Path, default=Path("prompts/group_claude_v1.md"))
-    p.add_argument("--memo-prompt", type=Path, default=Path("prompts/memo_claude_v2.md"))
+    p.add_argument("--memo-prompt", type=Path, default=Path("prompts/memo_claude_v3.md"))
     p.add_argument("--issue-rules", type=Path, default=Path("labels/issues.json"))
     return parser
 

@@ -85,10 +85,10 @@ Orchestration, ingestion, export and ranking run on a laptop. Its cost was **not
 | Volume | Scenario | Exact-text reuse | Workers | Enrichment rate | API cost | Elapsed (known stages) | Local compute | Budget check |
 |---|---|---|---|---|---|---|---|---|
 | full corpus | base | yes | 8 | 55.3 texts/s | $30.43 | 2.67 h | unknown | **EXCEEDS the $10 budget** |
-| full corpus | conservative | yes | 4 | 23.4 texts/s | $39.56 | 7.25 h | unknown | **EXCEEDS the $10 budget** |
+| full corpus | conservative | yes | 4 | 23.4 texts/s | $36.59 | 6.31 h | unknown | **EXCEEDS the $10 budget** |
 | full corpus | base | no | 8 | 55.3 texts/s | $41.23 | 3.57 h | unknown | **EXCEEDS the $10 budget** |
 | planned final run | base | yes | 8 | 55.3 texts/s | $5.56 | 0.61 h | unknown | within $10 |
-| planned final run | conservative | yes | 4 | 23.4 texts/s | $7.33 | 1.39 h | unknown | within $10 |
+| planned final run | conservative | yes | 4 | 23.4 texts/s | $6.85 | 1.24 h | unknown | within $10 |
 
 ### Scenario: base, full corpus
 
@@ -107,18 +107,18 @@ Exact-text reuse on, 8 workers, few retries, no fallback.
 
 ### Scenario: conservative, full corpus
 
-Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, the full declared fallback quota, one rejected memo.
+Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, one rejected memo.
 
 | Stage | Kind | Work | API cost | Time | Basis |
 |---|---|---|---|---|---|
 | ingest | fixed, local | 660,622 rows | $0.0000 | 9.6 s | measured: the full file is ingested and profiled whatever subset is classified |
 | enrich | variable | 484,189 texts x 1.05 attempts | $35.4526 | 6.05 h | 1,443.8 input tokens per text; 23.4 texts/s (measured with 4 worker(s) on 2,000 texts) |
-| fallback | variable, capped | 9,684 texts (2.0% of texts) | $2.9720 | 0.94 h | modeled at the verifier's measured per-text cost; no fallback role exists yet |
+| fallback | variable, capped | 0 texts (0.0% of texts) | $0.0000 | 0.0 s | modeled at the verifier's measured per-text cost; no fallback role exists yet |
 | verify | variable | 2,000 sampled texts (0.41% of texts) x 1.2 | $0.7366 | 0.23 h | measured per-text cost and time |
 | group | fixed, once | up to 36 issues named | $0.0218 | 23.2 s | measured per-issue cost |
 | rank | fixed, local | export and arithmetic | $0.0000 | unknown | no API cost; time not yet measured at full scale |
 | memo | fixed, once | 1 memo x 2 attempt(s) | $0.3751 | 96.1 s | measured memo x 2.0 for a larger input |
-| **total** | | | **$39.56** | **7.25 h** | fixed overhead counted once |
+| **total** | | | **$36.59** | **6.31 h** | fixed overhead counted once |
 
 ### Scenario: base, planned final run
 
@@ -137,18 +137,18 @@ Exact-text reuse on, 8 workers, few retries, no fallback.
 
 ### Scenario: conservative, planned final run
 
-Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, the full declared fallback quota, one rejected memo.
+Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, one rejected memo.
 
 | Stage | Kind | Work | API cost | Time | Basis |
 |---|---|---|---|---|---|
 | ingest | fixed, local | 660,622 rows | $0.0000 | 9.6 s | measured: the full file is ingested and profiled whatever subset is classified |
 | enrich | variable | 78,099 texts x 1.05 attempts | $5.7185 | 0.98 h | 1,443.8 input tokens per text; 23.4 texts/s (measured with 4 worker(s) on 2,000 texts) |
-| fallback | variable, capped | 1,562 texts (2.0% of texts) | $0.4794 | 544.2 s | modeled at the verifier's measured per-text cost; no fallback role exists yet |
+| fallback | variable, capped | 0 texts (0.0% of texts) | $0.0000 | 0.0 s | modeled at the verifier's measured per-text cost; no fallback role exists yet |
 | verify | variable | 2,000 sampled texts (2.56% of texts) x 1.2 | $0.7366 | 0.23 h | measured per-text cost and time |
 | group | fixed, once | up to 36 issues named | $0.0218 | 23.2 s | measured per-issue cost |
 | rank | fixed, local | export and arithmetic | $0.0000 | unknown | no API cost; time not yet measured at full scale |
 | memo | fixed, once | 1 memo x 2 attempt(s) | $0.3751 | 96.1 s | measured memo x 2.0 for a larger input |
-| **total** | | | **$7.33** | **1.39 h** | fixed overhead counted once |
+| **total** | | | **$6.85** | **1.24 h** | fixed overhead counted once |
 
 > **Budget warning:** full corpus base, full corpus conservative, full corpus base (no reuse) exceed the declared budget of $10.
 
@@ -157,7 +157,7 @@ Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, 
 - **Spending limit:** $10 for the full run (editable in `assumptions.json`). The pipeline enforces a cap per session with `--max-spend-usd`: it reserves worst-case cost before each call and stops admitting work when spent plus reserved plus the next reservation would exceed the cap.
 - **Output-token caps per request:** verify 4,000, group 4,000, memo 16,000. Enrichment: not applicable: Jev returns fixed typed answers and output tokens are free.
 - **Maximum concurrency:** 8 workers, at most 60 request starts per second shared across workers (provider limit 80 per second). Worker counts measured so far: 1, 2, 4, 8; other counts are modeled.
-- **Maximum fallback fraction:** 2% of texts. No fallback model is used in the measured pilot.
+- **Maximum fallback fraction:** 0% of texts. No fallback model is used. On the hand-labeled golden set the verifier model was no closer to the human labels than the enricher (11 versus 12 disagreements of 50), so routing texts to it was not justified.
 - **Retries:** rate-limit and server errors are retried with exponential backoff and jitter, at most 5 attempts for enrichment and 4 for Claude roles; invalid output is retried once and then quarantined; a stage stops after repeated identical failures.
 - **Recovery:** results are saved in one transaction per batch; a rerun resumes from saved work and makes no call for a completed text.
 

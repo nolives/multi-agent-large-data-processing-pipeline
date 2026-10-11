@@ -42,7 +42,7 @@ def percent(part, whole):
     return f"{(Decimal(100 * part) / Decimal(whole)).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)}%" if whole else "n/a"
 
 
-def build_input(run_dir, db):
+def build_input(run_dir, db, full_corpus_run=None):
     """Everything the memo model may see: ranking rows, priority-area sums, run facts and a few examples per top issue."""
     run_dir = Path(run_dir)
     ranking = read_csv(run_dir / "ranking.csv")
@@ -62,6 +62,13 @@ def build_input(run_dir, db):
     status = dict(db.execute("SELECT status, COUNT(*) FROM reviews GROUP BY status"))
     total = sum(status.values())
     facts["source_reviews"] = f"{ingestion['accounting']['source_rows']:,}"
+    corpus_path = Path(full_corpus_run) / "ingestion_report.json" if full_corpus_run else None
+    if corpus_path and corpus_path.exists():
+        corpus = json.loads(corpus_path.read_text(encoding="utf-8"))
+        if corpus["input"]["sha256"] != ingestion["input"]["sha256"]:
+            # This run analyzed a subset: say how large the whole source file is, so the memo cannot read as full coverage.
+            facts["full_corpus_reviews"] = f"{corpus['accounting']['source_rows']:,}"
+            facts["share_of_corpus_analyzed"] = percent(ingestion["accounting"]["source_rows"], corpus["accounting"]["source_rows"])
     facts["classified_reviews"] = f"{status.get('completed', 0):,}"
     facts["classified_share"] = percent(status.get("completed", 0), total)
     facts["quarantined_reviews"] = f"{status.get('quarantined', 0):,}"
@@ -156,10 +163,10 @@ def render(text, claims, facts):
     return PLACEHOLDER.sub(fill, text)
 
 
-def memo(run_dir, db, caller, *, prompt_path, model, session, effort=None):
+def memo(run_dir, db, caller, *, prompt_path, model, session, effort=None, full_corpus_run=None):
     run_dir = Path(run_dir)
     system, config = role_config(prompt_path, model, SCHEMA_VERSION, effort)
-    model_input, claims, facts, evidence, issue_ids = build_input(run_dir, db)
+    model_input, claims, facts, evidence, issue_ids = build_input(run_dir, db, full_corpus_run)
     if not model_input["ranking"]:
         write_json(run_dir / "memo_check.json", {"valid": False, "errors": ["no ranked issues: nothing to recommend"], "memo_config": config})
         return {"valid": False, "errors": ["no ranked issues"], "calls": 0}

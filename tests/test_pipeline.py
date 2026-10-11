@@ -168,6 +168,23 @@ class PipelineTests(unittest.TestCase):
         older = [b for b in self.claude.requests if b["model"] == "claude-haiku-4-5"]
         self.assertTrue(older and all("effort" not in b["output_config"] for b in older))
 
+    def test_later_stages_wait_while_any_text_is_still_pending(self):
+        # One text keeps failing: its retries run out, it stays pending, and no verification or memo call is paid for.
+        global jev_handler
+        real = jev_handler
+        jev_handler = lambda request: httpx.Response(529) if b"Crashes constantly" in request.content else real(request)
+        try:
+            with self.assertRaises(SystemExit) as stopped:
+                self.run_all()
+            self.assertEqual(stopped.exception.code, 2)
+            self.assertEqual(self.claude.requests, [])
+            jev_handler = real
+            summary, run = self.run_all()  # the same command again retries the pending text and then runs every stage
+            self.assertEqual(summary["review_status_counts"], {"completed": 10, "quarantined": 1})
+            self.assertTrue((run / "memo.md").exists())
+        finally:
+            jev_handler = real
+
     def test_verifier_never_sees_the_enrichers_labels(self):
         self.run_all()
         for body in self.claude.requests:
