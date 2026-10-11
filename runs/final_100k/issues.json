@@ -1,0 +1,593 @@
+{
+  "group_config": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+  "issues": [
+    {
+      "aspect": "account",
+      "complaint_count": 205,
+      "description": "Reviewers report being logged out, locked out after a hack, or unable to switch accounts, and say support channels do not help resolve the problem.",
+      "example_review_ids": [
+        "e7767259-4ee5-4be0-9252-28a9b5b5b65e",
+        "0a3088a5-434e-48a7-a144-ab791c71ea8c",
+        "85ab7721-b6d6-4271-8f39-168d13ee786d",
+        "45d07c5b-1110-422a-8c4d-7f128042697c"
+      ],
+      "issue_id": "access.account",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Account access, hacking, and logout problems",
+      "topic": "access"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 227,
+      "description": "Reviewers say the app logs them out or leaves them stuck offline with no way to go back online, and mention liked songs and shuffle behaving oddly.",
+      "example_review_ids": [
+        "f8558786-744b-49c3-8a52-f4e02a3e801c",
+        "3ea5c56b-aa94-431c-9d60-33024ab0c244",
+        "f6d6b107-8f2d-43d5-bc48-fde0a0af05c7",
+        "2c6a11bf-895c-4980-bf8e-6de8e6b476dc"
+      ],
+      "issue_id": "access.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Unexpected logouts and offline lockouts",
+      "topic": "access"
+    },
+    {
+      "aspect": "login",
+      "complaint_count": 1089,
+      "description": "Reviewers report being unable to log in, including through Facebook, even after resetting passwords or reinstalling the app.",
+      "example_review_ids": [
+        "bccc83ff-2c51-40af-97bb-2439aeab2d4e",
+        "a235ab30-c2ab-4d57-9491-b084e25eeb35",
+        "f70a9e2d-5013-4ec8-a5df-58bf7e80db9c",
+        "24eb7b99-52fa-4192-8e78-1b8abf9c99e9"
+      ],
+      "issue_id": "access.login",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Cannot log in despite password resets",
+      "topic": "access"
+    },
+    {
+      "aspect": "ads-for-free-users",
+      "complaint_count": 685,
+      "description": "Reviewers complain about frequent ads, including ads appearing for paying premium members, and about restrictions on free accounts.",
+      "example_review_ids": [
+        "b4895589-38d1-4d81-b97b-8bf8e571e9ed",
+        "dad479df-b432-4fe6-a0e0-c9be51c722d3",
+        "70069a3a-19e3-4c66-9c7d-f83ed643017f",
+        "709ab376-75f7-48ad-b67c-66c954af3f70"
+      ],
+      "issue_id": "billing.ads-for-free-users",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Ads still shown to premium or free users",
+      "topic": "billing"
+    },
+    {
+      "aspect": "charges-and-refunds",
+      "complaint_count": 218,
+      "description": "Reviewers report being charged unexpectedly after a free trial, having payments rejected, or struggling to get refunds.",
+      "example_review_ids": [
+        "2c80dd00-e6d0-4e10-9975-255510035f06",
+        "9ce1dfbe-59a6-4e03-8052-3a6a8096b44f",
+        "2d084e06-bb12-4647-b903-201ad9b8e1de",
+        "94aa0a1f-07a5-47e5-976f-10030736564c"
+      ],
+      "issue_id": "billing.charges-and-refunds",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Unexpected charges and payment failures",
+      "topic": "billing"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 1320,
+      "description": "Reviewers feel the app has become paid-only or too costly for their country, and criticize limits that push them toward premium.",
+      "example_review_ids": [
+        "53bafeb0-800f-468e-899b-9afa7e333b46",
+        "e3583f28-f95e-49e5-b1e6-0d2fd6c93100",
+        "5d0630fb-226e-49b3-b2ad-2eb7509cc3a6",
+        "8ab267f1-9fa0-4652-b882-aa44449d7910"
+      ],
+      "issue_id": "billing.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Subscription now feels fully paid",
+      "topic": "billing"
+    },
+    {
+      "aspect": "paywalled-controls",
+      "complaint_count": 2729,
+      "description": "Reviewers say skips, repeats, queueing, lyrics and shuffle now require premium, which they find frustrating.",
+      "example_review_ids": [
+        "12cbe680-4179-4817-8527-77495e549bc8",
+        "e13cd0b6-36a5-4a87-a143-9f8b3a560a73",
+        "e0fed482-caa7-4d0d-8af1-6703844881da",
+        "1997c844-acbb-4998-aefe-a65f5908c3f6"
+      ],
+      "issue_id": "billing.paywalled-controls",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Basic playback controls locked behind premium",
+      "topic": "billing"
+    },
+    {
+      "aspect": "plans",
+      "complaint_count": 2869,
+      "description": "Reviewers say podcasts, album track lists and other features became premium-only or unskippable, making the free experience unusable.",
+      "example_review_ids": [
+        "d13b1dba-4cec-4d83-8b0f-46b2bb22fe26",
+        "35fb2e83-ce6e-48c2-9eb1-ae74b7deba9f",
+        "b32f90b1-bdbb-4457-bd99-649b100e5efe",
+        "cc386329-f5e0-4bfa-a64c-447462214186"
+      ],
+      "issue_id": "billing.plans",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Features moved behind premium paywall",
+      "topic": "billing"
+    },
+    {
+      "aspect": "price",
+      "complaint_count": 275,
+      "description": "Reviewers find the premium subscription too expensive and question whether it is worth paying, especially given artist payouts.",
+      "example_review_ids": [
+        "d2f3874f-d15d-4a2f-bb97-4f1213defa46",
+        "728845c6-9f16-4fe7-bf8d-5358f59a538c",
+        "62cf9b23-4584-4b40-b24f-d343440b1f10",
+        "23d50936-ed02-462a-a055-914a51042e3c"
+      ],
+      "issue_id": "billing.price",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Subscription price seen as too high",
+      "topic": "billing"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 750,
+      "description": "Reviewers report that some songs or albums cannot be played, cover art is missing, and automated playlists feel repetitive.",
+      "example_review_ids": [
+        "c2ab8e28-fc41-4bda-a104-81025a1672b4",
+        "30bd8906-c21d-4e86-852b-4fe0ee8b5d35",
+        "e4665757-a478-4571-ada9-d330bfa3a834",
+        "c94f91bc-3c27-4487-adca-02143381e1d2"
+      ],
+      "issue_id": "catalog.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Tracks unavailable and poor recommendations",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "lyrics",
+      "complaint_count": 653,
+      "description": "Reviewers say lyrics have disappeared for many songs or cannot be shown in their preferred language.",
+      "example_review_ids": [
+        "0359aefe-41ca-45b5-9139-055960ca15b0",
+        "1f99099b-a5a8-4f36-b68a-6897e7c88f6e",
+        "97574222-a442-4dc2-8ed7-9917af4bd04c",
+        "19977760-c6c8-492b-a157-c416b617aa36"
+      ],
+      "issue_id": "catalog.lyrics",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Lyrics missing or limited",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "missing-content",
+      "complaint_count": 319,
+      "description": "Reviewers say many songs and albums from other platforms or by well-known artists are unavailable on Spotify.",
+      "example_review_ids": [
+        "ef534474-e8ad-4a9b-a7b8-d7feec6c5cd8",
+        "65adfa94-9b94-4078-910f-93056c768a9f",
+        "e114e075-aac9-4487-8123-80abdf52abf2",
+        "6c4972e0-be89-4b67-a44d-8ca2df62a244"
+      ],
+      "issue_id": "catalog.missing-content",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Songs and albums missing from catalog",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "podcasts-and-audiobooks",
+      "complaint_count": 54,
+      "description": "Reviewers report podcasts disappearing or not being available in their region, and missing podcast categories.",
+      "example_review_ids": [
+        "4d4204bc-6eef-48a9-b8fc-4eef3df96354",
+        "1f93ee2d-7894-4c04-8c36-8b9620bd33d4",
+        "6a2cbaa8-bb2d-4325-9e76-bb7124770262",
+        "87727e16-890a-4708-a145-76da3f40e741"
+      ],
+      "issue_id": "catalog.podcasts-and-audiobooks",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Podcasts missing or unavailable in some regions",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "recommendations",
+      "complaint_count": 288,
+      "description": "Reviewers say the recommendation features reappear after being turned off and that the redesigned home screen hides playlists and radios.",
+      "example_review_ids": [
+        "32edab8f-ef06-41d3-961f-94013a034a31",
+        "11e4c838-e3c4-415c-8b67-b2c142869fd2",
+        "242afab9-480d-4699-9046-40c9e47bf269",
+        "fb94d586-44e2-4581-961e-419d5c2c4146"
+      ],
+      "issue_id": "catalog.recommendations",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Home screen recommendations unwanted and persistent",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "search",
+      "complaint_count": 191,
+      "description": "Reviewers say search does not return all of an artist's songs, including features and covers, and that the new home screen makes finding music harder.",
+      "example_review_ids": [
+        "581640a2-5c72-4425-bc14-06fc2839ffe2",
+        "1498ac7f-7781-47de-ada3-5f81384bad89",
+        "7a3abbee-7bbc-442f-b201-8cd845f6c125",
+        "e06d2e4b-9939-4da9-965c-59c9c7c23ead"
+      ],
+      "issue_id": "catalog.search",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Search misses songs and artists",
+      "topic": "catalog"
+    },
+    {
+      "aspect": "downloading",
+      "complaint_count": 563,
+      "description": "Reviewers report downloads disappearing or failing to play offline, and being unable to re-download music after updates.",
+      "example_review_ids": [
+        "c9359580-3795-4cf8-9f63-cb666a982916",
+        "e825690b-d260-4eda-a6b4-0df0ece8ed6b",
+        "99b0fb74-1e16-45fa-b0e6-0b888e7b6553",
+        "64a7805e-65fa-4fd4-ae5b-81fd71546268"
+      ],
+      "issue_id": "downloads.downloading",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Downloaded music removed or cannot be downloaded",
+      "topic": "downloads"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 227,
+      "description": "Reviewers say their downloaded music and library are reset or deleted, and that they cannot move downloads to an SD card.",
+      "example_review_ids": [
+        "5df4748a-c381-45c4-91eb-e127ac51675f",
+        "bc1760cb-11b2-4c23-b96f-9796d472a0f4",
+        "b7a3c9e0-f6b3-41ad-aa80-ac176d11365e",
+        "6529f5d1-5ff9-491d-bc79-6fc455c94fd5"
+      ],
+      "issue_id": "downloads.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Downloads and library reset unexpectedly",
+      "topic": "downloads"
+    },
+    {
+      "aspect": "offline",
+      "complaint_count": 297,
+      "description": "Reviewers say offline mode is slow, with long load screens for downloaded albums and a laggy library.",
+      "example_review_ids": [
+        "b9920990-fe2d-4edf-9b23-66afc8d45270",
+        "c4169015-d8bf-4fce-89fe-21ad2a4a79df",
+        "59c74649-f1a1-4713-a317-ebea4a66f77f",
+        "a2dedebe-7f70-4263-9f26-19be9358a35b"
+      ],
+      "issue_id": "downloads.offline",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Slow loading in offline mode",
+      "topic": "downloads"
+    },
+    {
+      "aspect": "boycott-or-protest",
+      "complaint_count": 272,
+      "description": "Reviewers say songs and podcasts were removed or censored due to political pressure, and they are angry and threatening to leave.",
+      "example_review_ids": [
+        "22bafa5a-c305-4168-9558-95f56be8148f",
+        "e0ef52d9-85fa-401c-bae6-106d78e32566",
+        "24f1a3e5-5057-4f34-99f9-d516edaf1a8b",
+        "edb35ad1-a898-435a-b0fd-e90eb5de20ab"
+      ],
+      "issue_id": "other.boycott-or-protest",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Songs removed for political reasons",
+      "topic": "other"
+    },
+    {
+      "aspect": "bugs",
+      "complaint_count": 264,
+      "description": "Reviewers describe repeated glitches, unaddressed bugs, and the app not working for several days.",
+      "example_review_ids": [
+        "2ab8e1a1-6e85-4b7b-9459-8d73ccf87ef3",
+        "b0e9c9a9-0cc9-4666-bed5-68a19def9e9e",
+        "2402cb26-f6ac-48b8-8808-bf9117d8b081",
+        "9c3b36ee-5b2f-4757-8462-e2fa996e0c2b"
+      ],
+      "issue_id": "other.bugs",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Frequent bugs and app not working",
+      "topic": "other"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 11967,
+      "description": "Reviewers express broad frustration with the app, calling it buggy, unworthy of payment, or simply hateful without naming a specific feature.",
+      "example_review_ids": [
+        "8ead8dfb-78bc-45e8-82d2-953ea2870b87",
+        "30ac8728-8a7a-476e-baca-55a8eae7d588",
+        "b24290fc-281e-4a79-8bb1-652f207e642c",
+        "bebc380e-3f89-42af-822c-7fe8ce93a760"
+      ],
+      "issue_id": "other.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Generally poor app experience and dissatisfaction",
+      "topic": "other"
+    },
+    {
+      "aspect": "update",
+      "complaint_count": 2883,
+      "description": "Reviewers say the latest updates are disappointing, unhelpful, or poorly communicated, with some threatening to stop using or cancel the app.",
+      "example_review_ids": [
+        "df55d186-6cd6-4de3-84bf-e609d44b241d",
+        "7ac4648e-aedb-4197-8187-498c4b0f0ecb",
+        "80dfde1c-6cf9-4391-986e-ae045ca34b0c",
+        "041547eb-87b4-45dd-9dbc-00119b3cb870"
+      ],
+      "issue_id": "other.update",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Disliked recent app updates overall",
+      "topic": "other"
+    },
+    {
+      "aspect": "battery-and-data",
+      "complaint_count": 43,
+      "description": "Reviewers report that Spotify uses a large amount of battery, including in the background and when the app is barely used, such as when it keeps the phone awake for Spotify Connect.",
+      "example_review_ids": [
+        "d6ddf718-b3a8-4b30-9cfc-fa8145d61aaf",
+        "b4df9ea4-3b7a-4142-a053-dff65c83f537",
+        "4ad14ee8-ffa0-4d90-8be4-a2c645dde141",
+        "9cb9283a-fa41-4861-bba0-387308f886ed"
+      ],
+      "issue_id": "playback.battery-and-data",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "App drains phone battery excessively",
+      "topic": "playback"
+    },
+    {
+      "aspect": "connection-errors",
+      "complaint_count": 452,
+      "description": "Reviewers report the app says there is no internet connection or that they are offline even when mobile data or Wi-Fi is working, preventing playback.",
+      "example_review_ids": [
+        "0fde9795-7f88-435e-b891-ef7b41366088",
+        "a2c2eabf-0a85-400f-9d2a-f31c1c276f87",
+        "4e78e2ba-3750-45a1-94f7-633a43074999",
+        "bfbb220c-dd64-43ca-a60d-576525c99cfe"
+      ],
+      "issue_id": "playback.connection-errors",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "False offline message on mobile data",
+      "topic": "playback"
+    },
+    {
+      "aspect": "crashes",
+      "complaint_count": 649,
+      "description": "Reviewers report the app randomly freezing, crashing mid-song, restarting tracks, or failing to load content until it is force-stopped or the phone is rebooted.",
+      "example_review_ids": [
+        "da33ed96-ed49-49eb-b0bf-ea4b4ec2a67c",
+        "30f86216-679d-41f1-a79f-94c146c672bd",
+        "0723c5bc-5783-4d7f-94f8-bef4292eaee7",
+        "53251156-51f9-42ed-8348-d1c3f847d108"
+      ],
+      "issue_id": "playback.crashes",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "App crashes or locks up during playback",
+      "topic": "playback"
+    },
+    {
+      "aspect": "devices",
+      "complaint_count": 483,
+      "description": "Reviewers report problems such as audio desync on a watch, gapless playback not working on speakers or in the car, hidden songs playing on other devices, and unwanted autoplay in the car.",
+      "example_review_ids": [
+        "ee10177b-a6ad-4512-8c1f-330ad835c890",
+        "5f779fba-ad40-4c8e-affa-a24c66ddaca8",
+        "2866067b-37d2-4c45-a6a7-20d86d661ff2",
+        "d4cc2ae0-278a-4ed1-9349-d21fe6fa455b"
+      ],
+      "issue_id": "playback.devices",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Playback fails or desyncs across devices",
+      "topic": "playback"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 1803,
+      "description": "Reviewers report general playback glitches such as songs greyed out and unplayable, the app closing randomly, unexpected song skipping, and tracks resuming or continuing from the queue unexpectedly.",
+      "example_review_ids": [
+        "767652ec-68df-435e-a7de-3d3161cc765b",
+        "3f7d51ba-f7e9-4c59-a21d-b9b1b4c07ccc",
+        "aeccadff-168c-476e-95fb-20c5a905aefd",
+        "2faf591a-5c44-4260-b35a-7f62adad10c8"
+      ],
+      "issue_id": "playback.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Songs stop, skip, or close unexpectedly",
+      "topic": "playback"
+    },
+    {
+      "aspect": "podcasts",
+      "complaint_count": 133,
+      "description": "Reviewers report that podcasts stop unexpectedly, fail to load the latest episode, and do not resume from where they left off.",
+      "example_review_ids": [
+        "86bfe811-79fa-40fb-9bcf-7e8b2e54e3b7",
+        "66691747-76ac-4c71-b0c6-3d5d752bf30b",
+        "616ffab8-79ab-41f6-a47b-3b9cc24ca1b4",
+        "2ea716b0-f612-4e84-acae-036285b9096d"
+      ],
+      "issue_id": "playback.podcasts",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Podcasts stop suddenly and lose place",
+      "topic": "playback"
+    },
+    {
+      "aspect": "sound-quality",
+      "complaint_count": 158,
+      "description": "Reviewers report the volume automatically rising, streaming quality stuck at low, audio quality settings becoming unchangeable, and inconsistent volume levels such as for podcasts.",
+      "example_review_ids": [
+        "e79981ff-72f5-4fa7-9912-c7a8eac6a522",
+        "554571ec-9dcd-4ed9-86db-333c0bb90d81",
+        "41cb0acd-5dee-4396-95e2-007419dcfa34",
+        "1280e44d-bb3e-47db-8d41-ac8865cf4a48"
+      ],
+      "issue_id": "playback.sound-quality",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Volume and audio quality problems",
+      "topic": "playback"
+    },
+    {
+      "aspect": "stops-or-pauses",
+      "complaint_count": 1009,
+      "description": "Reviewers report that songs stop or pause on their own, sometimes after ads or after finishing a track, and sometimes switch to random devices, requiring an app restart to resume.",
+      "example_review_ids": [
+        "5f1ee62a-9fbd-49f5-a67d-e9240c6ec8e5",
+        "1c99a35c-d303-4722-83a3-170cc6569167",
+        "95c0d618-3efb-44a0-850e-d920be8c74e5",
+        "be6e9ce7-c336-4195-ae25-6e14174bc611"
+      ],
+      "issue_id": "playback.stops-or-pauses",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Music pauses or stops unexpectedly",
+      "topic": "playback"
+    },
+    {
+      "aspect": "update",
+      "complaint_count": 306,
+      "description": "Reviewers report the app being slow to load songs, needing multiple restarts after updates, quitting during playback, or failing to launch after a new update.",
+      "example_review_ids": [
+        "e2ab6ff8-0fc6-43ed-9481-cc82474effcc",
+        "15f65ff6-1858-4ac2-92e0-62836677c01f",
+        "3fb2610f-47fd-4674-aa09-672f586a771e",
+        "63c4c020-7527-4e58-9229-d48525523255"
+      ],
+      "issue_id": "playback.update",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Slow loading and failures after updates",
+      "topic": "playback"
+    },
+    {
+      "aspect": "wont-load-or-play",
+      "complaint_count": 947,
+      "description": "Reviewers report that songs will not play, the playback slider does not work, songs cannot be rewound or played fully, and the app starts playing unexpectedly after phone calls.",
+      "example_review_ids": [
+        "29e25459-1745-4ec2-b28d-fd1d1ff4fcf1",
+        "6bf2f22c-663b-420f-a814-3bc089c98b10",
+        "c4208020-0447-462d-8aa4-dfc9dbf2d460",
+        "c4bc18d2-8cc8-4fcf-a931-c3978d195a76"
+      ],
+      "issue_id": "playback.wont-load-or-play",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Songs won't play or controls fail",
+      "topic": "playback"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 97,
+      "description": "Reviewers mention customer support as either helpful or poor, with complaints about unanswered reports and slow responses, alongside concerns about stolen streams and the home screen design.",
+      "example_review_ids": [
+        "36feaa75-429a-4459-bade-270414d0eb5b",
+        "50076b04-fbd1-4a0a-9cad-b5066a243066",
+        "7c73441a-dd62-47f2-ac34-36e4d289dc9f",
+        "4b361fe6-797d-4760-b1eb-9d00b801e6e7"
+      ],
+      "issue_id": "support.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Poor customer service responsiveness and issues",
+      "topic": "support"
+    },
+    {
+      "aspect": "ads",
+      "complaint_count": 5574,
+      "description": "Reviewers say ads play too frequently, sometimes after every song or two, and that the frequency increased after updates, making ads feel more prominent than music.",
+      "example_review_ids": [
+        "2c33acbd-4776-4269-adb9-a3bc59845f9a",
+        "cd8bf064-c32e-400e-906e-a4d900819bbd",
+        "93fd1ace-380d-4530-9f2b-45f37ecd6331",
+        "6a402fbd-8097-4d82-9b43-61c11f078b61"
+      ],
+      "issue_id": "usability.ads",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Too many ads interrupting listening",
+      "topic": "usability"
+    },
+    {
+      "aspect": "general",
+      "complaint_count": 1625,
+      "description": "Reviewers report removed or changed features such as Car Mode, the add button, history removal, and the swipe-to-like gesture, along with unexpected reshuffling and inconsistent search results.",
+      "example_review_ids": [
+        "e66536b0-850e-45a1-b5b4-2ce29c070980",
+        "237bdf87-cb41-4699-84af-9c68b6d42adc",
+        "df637000-f6a4-4555-be92-f8515756722f",
+        "7b92ce80-7a73-4025-bfeb-751be71ef518"
+      ],
+      "issue_id": "usability.general",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Confusing changes to features and controls",
+      "topic": "usability"
+    },
+    {
+      "aspect": "interface",
+      "complaint_count": 702,
+      "description": "Reviewers dislike the redesigned TikTok-style home screen and layout, saying it is hard to browse, see, or find content such as daily mixes, and they ask for the old layout back.",
+      "example_review_ids": [
+        "3ab1d607-042e-49d9-9938-cf0ea59629d3",
+        "66b1a15b-f339-4d16-8abe-431236c78057",
+        "acf8afcf-f6cc-41d9-b74f-acd60531c74b",
+        "d609efa8-68d8-4049-b534-4018c51dbb76"
+      ],
+      "issue_id": "usability.interface",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "New interface layout hard to navigate",
+      "topic": "usability"
+    },
+    {
+      "aspect": "queue-and-playlists",
+      "complaint_count": 1494,
+      "description": "Reviewers report being unable to add songs to playlists or view the queue, and say removing recently played albums and liked songs makes it harder to return to content.",
+      "example_review_ids": [
+        "e64ff095-83f3-4b7b-8ff7-74261ef85fad",
+        "61b3273e-3f06-44d3-aa45-eb6ec7891fd4",
+        "14bc9304-c3c7-4677-8828-99b587996d4a",
+        "4a14f983-d59b-4afe-bba2-b2a1224ec2b8"
+      ],
+      "issue_id": "usability.queue-and-playlists",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Playlist, queue, and recently played access problems",
+      "topic": "usability"
+    },
+    {
+      "aspect": "shuffle-and-skips",
+      "complaint_count": 1963,
+      "description": "Reviewers report that shuffle plays the same few songs from large playlists, the enhanced shuffle control is awkward to toggle, and they cannot skip to parts of songs.",
+      "example_review_ids": [
+        "e85607c3-a8b4-4a61-a548-a58b17b0eae1",
+        "4017aa54-8839-487d-8181-add490ef9de7",
+        "c02a323a-fbe8-4b33-9a65-4379fc0bf5ea",
+        "224879e1-ef85-4c5f-9cc9-bbd50167d80a"
+      ],
+      "issue_id": "usability.shuffle-and-skips",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Shuffle repeats songs and skipping is limited",
+      "topic": "usability"
+    },
+    {
+      "aspect": "update",
+      "complaint_count": 358,
+      "description": "Reviewers complain that recent updates added a TikTok-style screen, moved lyrics, removed the replay option, and introduced new bugs, prompting requests to revert them.",
+      "example_review_ids": [
+        "3a568dbf-a7fd-44a4-9e21-0dcaf3ee9f21",
+        "8574db22-9b26-460c-9d3b-6cd86c2f6a16",
+        "e281f617-d016-487b-83f3-4d9fea69072b",
+        "410fc23d-ee6a-478d-9f32-654185f3adeb"
+      ],
+      "issue_id": "usability.update",
+      "named_by": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "title": "Unwanted changes in recent updates",
+      "topic": "usability"
+    }
+  ],
+  "membership_rule": "issue_id = <topic>.<aspect>; see labels/issues.json",
+  "rules": "issues-v2",
+  "stop_reason": null
+}

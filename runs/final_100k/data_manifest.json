@@ -1,10 +1,10 @@
 {
   "code": {
-    "git_commit": "149cf25764fa01cc6d59e6979f6aea180e70b857",
+    "git_commit": "a6afd221901001a97a65c0f63d7c163b43e96cce",
     "uncommitted_changes": false
   },
-  "created_at_utc": "2026-10-11T22:10:20+00:00",
-  "ingest_seconds": 1.06,
+  "created_at_utc": "2026-10-11T22:24:59+00:00",
+  "ingest_seconds": 1.32,
   "input": {
     "bytes": 14734591,
     "columns": [
@@ -20,7 +20,7 @@
     "sha256": "b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842"
   },
   "outputs": {
-    "ingestion_report.json": "4dacb6a6c02a2cc76ee14c869f9c4abddb44deeebf1d177ccf70e11b1e7cd6cd",
+    "ingestion_report.json": "ad17fd0e68b3b3a68c848da2bf2f242cb4b849de6cbdfdf4eb3a07f9ef01ef73",
     "quarantine.jsonl": "31f416b24b92f1b72b4b1526c864d2a5955b7ba435a01b93ef8512d0e879df24"
   },
   "python": "3.14.7",

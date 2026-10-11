@@ -1,0 +1,14 @@
+{
+  "allow_multi_issue": false,
+  "analysis_count": 100013,
+  "analysis_file": "final_100k.csv",
+  "analysis_sha256": "b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842",
+  "classification_input_fields": [
+    "review_text"
+  ],
+  "full_corpus_rows": 660622,
+  "label_config": "jev-1.13.0+enrich-jev-v2.22642b2a+schema-v1",
+  "run_id": "final_100k",
+  "scope": "The full source file was ingested and profiled (ingestion.json). Classification covers the analysis file: 100,000 reviews chosen by the course's sampling rule plus the 13 empty-text reviews.",
+  "version": "a5-audit-v1"
+}

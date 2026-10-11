@@ -188,6 +188,14 @@ def build_parser():
     p.add_argument("--golden-report", type=Path, default=Path("evals/golden/golden_report.json"))
     p.add_argument("--full-corpus-run", default="full", help="Run ID holding the full source file's ingestion report")
 
+    p = commands.add_parser("export-grading", help="Write the standardized grading/ folder from a finished run. No model calls.")
+    p.add_argument("--run-id", required=True)
+    p.add_argument("--runs-dir", type=Path, default=Path("runs"))
+    p.add_argument("--analysis", required=True, type=Path, help="The CSV this run classified")
+    p.add_argument("--full-corpus-run", default="full", help="Run ID holding the full source file's ingestion report")
+    p.add_argument("--before-checkpoint", type=Path, help="Checkpoint to use as the state before the interruption (default: the first interrupted one)")
+    p.add_argument("--out", type=Path, default=Path("grading"))
+
     p = commands.add_parser("enrich", help="PAID: label pending reviews with Jev. Resumes from saved progress.")
     p.add_argument("--run-id", required=True, help="A run already created by ingest")
     add_run_options(p)
@@ -242,6 +250,10 @@ def main():
               f"Problems: {report['problems'] or 'none'}")
         for row in rows[:10]:
             print(f"  {row['rank']:>2}  {row['issue_id']:<34} count {row['complaint_count']:>7,}  mean {row['mean_severity']}  score {row['priority_score']:>8,}")
+
+    elif args.command == "export-grading":
+        from .grading import export_grading
+        print(json.dumps(export_grading(args.runs_dir / args.run_id, args.analysis, args.runs_dir / args.full_corpus_run, args.out, args.before_checkpoint), indent=1))
 
     elif args.command == "publish":
         from .publish import main_publish

@@ -1,0 +1,986 @@
+{
+  "claims": [
+    {
+      "claim_id": "C001",
+      "issue_id": "other.general",
+      "metric": "complaint_count",
+      "value": "11967"
+    },
+    {
+      "claim_id": "C002",
+      "issue_id": "other.general",
+      "metric": "severity_sum",
+      "value": "24205"
+    },
+    {
+      "claim_id": "C003",
+      "issue_id": "other.general",
+      "metric": "mean_severity",
+      "value": "2.022646"
+    },
+    {
+      "claim_id": "C004",
+      "issue_id": "other.general",
+      "metric": "priority_score",
+      "value": "24205"
+    },
+    {
+      "claim_id": "C005",
+      "issue_id": "usability.ads",
+      "metric": "complaint_count",
+      "value": "5574"
+    },
+    {
+      "claim_id": "C006",
+      "issue_id": "usability.ads",
+      "metric": "severity_sum",
+      "value": "12221"
+    },
+    {
+      "claim_id": "C007",
+      "issue_id": "usability.ads",
+      "metric": "mean_severity",
+      "value": "2.192501"
+    },
+    {
+      "claim_id": "C008",
+      "issue_id": "usability.ads",
+      "metric": "priority_score",
+      "value": "12221"
+    },
+    {
+      "claim_id": "C009",
+      "issue_id": "billing.paywalled-controls",
+      "metric": "complaint_count",
+      "value": "2729"
+    },
+    {
+      "claim_id": "C010",
+      "issue_id": "billing.paywalled-controls",
+      "metric": "severity_sum",
+      "value": "8049"
+    },
+    {
+      "claim_id": "C011",
+      "issue_id": "billing.paywalled-controls",
+      "metric": "mean_severity",
+      "value": "2.949432"
+    },
+    {
+      "claim_id": "C012",
+      "issue_id": "billing.paywalled-controls",
+      "metric": "priority_score",
+      "value": "8049"
+    },
+    {
+      "claim_id": "C013",
+      "issue_id": "billing.plans",
+      "metric": "complaint_count",
+      "value": "2869"
+    },
+    {
+      "claim_id": "C014",
+      "issue_id": "billing.plans",
+      "metric": "severity_sum",
+      "value": "7933"
+    },
+    {
+      "claim_id": "C015",
+      "issue_id": "billing.plans",
+      "metric": "mean_severity",
+      "value": "2.765075"
+    },
+    {
+      "claim_id": "C016",
+      "issue_id": "billing.plans",
+      "metric": "priority_score",
+      "value": "7933"
+    },
+    {
+      "claim_id": "C017",
+      "issue_id": "other.update",
+      "metric": "complaint_count",
+      "value": "2883"
+    },
+    {
+      "claim_id": "C018",
+      "issue_id": "other.update",
+      "metric": "severity_sum",
+      "value": "6170"
+    },
+    {
+      "claim_id": "C019",
+      "issue_id": "other.update",
+      "metric": "mean_severity",
+      "value": "2.140132"
+    },
+    {
+      "claim_id": "C020",
+      "issue_id": "other.update",
+      "metric": "priority_score",
+      "value": "6170"
+    },
+    {
+      "claim_id": "C021",
+      "issue_id": "playback.general",
+      "metric": "complaint_count",
+      "value": "1803"
+    },
+    {
+      "claim_id": "C022",
+      "issue_id": "playback.general",
+      "metric": "severity_sum",
+      "value": "5668"
+    },
+    {
+      "claim_id": "C023",
+      "issue_id": "playback.general",
+      "metric": "mean_severity",
+      "value": "3.143649"
+    },
+    {
+      "claim_id": "C024",
+      "issue_id": "playback.general",
+      "metric": "priority_score",
+      "value": "5668"
+    },
+    {
+      "claim_id": "C025",
+      "issue_id": "usability.shuffle-and-skips",
+      "metric": "complaint_count",
+      "value": "1963"
+    },
+    {
+      "claim_id": "C026",
+      "issue_id": "usability.shuffle-and-skips",
+      "metric": "severity_sum",
+      "value": "5614"
+    },
+    {
+      "claim_id": "C027",
+      "issue_id": "usability.shuffle-and-skips",
+      "metric": "mean_severity",
+      "value": "2.859908"
+    },
+    {
+      "claim_id": "C028",
+      "issue_id": "usability.shuffle-and-skips",
+      "metric": "priority_score",
+      "value": "5614"
+    },
+    {
+      "claim_id": "C029",
+      "issue_id": "access.login",
+      "metric": "complaint_count",
+      "value": "1089"
+    },
+    {
+      "claim_id": "C030",
+      "issue_id": "access.login",
+      "metric": "severity_sum",
+      "value": "4349"
+    },
+    {
+      "claim_id": "C031",
+      "issue_id": "access.login",
+      "metric": "mean_severity",
+      "value": "3.993572"
+    },
+    {
+      "claim_id": "C032",
+      "issue_id": "access.login",
+      "metric": "priority_score",
+      "value": "4349"
+    },
+    {
+      "claim_id": "C033",
+      "issue_id": "usability.queue-and-playlists",
+      "metric": "complaint_count",
+      "value": "1494"
+    },
+    {
+      "claim_id": "C034",
+      "issue_id": "usability.queue-and-playlists",
+      "metric": "severity_sum",
+      "value": "4224"
+    },
+    {
+      "claim_id": "C035",
+      "issue_id": "usability.queue-and-playlists",
+      "metric": "mean_severity",
+      "value": "2.827309"
+    },
+    {
+      "claim_id": "C036",
+      "issue_id": "usability.queue-and-playlists",
+      "metric": "priority_score",
+      "value": "4224"
+    },
+    {
+      "claim_id": "C037",
+      "issue_id": "usability.general",
+      "metric": "complaint_count",
+      "value": "1625"
+    },
+    {
+      "claim_id": "C038",
+      "issue_id": "usability.general",
+      "metric": "severity_sum",
+      "value": "4204"
+    },
+    {
+      "claim_id": "C039",
+      "issue_id": "usability.general",
+      "metric": "mean_severity",
+      "value": "2.587077"
+    },
+    {
+      "claim_id": "C040",
+      "issue_id": "usability.general",
+      "metric": "priority_score",
+      "value": "4204"
+    }
+  ],
+  "facts": {
+    "access.complaint_count": "1,521",
+    "access.mean_severity": "3.95",
+    "access.severity_sum": "6,009",
+    "access.share_of_complaints": "3.3%",
+    "billing_support.complaint_count": "8,193",
+    "billing_support.mean_severity": "2.80",
+    "billing_support.severity_sum": "22,922",
+    "billing_support.share_of_complaints": "17.8%",
+    "classified_reviews": "100,000",
+    "classified_share": "100.0%",
+    "complaint_reviews": "46,141",
+    "first_review_date": "2022-05-17",
+    "full_corpus_reviews": "660,622",
+    "issues_ranked": "39",
+    "last_review_date": "2023-11-15",
+    "playback.complaint_count": "5,983",
+    "playback.mean_severity": "3.30",
+    "playback.severity_sum": "19,768",
+    "playback.share_of_complaints": "13.0%",
+    "quarantined_reviews": "13",
+    "share_of_corpus_analyzed": "15.1%",
+    "source_reviews": "100,013",
+    "unclassified_pending_reviews": "0",
+    "usability.complaint_count": "11,716",
+    "usability.mean_severity": "2.46",
+    "usability.severity_sum": "28,871",
+    "usability.share_of_complaints": "25.4%",
+    "verification_intent_agreement": "92.2%",
+    "verification_sample_texts": "2,000",
+    "verification_severity_agreement": "84.9%",
+    "verification_topic_agreement": "88.6%"
+  },
+  "memo_config": "claude-opus-5-5@effort-high+memo-claude-v3.c7fa4db7+schema-v1",
+  "model_input": {
+    "evidence": [
+      {
+        "cite_as": "{{R:8ead8dfb-78bc-45e8-82d2-953ea2870b87}}",
+        "issue_id": "other.general",
+        "quote": "You only brought the new features to ios first? That's just stupid. A company that does that doesn't deserve any money from Android users.",
+        "review_id": "8ead8dfb-78bc-45e8-82d2-953ea2870b87",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:30ac8728-8a7a-476e-baca-55a8eae7d588}}",
+        "issue_id": "other.general",
+        "quote": "I hate this app 😠😠",
+        "review_id": "30ac8728-8a7a-476e-baca-55a8eae7d588",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:a8f78caf-4da5-4961-96f3-d4d72719c10b}}",
+        "issue_id": "other.general",
+        "quote": "It sucks.",
+        "review_id": "a8f78caf-4da5-4961-96f3-d4d72719c10b",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:5970e78f-dfb4-4f92-a029-d8b46365f3e8}}",
+        "issue_id": "usability.ads",
+        "quote": "It's also annoying that I can't play a specific song, as it gives me the song radio on shuffle.",
+        "review_id": "5970e78f-dfb4-4f92-a029-d8b46365f3e8",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:d6865cc0-5fe1-4d2e-b6e0-5bebbe5b5b23}}",
+        "issue_id": "usability.ads",
+        "quote": "Ads are a bit troublesome but other than that it's the best.",
+        "review_id": "d6865cc0-5fe1-4d2e-b6e0-5bebbe5b5b23",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:d75427ea-9b48-4903-894e-cd2d7b605cc9}}",
+        "issue_id": "usability.ads",
+        "quote": "The developers are forcing us to buy premium by showing so many adds, it's not like I cannot afford the premium but the thing is, If they will force us buy in such a way, I will never buy premium.",
+        "review_id": "d75427ea-9b48-4903-894e-cd2d7b605cc9",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:257eb4dc-0261-444b-8af0-6316558c08ca}}",
+        "issue_id": "billing.paywalled-controls",
+        "quote": "Only 6 skips per hour, you can't adjust the place on the song, no going back to a song you just listened to, and you can't chose to repeat the song or if you want to listen on shuffle or in order.",
+        "review_id": "257eb4dc-0261-444b-8af0-6316558c08ca",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:141b6008-b3ea-4751-8002-66e341e4f3cb}}",
+        "issue_id": "billing.paywalled-controls",
+        "quote": "You can't rewind, play the song on loop or even choose songs of your own choice after a specific number of plays without getting a premium subscription.",
+        "review_id": "141b6008-b3ea-4751-8002-66e341e4f3cb",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:12cbe680-4179-4817-8527-77495e549bc8}}",
+        "issue_id": "billing.paywalled-controls",
+        "quote": "Ok wow... Grt app. So I need premium to play the songs I like, will only get 6 skips per hour and I can't backtrack songs or play the part I like again and again...",
+        "review_id": "12cbe680-4179-4817-8527-77495e549bc8",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:97c167e9-ecc6-4459-8ca0-527160fbccdf}}",
+        "issue_id": "billing.plans",
+        "quote": "For example, now we need premium just to listen to music in our playlist in their normal order and also we can't adjust which part of the song we want to listen.",
+        "review_id": "97c167e9-ecc6-4459-8ca0-527160fbccdf",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:075d3a28-8a98-4fa6-a6a3-75f388f0adec}}",
+        "issue_id": "billing.plans",
+        "quote": "But why do u guys need to convince me to buy premium everytime?",
+        "review_id": "075d3a28-8a98-4fa6-a6a3-75f388f0adec",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:35fb2e83-ce6e-48c2-9eb1-ae74b7deba9f}}",
+        "issue_id": "billing.plans",
+        "quote": "The \"and more\" button on artist albums have been locked away behind a premium paywall, but how do you create a playlist if you can't see the songs in an album? really stupid change",
+        "review_id": "35fb2e83-ce6e-48c2-9eb1-ae74b7deba9f",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:df55d186-6cd6-4de3-84bf-e609d44b241d}}",
+        "issue_id": "other.update",
+        "quote": "Really disappointed from the new update, really hope it gets better",
+        "review_id": "df55d186-6cd6-4de3-84bf-e609d44b241d",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:7ac4648e-aedb-4197-8187-498c4b0f0ecb}}",
+        "issue_id": "other.update",
+        "quote": "I'm going to delete this app updates are worst",
+        "review_id": "7ac4648e-aedb-4197-8187-498c4b0f0ecb",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:ca76bd64-1b4d-4363-8549-7ea99efc8ff2}}",
+        "issue_id": "other.update",
+        "quote": "Spotify just got completely ruined after the new update. It's just worst",
+        "review_id": "ca76bd64-1b4d-4363-8549-7ea99efc8ff2",
+        "severity": 2
+      },
+      {
+        "cite_as": "{{R:730125b9-f395-48ca-83da-2da9636a7ba6}}",
+        "issue_id": "playback.general",
+        "quote": "Music stops and plays halfway through songs randomly.",
+        "review_id": "730125b9-f395-48ca-83da-2da9636a7ba6",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:5f501da2-4732-4daa-8712-367e48cbeb5c}}",
+        "issue_id": "playback.general",
+        "quote": "It plays a completely different song and then plays 8 adverts in a row.",
+        "review_id": "5f501da2-4732-4daa-8712-367e48cbeb5c",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:aeccadff-168c-476e-95fb-20c5a905aefd}}",
+        "issue_id": "playback.general",
+        "quote": "Sometimes song resumes alone... and when you change the music, one of the older song stays in queue and is played, and after that no music (problematic when you cook or take a shower)",
+        "review_id": "aeccadff-168c-476e-95fb-20c5a905aefd",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:e0f1180c-a108-4da9-be86-e81b55d5bff4}}",
+        "issue_id": "usability.shuffle-and-skips",
+        "quote": "It's so annoying. When it turns on, it takes forever to load, it messes up the normal arrangement of songs after turning it off; IF it turns off.",
+        "review_id": "e0f1180c-a108-4da9-be86-e81b55d5bff4",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:8964aaea-f4c7-4b01-94e0-a76b992018fd}}",
+        "issue_id": "usability.shuffle-and-skips",
+        "quote": "I mean the forward and back buttons Don't work any more.",
+        "review_id": "8964aaea-f4c7-4b01-94e0-a76b992018fd",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:ee8c1306-8c77-4ff3-a427-52764a6d6fcf}}",
+        "issue_id": "usability.shuffle-and-skips",
+        "quote": "I can't see the songs in a specific album or playlist and the only option I see is Shuffle.",
+        "review_id": "ee8c1306-8c77-4ff3-a427-52764a6d6fcf",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:6d3a0837-1a26-499c-989e-256c20f03f7b}}",
+        "issue_id": "access.login",
+        "quote": "I tried uninstalling and reinstalling again, now it won't even let me log in.",
+        "review_id": "6d3a0837-1a26-499c-989e-256c20f03f7b",
+        "severity": 4
+      },
+      {
+        "cite_as": "{{R:51742e41-639c-42b7-9b36-cca77585c5ce}}",
+        "issue_id": "access.login",
+        "quote": "Single sign on not working if login with google account.",
+        "review_id": "51742e41-639c-42b7-9b36-cca77585c5ce",
+        "severity": 4
+      },
+      {
+        "cite_as": "{{R:99d3516c-be59-4e3b-ac0d-536066c66cdb}}",
+        "issue_id": "access.login",
+        "quote": "The webplayer seems to work just fine but whenever I try to open the app and log in, it shows 'something went wrong'.",
+        "review_id": "99d3516c-be59-4e3b-ac0d-536066c66cdb",
+        "severity": 4
+      },
+      {
+        "cite_as": "{{R:35fdf3eb-d09b-4ea8-ab7e-e8cebdb55afc}}",
+        "issue_id": "usability.queue-and-playlists",
+        "quote": "Had to change my review! The recent update took away the option to add albums to the home screen on my phone!",
+        "review_id": "35fdf3eb-d09b-4ea8-ab7e-e8cebdb55afc",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:0d02176f-a550-46f8-b58c-4872f6e33a8b}}",
+        "issue_id": "usability.queue-and-playlists",
+        "quote": "The new update makes it impossible to move to specific parts of a song as there is no song slider.",
+        "review_id": "0d02176f-a550-46f8-b58c-4872f6e33a8b",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:a630c16e-bb80-4218-b9db-ec1ca756cb62}}",
+        "issue_id": "usability.queue-and-playlists",
+        "quote": "1- I have had to have my about reset several times because it fails to let me share a okay list.",
+        "review_id": "a630c16e-bb80-4218-b9db-ec1ca756cb62",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:237bdf87-cb41-4699-84af-9c68b6d42adc}}",
+        "issue_id": "usability.general",
+        "quote": "A questo aggiungerei l'impossibilità ancora di rimuovere brani dalla cronologia degli ascolti. Così non va.",
+        "review_id": "237bdf87-cb41-4699-84af-9c68b6d42adc",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:df637000-f6a4-4555-be92-f8515756722f}}",
+        "issue_id": "usability.general",
+        "quote": "I've searched a song almost 20 times and every time it plays different song...",
+        "review_id": "df637000-f6a4-4555-be92-f8515756722f",
+        "severity": 3
+      },
+      {
+        "cite_as": "{{R:6c61b52f-6fb7-4274-a477-a9cd4f376b85}}",
+        "issue_id": "usability.general",
+        "quote": "The in app pop-ups upon opening the app are highly annoying and there seems to be no way to turn them off.",
+        "review_id": "6c61b52f-6fb7-4274-a477-a9cd4f376b85",
+        "severity": 2
+      }
+    ],
+    "fact_meanings": "Facts are named for what they hold; counts are reviews.",
+    "facts": {
+      "access.complaint_count": {
+        "cite_as": "{{F:access.complaint_count}}",
+        "value": "1,521"
+      },
+      "access.mean_severity": {
+        "cite_as": "{{F:access.mean_severity}}",
+        "value": "3.95"
+      },
+      "access.severity_sum": {
+        "cite_as": "{{F:access.severity_sum}}",
+        "value": "6,009"
+      },
+      "access.share_of_complaints": {
+        "cite_as": "{{F:access.share_of_complaints}}",
+        "value": "3.3%"
+      },
+      "billing_support.complaint_count": {
+        "cite_as": "{{F:billing_support.complaint_count}}",
+        "value": "8,193"
+      },
+      "billing_support.mean_severity": {
+        "cite_as": "{{F:billing_support.mean_severity}}",
+        "value": "2.80"
+      },
+      "billing_support.severity_sum": {
+        "cite_as": "{{F:billing_support.severity_sum}}",
+        "value": "22,922"
+      },
+      "billing_support.share_of_complaints": {
+        "cite_as": "{{F:billing_support.share_of_complaints}}",
+        "value": "17.8%"
+      },
+      "classified_reviews": {
+        "cite_as": "{{F:classified_reviews}}",
+        "value": "100,000"
+      },
+      "classified_share": {
+        "cite_as": "{{F:classified_share}}",
+        "value": "100.0%"
+      },
+      "complaint_reviews": {
+        "cite_as": "{{F:complaint_reviews}}",
+        "value": "46,141"
+      },
+      "first_review_date": {
+        "cite_as": "{{F:first_review_date}}",
+        "value": "2022-05-17"
+      },
+      "full_corpus_reviews": {
+        "cite_as": "{{F:full_corpus_reviews}}",
+        "value": "660,622"
+      },
+      "issues_ranked": {
+        "cite_as": "{{F:issues_ranked}}",
+        "value": "39"
+      },
+      "last_review_date": {
+        "cite_as": "{{F:last_review_date}}",
+        "value": "2023-11-15"
+      },
+      "playback.complaint_count": {
+        "cite_as": "{{F:playback.complaint_count}}",
+        "value": "5,983"
+      },
+      "playback.mean_severity": {
+        "cite_as": "{{F:playback.mean_severity}}",
+        "value": "3.30"
+      },
+      "playback.severity_sum": {
+        "cite_as": "{{F:playback.severity_sum}}",
+        "value": "19,768"
+      },
+      "playback.share_of_complaints": {
+        "cite_as": "{{F:playback.share_of_complaints}}",
+        "value": "13.0%"
+      },
+      "quarantined_reviews": {
+        "cite_as": "{{F:quarantined_reviews}}",
+        "value": "13"
+      },
+      "share_of_corpus_analyzed": {
+        "cite_as": "{{F:share_of_corpus_analyzed}}",
+        "value": "15.1%"
+      },
+      "source_reviews": {
+        "cite_as": "{{F:source_reviews}}",
+        "value": "100,013"
+      },
+      "unclassified_pending_reviews": {
+        "cite_as": "{{F:unclassified_pending_reviews}}",
+        "value": "0"
+      },
+      "usability.complaint_count": {
+        "cite_as": "{{F:usability.complaint_count}}",
+        "value": "11,716"
+      },
+      "usability.mean_severity": {
+        "cite_as": "{{F:usability.mean_severity}}",
+        "value": "2.46"
+      },
+      "usability.severity_sum": {
+        "cite_as": "{{F:usability.severity_sum}}",
+        "value": "28,871"
+      },
+      "usability.share_of_complaints": {
+        "cite_as": "{{F:usability.share_of_complaints}}",
+        "value": "25.4%"
+      },
+      "verification_intent_agreement": {
+        "cite_as": "{{F:verification_intent_agreement}}",
+        "value": "92.2%"
+      },
+      "verification_sample_texts": {
+        "cite_as": "{{F:verification_sample_texts}}",
+        "value": "2,000"
+      },
+      "verification_severity_agreement": {
+        "cite_as": "{{F:verification_severity_agreement}}",
+        "value": "84.9%"
+      },
+      "verification_topic_agreement": {
+        "cite_as": "{{F:verification_topic_agreement}}",
+        "value": "88.6%"
+      }
+    },
+    "priority_areas": [
+      {
+        "issues": [
+          "access.login",
+          "access.general",
+          "access.account"
+        ],
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{F:access.complaint_count}}",
+            "value": "1,521"
+          },
+          "mean_severity": {
+            "cite_as": "{{F:access.mean_severity}}",
+            "value": "3.95"
+          },
+          "severity_sum": {
+            "cite_as": "{{F:access.severity_sum}}",
+            "value": "6,009"
+          },
+          "share_of_complaints": {
+            "cite_as": "{{F:access.share_of_complaints}}",
+            "value": "3.3%"
+          }
+        },
+        "priority": "access",
+        "topics": [
+          "access"
+        ]
+      },
+      {
+        "issues": [
+          "usability.ads",
+          "usability.shuffle-and-skips",
+          "usability.queue-and-playlists",
+          "usability.general",
+          "usability.interface"
+        ],
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{F:usability.complaint_count}}",
+            "value": "11,716"
+          },
+          "mean_severity": {
+            "cite_as": "{{F:usability.mean_severity}}",
+            "value": "2.46"
+          },
+          "severity_sum": {
+            "cite_as": "{{F:usability.severity_sum}}",
+            "value": "28,871"
+          },
+          "share_of_complaints": {
+            "cite_as": "{{F:usability.share_of_complaints}}",
+            "value": "25.4%"
+          }
+        },
+        "priority": "usability",
+        "topics": [
+          "usability"
+        ]
+      },
+      {
+        "issues": [
+          "playback.general",
+          "playback.wont-load-or-play",
+          "playback.stops-or-pauses",
+          "playback.crashes",
+          "playback.connection-errors"
+        ],
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{F:playback.complaint_count}}",
+            "value": "5,983"
+          },
+          "mean_severity": {
+            "cite_as": "{{F:playback.mean_severity}}",
+            "value": "3.30"
+          },
+          "severity_sum": {
+            "cite_as": "{{F:playback.severity_sum}}",
+            "value": "19,768"
+          },
+          "share_of_complaints": {
+            "cite_as": "{{F:playback.share_of_complaints}}",
+            "value": "13.0%"
+          }
+        },
+        "priority": "playback",
+        "topics": [
+          "playback"
+        ]
+      },
+      {
+        "issues": [
+          "billing.paywalled-controls",
+          "billing.plans",
+          "billing.general",
+          "billing.ads-for-free-users",
+          "billing.charges-and-refunds"
+        ],
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{F:billing_support.complaint_count}}",
+            "value": "8,193"
+          },
+          "mean_severity": {
+            "cite_as": "{{F:billing_support.mean_severity}}",
+            "value": "2.80"
+          },
+          "severity_sum": {
+            "cite_as": "{{F:billing_support.severity_sum}}",
+            "value": "22,922"
+          },
+          "share_of_complaints": {
+            "cite_as": "{{F:billing_support.share_of_complaints}}",
+            "value": "17.8%"
+          }
+        },
+        "priority": "billing_support",
+        "topics": [
+          "billing",
+          "support"
+        ]
+      }
+    ],
+    "ranking": [
+      {
+        "description": "Reviewers express broad frustration with the app, calling it buggy, unworthy of payment, or simply hateful without naming a specific feature.",
+        "issue_id": "other.general",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C001}}",
+            "value": "11967"
+          },
+          "mean_severity": {
+            "cite_as": "{{C003}}",
+            "value": "2.022646"
+          },
+          "priority_score": {
+            "cite_as": "{{C004}}",
+            "value": "24205"
+          },
+          "severity_sum": {
+            "cite_as": "{{C002}}",
+            "value": "24205"
+          }
+        },
+        "rank": "1",
+        "title": "Generally poor app experience and dissatisfaction"
+      },
+      {
+        "description": "Reviewers say ads play too frequently, sometimes after every song or two, and that the frequency increased after updates, making ads feel more prominent than music.",
+        "issue_id": "usability.ads",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C005}}",
+            "value": "5574"
+          },
+          "mean_severity": {
+            "cite_as": "{{C007}}",
+            "value": "2.192501"
+          },
+          "priority_score": {
+            "cite_as": "{{C008}}",
+            "value": "12221"
+          },
+          "severity_sum": {
+            "cite_as": "{{C006}}",
+            "value": "12221"
+          }
+        },
+        "rank": "2",
+        "title": "Too many ads interrupting listening"
+      },
+      {
+        "description": "Reviewers say skips, repeats, queueing, lyrics and shuffle now require premium, which they find frustrating.",
+        "issue_id": "billing.paywalled-controls",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C009}}",
+            "value": "2729"
+          },
+          "mean_severity": {
+            "cite_as": "{{C011}}",
+            "value": "2.949432"
+          },
+          "priority_score": {
+            "cite_as": "{{C012}}",
+            "value": "8049"
+          },
+          "severity_sum": {
+            "cite_as": "{{C010}}",
+            "value": "8049"
+          }
+        },
+        "rank": "3",
+        "title": "Basic playback controls locked behind premium"
+      },
+      {
+        "description": "Reviewers say podcasts, album track lists and other features became premium-only or unskippable, making the free experience unusable.",
+        "issue_id": "billing.plans",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C013}}",
+            "value": "2869"
+          },
+          "mean_severity": {
+            "cite_as": "{{C015}}",
+            "value": "2.765075"
+          },
+          "priority_score": {
+            "cite_as": "{{C016}}",
+            "value": "7933"
+          },
+          "severity_sum": {
+            "cite_as": "{{C014}}",
+            "value": "7933"
+          }
+        },
+        "rank": "4",
+        "title": "Features moved behind premium paywall"
+      },
+      {
+        "description": "Reviewers say the latest updates are disappointing, unhelpful, or poorly communicated, with some threatening to stop using or cancel the app.",
+        "issue_id": "other.update",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C017}}",
+            "value": "2883"
+          },
+          "mean_severity": {
+            "cite_as": "{{C019}}",
+            "value": "2.140132"
+          },
+          "priority_score": {
+            "cite_as": "{{C020}}",
+            "value": "6170"
+          },
+          "severity_sum": {
+            "cite_as": "{{C018}}",
+            "value": "6170"
+          }
+        },
+        "rank": "5",
+        "title": "Disliked recent app updates overall"
+      },
+      {
+        "description": "Reviewers report general playback glitches such as songs greyed out and unplayable, the app closing randomly, unexpected song skipping, and tracks resuming or continuing from the queue unexpectedly.",
+        "issue_id": "playback.general",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C021}}",
+            "value": "1803"
+          },
+          "mean_severity": {
+            "cite_as": "{{C023}}",
+            "value": "3.143649"
+          },
+          "priority_score": {
+            "cite_as": "{{C024}}",
+            "value": "5668"
+          },
+          "severity_sum": {
+            "cite_as": "{{C022}}",
+            "value": "5668"
+          }
+        },
+        "rank": "6",
+        "title": "Songs stop, skip, or close unexpectedly"
+      },
+      {
+        "description": "Reviewers report that shuffle plays the same few songs from large playlists, the enhanced shuffle control is awkward to toggle, and they cannot skip to parts of songs.",
+        "issue_id": "usability.shuffle-and-skips",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C025}}",
+            "value": "1963"
+          },
+          "mean_severity": {
+            "cite_as": "{{C027}}",
+            "value": "2.859908"
+          },
+          "priority_score": {
+            "cite_as": "{{C028}}",
+            "value": "5614"
+          },
+          "severity_sum": {
+            "cite_as": "{{C026}}",
+            "value": "5614"
+          }
+        },
+        "rank": "7",
+        "title": "Shuffle repeats songs and skipping is limited"
+      },
+      {
+        "description": "Reviewers report being unable to log in, including through Facebook, even after resetting passwords or reinstalling the app.",
+        "issue_id": "access.login",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C029}}",
+            "value": "1089"
+          },
+          "mean_severity": {
+            "cite_as": "{{C031}}",
+            "value": "3.993572"
+          },
+          "priority_score": {
+            "cite_as": "{{C032}}",
+            "value": "4349"
+          },
+          "severity_sum": {
+            "cite_as": "{{C030}}",
+            "value": "4349"
+          }
+        },
+        "rank": "8",
+        "title": "Cannot log in despite password resets"
+      },
+      {
+        "description": "Reviewers report being unable to add songs to playlists or view the queue, and say removing recently played albums and liked songs makes it harder to return to content.",
+        "issue_id": "usability.queue-and-playlists",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C033}}",
+            "value": "1494"
+          },
+          "mean_severity": {
+            "cite_as": "{{C035}}",
+            "value": "2.827309"
+          },
+          "priority_score": {
+            "cite_as": "{{C036}}",
+            "value": "4224"
+          },
+          "severity_sum": {
+            "cite_as": "{{C034}}",
+            "value": "4224"
+          }
+        },
+        "rank": "9",
+        "title": "Playlist, queue, and recently played access problems"
+      },
+      {
+        "description": "Reviewers report removed or changed features such as Car Mode, the add button, history removal, and the swipe-to-like gesture, along with unexpected reshuffling and inconsistent search results.",
+        "issue_id": "usability.general",
+        "numbers": {
+          "complaint_count": {
+            "cite_as": "{{C037}}",
+            "value": "1625"
+          },
+          "mean_severity": {
+            "cite_as": "{{C039}}",
+            "value": "2.587077"
+          },
+          "priority_score": {
+            "cite_as": "{{C040}}",
+            "value": "4204"
+          },
+          "severity_sum": {
+            "cite_as": "{{C038}}",
+            "value": "4204"
+          }
+        },
+        "rank": "10",
+        "title": "Confusing changes to features and controls"
+      }
+    ]
+  }
+}
