@@ -216,9 +216,10 @@ class Enricher:
                     (o.text_sha256, o.review_id, r["label_config"], r["topic"], r["intent"], r["sentiment"], r["severity"],
                      json.dumps(r["entities"], ensure_ascii=False), r["evidence_quote"], int(r["needs_review"]),
                      json.dumps(r["review_reasons"]), json.dumps(r["raw"], sort_keys=True), r["request_id"], utc_now()))
-                db.execute("UPDATE reviews SET status = 'completed' WHERE text_sha256 = ? AND status = 'pending'", (o.text_sha256,))
+                # Look rows up by their text hash. Left to itself the planner uses the status index and scans every pending row.
+                db.execute("UPDATE reviews INDEXED BY reviews_text SET status = 'completed' WHERE text_sha256 = ? AND status = 'pending'", (o.text_sha256,))
             elif o.kind == "quarantined":
-                db.execute("UPDATE reviews SET status = 'quarantined', reason = ?, attempts = attempts + ? "
+                db.execute("UPDATE reviews INDEXED BY reviews_text SET status = 'quarantined', reason = ?, attempts = attempts + ? "
                            "WHERE text_sha256 = ? AND status = 'pending'", (o.reason, len(o.calls), o.text_sha256))
             elif o.calls:
                 db.execute("UPDATE reviews SET attempts = attempts + ? WHERE text_sha256 = ?", (len(o.calls), o.text_sha256))
