@@ -65,13 +65,14 @@ class Outcome:
 class Enricher:
     def __init__(self, run_dir, *, prompt_path, lexicon_path, rates_path, model, api_key, max_spend_usd,
                  workers=1, max_rps=10.0, max_seconds=None, save_every=50, timeout=30.0, max_attempts=5,
-                 transport=None, sleep=time.sleep, ledger=None):
+                 transport=None, sleep=time.sleep, ledger=None, progress=0):
         self.run_dir = Path(run_dir)
         self.prompt = json.loads(Path(prompt_path).read_text(encoding="utf-8"))
         self.lexicon = load_lexicon(lexicon_path)
         self.rates = load_rates(rates_path)
         self.model, self.workers, self.save_every = model, workers, save_every
         self.max_seconds, self.max_attempts, self.sleep = max_seconds, max_attempts, sleep
+        self.progress = progress  # print a progress line every this many saved batches (0 = quiet)
         # Any edit to the questions or the lexicon changes the label configuration, so stale results are never reused.
         digest = hashlib.sha256(Path(prompt_path).read_bytes() + Path(lexicon_path).read_bytes()).hexdigest()[:8]
         self.label_config = f"{model}+{self.prompt['version']}.{digest}+{SCHEMA_VERSION}"
@@ -243,6 +244,9 @@ class Enricher:
         append_jsonl(log, {"event": "enrich_start", "at": utc_now(), "session": session, "phase": phase, "pending_texts": len(pending),
                            "label_config": self.label_config, "workers": self.workers, "spend_cap_usd": self.ledger.cap})
 
+        already = db.execute("SELECT COUNT(*) FROM enrichments").fetchone()[0]
+        if pending and self.progress:
+            print(f"[enrich] session {session} ({phase}): {len(pending):,} texts to label, {already:,} already completed and not sent again", flush=True)
         counts = {"completed": 0, "quarantined": 0, "transient": 0, "skipped": 0, "fatal": 0}
         transient_streak, fatal_detail = 0, None
         with ThreadPoolExecutor(max_workers=self.workers) as pool:
@@ -268,12 +272,18 @@ class Enricher:
                     self.stop("api_unavailable")
                 append_jsonl(log, {"event": "batch_saved", "at": utc_now(), "session": session, **counts,
                                    "spent_usd": round(self.ledger.spent, 6)})
+                batch_number = start // self.save_every + 1
+                if self.progress and (batch_number % self.progress == 0 or start + self.save_every >= len(pending)):
+                    elapsed = time.monotonic() - self.started
+                    print(f"[enrich] saved {already + counts['completed']:,} of {already + len(pending):,} texts · "
+                          f"{counts['completed'] / elapsed:.0f} texts/s · ${self.ledger.spent:.4f} spent", flush=True)
 
         wall = time.monotonic() - self.started
         totals = db.execute(
             "SELECT COUNT(*), COALESCE(SUM(outcome = 'succeeded'), 0), COALESCE(SUM(input_tokens), 0), COALESCE(SUM(output_tokens), 0), "
             "COALESCE(SUM(cost_usd), 0), COALESCE(SUM(usage_unknown), 0) FROM calls WHERE role = ? AND session = ?", (ROLE, session)).fetchone()
         statuses = dict(db.execute("SELECT status, COUNT(*) FROM reviews GROUP BY status"))
+        still_pending = db.execute("SELECT COUNT(DISTINCT text_sha256) FROM reviews WHERE status = 'pending'").fetchone()[0]
         completed_ids = [row[0] for row in db.execute("SELECT review_id FROM reviews WHERE status = 'completed' ORDER BY row_num")]
         quarantined = [{"review_id": a, "source_sha256": b, "status": "quarantined", "reason": c, "attempts": d} for a, b, c, d in
                        db.execute("SELECT review_id, source_sha256, reason, attempts FROM reviews WHERE status = 'quarantined' ORDER BY row_num")]
@@ -282,7 +292,7 @@ class Enricher:
 
         summary = {
             "session": session, "phase": phase, "label_config": self.label_config, "stop_reason": self.stop_reason or "queue_empty",
-            "fatal_detail": fatal_detail, "texts_pending_at_start": len(pending), "texts": counts,
+            "fatal_detail": fatal_detail, "texts_pending_at_start": len(pending), "texts_pending_at_end": still_pending, "texts": counts,
             "calls": {"attempts": totals[0], "succeeded": totals[1], "failed": totals[0] - totals[1], "input_tokens": totals[2],
                       "output_tokens": totals[3], "cost_usd": round(totals[4], 6), "usage_unknown": totals[5]},
             "wall_seconds": round(wall, 2), "texts_per_second": round(counts["completed"] / wall, 2) if wall else None,

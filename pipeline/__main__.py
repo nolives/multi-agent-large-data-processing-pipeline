@@ -41,7 +41,7 @@ def effort_for(model, effort):
 def print_enrich(run_id, summary):
     t, c = summary["texts"], summary["calls"]
     print(f"[enrich] session {summary['session']} ({summary['phase']}), stopped because {summary['stop_reason']}")
-    print(f"  texts completed {t['completed']:,} · quarantined {t['quarantined']:,} · left pending {t['transient'] + t['skipped'] + t['fatal']:,}")
+    print(f"  texts completed {t['completed']:,} · quarantined {t['quarantined']:,} · left pending {summary['texts_pending_at_end']:,}")
     print(f"  calls {c['attempts']:,} ({c['failed']:,} failed) · input tokens {c['input_tokens']:,} · cost ${c['cost_usd']:.6f}")
     print(f"  wall time {summary['wall_seconds']}s · {summary['texts_per_second']} texts/s with {summary['workers']} worker(s)")
     print(f"  review statuses {summary['review_status_counts']}")
@@ -57,7 +57,7 @@ def enricher(args, run_dir, ledger=None):
         raise SystemExit("TYPESAFE_API_KEY is not set. Copy .env.example to .env and add your key.")
     return Enricher(run_dir, prompt_path=args.enrich_prompt, lexicon_path=args.lexicon, rates_path=args.rates, model=args.enrich_model,
                     api_key=key, max_spend_usd=args.max_spend_usd, workers=args.workers, max_rps=args.max_rps,
-                    max_seconds=args.max_seconds, save_every=args.save_every, ledger=ledger)
+                    max_seconds=args.max_seconds, save_every=args.save_every, ledger=ledger, progress=5)
 
 
 def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
@@ -97,6 +97,12 @@ def run_pipeline(args, *, enrich_factory=enricher, claude_factory=None):
         print_enrich(run_id, summary)
         if summary["stop_reason"].startswith("fatal"):
             raise SystemExit("Enrichment stopped on a configuration error; later stages were not run.")
+        if summary["stop_reason"] != "queue_empty" and last > 1:
+            # Interrupted, or stopped by a spend or time cap: progress is saved. Later stages wait for a complete
+            # enrichment, so no verification or memo call is paid for on partial results.
+            print(f"[stopped] Enrichment stopped early ({summary['stop_reason']}) with work still pending. Saved progress is in {run_dir}/. "
+                  "Run the same command again to resume; completed reviews are not sent again.")
+            raise SystemExit(130 if summary["stop_reason"] == "interrupted" else 2)
 
     db = open_db(run_dir)
     if last >= 2:

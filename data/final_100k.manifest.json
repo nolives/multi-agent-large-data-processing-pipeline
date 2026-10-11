@@ -1,0 +1,13 @@
+{
+  "output": "data/final_100k.csv",
+  "rows": 100013,
+  "sampled_nonempty": 100000,
+  "empty_text_rows_added": 13,
+  "distinct_nonempty_texts": 78099,
+  "sha256": "b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842",
+  "seed": "berkeley-fall-2026-assignment-5-v1",
+  "rule": "lowest SHA-256(seed + ':' + review_id) among unique nonempty reviews with a valid rating, plus every empty-text review",
+  "contains_golden_50": true,
+  "contains_analysis_10000": true,
+  "months_covered": 19
+}
