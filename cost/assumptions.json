@@ -1,6 +1,6 @@
 {
-  "note": "Editable assumptions for the full-run projection. Nothing here changes the measured pilot results.",
-  "budget_usd": 40.0,
+  "note": "Editable assumptions for the projections. Nothing here changes the measured pilot results. The budget is the instructor's limit of $10 for the 100,000-review run (email of 2026-10-11); the full-corpus scenarios are shown for reference and exceed it.",
+  "budget_usd": 10.0,
   "projection": {
     "source_rows": 660622,
     "nonempty_reviews": 660609,

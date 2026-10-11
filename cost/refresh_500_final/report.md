@@ -71,11 +71,11 @@ Orchestration, ingestion, export and ranking run on a laptop. Its cost was **not
 
 | Volume | Scenario | Exact-text reuse | Workers | Enrichment rate | API cost | Elapsed (known stages) | Local compute | Budget check |
 |---|---|---|---|---|---|---|---|---|
-| full corpus | base | yes | 8 | 50.3 texts/s | $29.84 | 2.99 h | unknown | within $40 |
-| full corpus | conservative | yes | 4 | 18.9 texts/s | $36.57 | 9.15 h | unknown | within $40 |
-| full corpus | base | no | 8 | 50.3 texts/s | $40.60 | 3.98 h | unknown | **EXCEEDS the $40 budget** |
-| planned final run | base | yes | 8 | 50.3 texts/s | $5.06 | 0.73 h | unknown | within $40 |
-| planned final run | conservative | yes | 4 | 18.9 texts/s | $6.38 | 1.80 h | unknown | within $40 |
+| full corpus | base | yes | 8 | 50.3 texts/s | $29.84 | 2.99 h | unknown | **EXCEEDS the $10 budget** |
+| full corpus | conservative | yes | 4 | 18.9 texts/s | $36.57 | 9.15 h | unknown | **EXCEEDS the $10 budget** |
+| full corpus | base | no | 8 | 50.3 texts/s | $40.60 | 3.98 h | unknown | **EXCEEDS the $10 budget** |
+| planned final run | base | yes | 8 | 50.3 texts/s | $5.06 | 0.73 h | unknown | within $10 |
+| planned final run | conservative | yes | 4 | 18.9 texts/s | $6.38 | 1.80 h | unknown | within $10 |
 
 ### Scenario: base, full corpus
 
@@ -137,11 +137,11 @@ Exact-text reuse on, 4 workers at lower efficiency, more retries, longer texts, 
 | memo | fixed, once | 1 memo x 2 attempt(s) | $0.4079 | 236.1 s | measured memo x 2.0 for a larger input |
 | **total** | | | **$6.38** | **1.80 h** | fixed overhead counted once |
 
-> **Budget warning:** full corpus base (no reuse) exceed the declared budget of $40.
+> **Budget warning:** full corpus base, full corpus conservative, full corpus base (no reuse) exceed the declared budget of $10.
 
 ## 3. Controls
 
-- **Spending limit:** $40 for the full run (editable in `assumptions.json`). The pipeline enforces a cap per session with `--max-spend-usd`: it reserves worst-case cost before each call and stops admitting work when spent plus reserved plus the next reservation would exceed the cap.
+- **Spending limit:** $10 for the full run (editable in `assumptions.json`). The pipeline enforces a cap per session with `--max-spend-usd`: it reserves worst-case cost before each call and stops admitting work when spent plus reserved plus the next reservation would exceed the cap.
 - **Output-token caps per request:** verify 4,000, group 4,000, memo 16,000. Enrichment: not applicable: Jev returns fixed typed answers and output tokens are free.
 - **Maximum concurrency:** 8 workers, at most 60 request starts per second shared across workers (provider limit 80 per second). Worker counts measured so far: 1; other counts are modeled.
 - **Maximum fallback fraction:** 2% of texts. No fallback model is used in the measured pilot.

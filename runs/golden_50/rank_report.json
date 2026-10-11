@@ -1,0 +1,12 @@
+{
+  "complaint_records": 23,
+  "formula": "priority_score = complaint_count x mean_severity = severity_sum",
+  "grouped_complaint_records": 23,
+  "inputs": [
+    "enriched.jsonl.gz",
+    "membership.csv"
+  ],
+  "issues": 13,
+  "order": "descending priority_score, then ascending issue_id",
+  "problems": {}
+}

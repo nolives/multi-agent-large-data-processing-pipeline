@@ -1,0 +1,10 @@
+review_id,fields_that_differ,enricher_topic,verifier_topic,enricher_intent,verifier_intent,enricher_severity,verifier_severity,enricher_needs_review,review_text
+292ce26a-815d-4bce-a3b6-93cb6c9e7e2c,topic,other,catalog,complaint,complaint,2,2,True,"Staff must be full of mentally ill kool-aid heads. Banning conservative music that speaks truth. Spotify is doing all they can to protect pedophiles, by banning Christian songs discussing the path the devil leads you down. Pride is a sin."
+991b6b3a-f511-458a-a5b7-234f78048fb5,severity,usability,usability,complaint,complaint,3,2,True,"Ads were okay, but limited functionality..it's just too much"
+ac6cd66d-a9d2-42a4-afb8-2f84beff7fd1,intent,catalog,catalog,unclear,praise,1,1,True,Lhat ng song nasa spotify
+46842184-32f8-4088-ac15-2a700a7e94ed,severity,catalog,catalog,complaint,complaint,3,2,False,"asem, lirik nya kdang gaada kek mana??"
+f4c8146a-d5c8-4168-b00e-21af666afc6a,intent,other,other,unclear,praise,1,1,True,"Unconditional love, Stoli Canales"
+46c0b49f-83a1-427e-8f0b-cef62e3c94b5,severity,usability,usability,complaint,complaint,5,2,True,"Are you out of your mind? This is dangerous! Listening to music in a normal volume and suddenly an add starts and my ears feel like they explode!! Stop this BS, or you're gonna destroy someones ears."
+dceb14e7-2df0-422f-bb2b-73d7c373159a,topic,playback,usability,complaint,complaint,3,3,True,I gave one star because I can't give any less than that. the new update is sooooooo annoying like I can't even play the songs that I like and I can't rewind songs what the heck
+ac4e860a-c042-49cc-90f3-189591c336ac,severity,downloads,downloads,complaint,complaint,4,3,True,paying for subscribing but unable to play in offline mode really?
+d2f3874f-d15d-4a2f-bb97-4f1213defa46,topic; severity,billing,usability,complaint,complaint,2,3,True,Too expensive and the free version is pretty much unusable with constant ads... Every two or three songs.. Forget it

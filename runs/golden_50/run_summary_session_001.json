@@ -1,0 +1,71 @@
+{
+  "calls_this_session": {
+    "enrich": {
+      "attempts": 49,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.002957,
+      "input_tokens": 70403,
+      "output_tokens": 10002,
+      "succeeded": 49
+    },
+    "group": {
+      "attempts": 1,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.000704,
+      "input_tokens": 2740,
+      "output_tokens": 860,
+      "succeeded": 1
+    },
+    "verify": {
+      "attempts": 5,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "cost_usd": 0.003437,
+      "input_tokens": 11439,
+      "output_tokens": 4587,
+      "succeeded": 5
+    }
+  },
+  "cost_usd_this_session": 0.007098,
+  "input": "data/golden_50_to_label.csv",
+  "models": {
+    "enrich": "jev-1.13.0",
+    "group": "claude-haiku-5-5",
+    "memo": "claude-opus-5-5",
+    "verify": "claude-haiku-5-5"
+  },
+  "review_status_counts": {
+    "completed": 50
+  },
+  "run_id": "golden_50",
+  "session": 1,
+  "settings": {
+    "group_effort": "low",
+    "max_rps": 10.0,
+    "memo_effort": "high",
+    "save_every": 50,
+    "seed": "verify-v1",
+    "verify_batch": 10,
+    "verify_effort": "low",
+    "verify_sample": 50
+  },
+  "spend_cap_usd": 0.25,
+  "stage_seconds": {
+    "enrich": 5.697,
+    "group": 5.7,
+    "ingest": 0.023,
+    "rank": 0.008,
+    "verify": 24.037
+  },
+  "stages_run": [
+    "ingest",
+    "enrich",
+    "verify",
+    "group",
+    "rank"
+  ],
+  "wall_seconds": 36.14,
+  "workers": 1
+}

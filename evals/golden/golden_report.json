@@ -1,0 +1,149 @@
+{
+  "note": "Fifty cases are a small diagnostic sample, not a precise estimate of accuracy on the whole corpus.",
+  "run": "golden_50",
+  "enricher_config": "jev-1.13.0+enrich-jev-v2.22642b2a+schema-v1",
+  "labels_file": "evals/golden_50_labeled.csv",
+  "golden_reviews": 50,
+  "scored": 50,
+  "missing_or_quarantined": [],
+  "ambiguous_cases": 13,
+  "sentiment_tolerance": 0.5,
+  "enricher_vs_human": {
+    "all_cases": {
+      "cases": 50,
+      "topic_agreement": 0.92,
+      "intent_agreement": 0.92,
+      "severity_agreement": 0.84,
+      "all_three_agreement": 0.76,
+      "severity_mean_absolute_error": 0.18,
+      "severity_within_one": 0.98,
+      "sentiment_within_tolerance": 0.92,
+      "sentiment_mean_absolute_error": 0.13
+    },
+    "non_ambiguous_cases": {
+      "cases": 37,
+      "topic_agreement": 0.973,
+      "intent_agreement": 0.9459,
+      "severity_agreement": 0.973,
+      "all_three_agreement": 0.9189,
+      "severity_mean_absolute_error": 0.027,
+      "severity_within_one": 1.0,
+      "sentiment_within_tolerance": 0.9189,
+      "sentiment_mean_absolute_error": 0.1216
+    },
+    "ambiguous_cases": {
+      "cases": 13,
+      "topic_agreement": 0.7692,
+      "intent_agreement": 0.8462,
+      "severity_agreement": 0.4615,
+      "all_three_agreement": 0.3077,
+      "severity_mean_absolute_error": 0.6154,
+      "severity_within_one": 0.9231,
+      "sentiment_within_tolerance": 0.9231,
+      "sentiment_mean_absolute_error": 0.1538
+    }
+  },
+  "verifier_vs_human": {
+    "all_cases": {
+      "cases": 50,
+      "topic_agreement": 0.94,
+      "intent_agreement": 0.92,
+      "severity_agreement": 0.84,
+      "all_three_agreement": 0.78,
+      "severity_mean_absolute_error": 0.16,
+      "severity_within_one": 1.0,
+      "sentiment_within_tolerance": 0.94,
+      "sentiment_mean_absolute_error": 0.15
+    },
+    "non_ambiguous_cases": {
+      "cases": 37,
+      "topic_agreement": 0.973,
+      "intent_agreement": 0.973,
+      "severity_agreement": 0.9459,
+      "all_three_agreement": 0.9189,
+      "severity_mean_absolute_error": 0.0541,
+      "severity_within_one": 1.0,
+      "sentiment_within_tolerance": 0.973,
+      "sentiment_mean_absolute_error": 0.0946
+    }
+  },
+  "per_topic": {
+    "billing": {
+      "human_count": 3,
+      "enricher_same_topic": 3,
+      "enricher_predicted_count": 4
+    },
+    "catalog": {
+      "human_count": 6,
+      "enricher_same_topic": 5,
+      "enricher_predicted_count": 5
+    },
+    "downloads": {
+      "human_count": 1,
+      "enricher_same_topic": 1,
+      "enricher_predicted_count": 1
+    },
+    "other": {
+      "human_count": 27,
+      "enricher_same_topic": 26,
+      "enricher_predicted_count": 27
+    },
+    "playback": {
+      "human_count": 5,
+      "enricher_same_topic": 4,
+      "enricher_predicted_count": 5
+    },
+    "usability": {
+      "human_count": 8,
+      "enricher_same_topic": 7,
+      "enricher_predicted_count": 8
+    }
+  },
+  "confusion_human_to_enricher": {
+    "topic": {
+      "catalog -> other": 1,
+      "playback -> usability": 1,
+      "other -> billing": 1,
+      "usability -> playback": 1
+    },
+    "intent": {
+      "praise -> unclear": 1,
+      "cancellation -> unclear": 1,
+      "complaint -> unclear": 1,
+      "unclear -> complaint": 1
+    },
+    "severity": {
+      "2 -> 3": 2,
+      "3 -> 4": 2,
+      "3 -> 2": 1,
+      "2 -> 1": 1,
+      "1 -> 2": 1,
+      "3 -> 5": 1
+    }
+  },
+  "evidence_quote": {
+    "exact_substring_of_source": 50,
+    "overlaps_human_quote": 48,
+    "of": 50
+  },
+  "entities": {
+    "cases_where_enricher_lists_an_entity_the_human_did_not": 14,
+    "cases_where_human_lists_an_entity_the_enricher_did_not": 15,
+    "note": "The enricher's entities come from a fixed lexicon matched against the text, so each one is present in the text; differences are mostly naming and granularity. They are listed per case for inspection."
+  },
+  "needs_review_as_prediction": {
+    "of_the_human_flag": {
+      "enricher_flagged": 14,
+      "human_flagged": 15,
+      "both": 8,
+      "precision": 0.5714,
+      "recall": 0.5333
+    },
+    "of_an_enricher_error": {
+      "enricher_errors": 12,
+      "flagged_errors": 8,
+      "precision": 0.5714,
+      "recall": 0.6667
+    }
+  }
+}
