@@ -26,6 +26,7 @@ Refresh the estimate from a later checkpoint's saved measurements:
 python3 cost/calculator.py --measured cost/refresh_500
 python3 cost/calculator.py --measured cost/refresh_10k
 python3 cost/calculator.py --measured cost/refresh_500_final
+python3 cost/calculator.py --measured cost/final_100k
 ```
 
 To change a price, an assumption or a control, edit `rates.csv` or `assumptions.json` and rerun the first command.
@@ -60,6 +61,7 @@ Opening or running the calculator never starts a paid call. The pilot itself is 
 | `pilot/` | Console output of the cold run, the warm run, and the failed first attempt. |
 | `refresh_500/` | The same evidence and report for the 500-review checkpoint (`checkpoint_500.csv`), measured cold and warm. |
 | `refresh_500_final/` | The 500-review file rerun cold under the final configuration (version 2 questions and rules, Claude Haiku 5.5 at low effort for verification and naming). Its first memo attempt was rejected by the automatic check and the retry was stopped by the spend cap, so the memo was completed in a second session; all of it is in the call log. |
+| `final_100k/` | The final 100,000-review run itself: four cold sessions (an interruption that crashed, a clean stop, the recorded clean stop, and the finish), then a warm rerun with zero calls. Its report compares the measured cost and time with the projection. |
 | `refresh_10k/` | The same for the 10,000-review checkpoint (`analysis_10000.csv`), run cold in four slices with 1, 2, 4 and 8 workers, then warm. Its report has the measured worker speeds and the projection for the planned 100,000-review final run. |
 
 ## What is measured and what is estimated

@@ -1,43 +1,6 @@
 {
-  "calls_this_session": {
-    "enrich": {
-      "attempts": 67569,
-      "cache_read_tokens": 0,
-      "cache_write_tokens": 0,
-      "cost_usd": 4.105531,
-      "input_tokens": 97750728,
-      "output_tokens": 13900648,
-      "succeeded": 67569
-    },
-    "group": {
-      "attempts": 2,
-      "cache_read_tokens": 0,
-      "cache_write_tokens": 0,
-      "cost_usd": 0.003452,
-      "input_tokens": 18554,
-      "output_tokens": 3193,
-      "succeeded": 2
-    },
-    "memo": {
-      "attempts": 1,
-      "cache_read_tokens": 0,
-      "cache_write_tokens": 0,
-      "cost_usd": 0.096868,
-      "input_tokens": 11382,
-      "output_tokens": 2567,
-      "succeeded": 1
-    },
-    "verify": {
-      "attempts": 200,
-      "cache_read_tokens": 0,
-      "cache_write_tokens": 0,
-      "cost_usd": 0.158462,
-      "input_tokens": 468383,
-      "output_tokens": 223248,
-      "succeeded": 200
-    }
-  },
-  "cost_usd_this_session": 4.364313,
+  "calls_this_session": {},
+  "cost_usd_this_session": 0,
   "input": "data/final_100k.csv",
   "models": {
     "enrich": "jev-1.13.0",
@@ -50,7 +13,7 @@
     "quarantined": 13
   },
   "run_id": "final_100k",
-  "session": 4,
+  "session": 5,
   "settings": {
     "group_effort": "low",
     "max_rps": 60.0,
@@ -61,14 +24,14 @@
     "verify_effort": "low",
     "verify_sample": 2000
   },
-  "spend_cap_usd": 8.5,
+  "spend_cap_usd": 1.0,
   "stage_seconds": {
-    "enrich": 1191.293,
-    "group": 17.204,
-    "ingest": 1.331,
-    "memo": 24.25,
-    "rank": 1.954,
-    "verify": 1101.248
+    "enrich": 0.331,
+    "group": 0.413,
+    "ingest": 1.273,
+    "memo": 0.157,
+    "rank": 2.01,
+    "verify": 0.177
   },
   "stages_run": [
     "ingest",
@@ -78,6 +41,6 @@
     "rank",
     "memo"
   ],
-  "wall_seconds": 2338.013,
+  "wall_seconds": 5.172,
   "workers": 8
 }

@@ -39,9 +39,24 @@ def read_run(run_dir, run_type_for):
     issues = db.execute("SELECT COUNT(*) FROM issue_names").fetchone()[0] if db.execute(
         "SELECT 1 FROM sqlite_master WHERE name = 'issue_names'").fetchone() else 0
     db.close()
+    summaries = {json.loads(p.read_text(encoding="utf-8"))["session"]: json.loads(p.read_text(encoding="utf-8"))
+                 for p in run_dir.glob("run_summary_session_*.json")}
+    log = [json.loads(line) for line in (run_dir / "run_log.jsonl").read_text(encoding="utf-8").splitlines()] if (run_dir / "run_log.jsonl").exists() else []
+    starts = {e["session"]: e for e in log if e.get("event") == "enrich_start"}
+    for number in sorted({c["session"] for c in calls} - set(summaries)):
+        # A session stopped before the end of the run (an interrupt or a crash) writes no run summary. Its clock is
+        # taken from its own call log instead: first call start to last call end, all of it enrichment.
+        mine = [c for c in calls if c["session"] == number]
+        from datetime import datetime, timedelta
+        first = min(datetime.fromisoformat(c["started_at"]) for c in mine)
+        last = max(datetime.fromisoformat(c["started_at"]) + timedelta(milliseconds=c["duration_ms"]) for c in mine)
+        seconds = round((last - first).total_seconds(), 3)
+        summaries[number] = {"session": number, "workers": starts.get(number, {}).get("workers", 1), "spend_cap_usd": starts.get(number, {}).get("spend_cap_usd"),
+                             "wall_seconds": seconds, "stage_seconds": {"enrich": seconds}, "settings": None, "models": {},
+                             "clock_source": "first to last call in the call log (the session ended before writing a run summary)"}
     sessions = []
-    for path in sorted(run_dir.glob("run_summary_session_*.json")):
-        s = json.loads(path.read_text(encoding="utf-8"))
+    for number in sorted(summaries):
+        s = summaries[number]
         mine = [c for c in calls if c["session"] == s["session"]]
         sessions.append({
             "run": run_dir.name, "session": s["session"], "run_type": run_type_for(s["session"]), "workers": s["workers"],
@@ -53,17 +68,20 @@ def read_run(run_dir, run_type_for):
             "new_enrichment_calls": sum(c["role"] == "enrich" for c in mine),
             "downstream_calls": sum(c["role"] != "enrich" for c in mine),
             "records_at_end": statuses, "unique_texts": texts, "texts_verified_at_end": verified, "issues_named_at_end": issues,
-            "settings": s.get("settings"), "models_configured": s["models"]})
-    return calls, sessions
+            "settings": s.get("settings"), "models_configured": s["models"], "clock_source": s.get("clock_source", "run summary")})
+    unlogged = [{"session": e["session"], "calls_estimate": e["unlogged_paid_calls_estimate"], "cost_usd_estimate": e["unlogged_cost_usd_estimate"],
+                 "basis": e["estimate_basis"]} for e in log if "unlogged_cost_usd_estimate" in e]
+    return calls, sessions, unlogged
 
 
 def export_pilot(run, failed_runs, input_csv, full_run, out, parser):
     out = Path(out)
-    calls, sessions = read_run(run, None)
+    calls, sessions, unlogged = read_run(run, None)
     for failed in failed_runs:
-        more_calls, more_sessions = read_run(failed, lambda session: "cold_failed_attempt")
+        more_calls, more_sessions, more_unlogged = read_run(failed, lambda session: "cold_failed_attempt")
         calls += more_calls
         sessions += more_sessions
+        unlogged += more_unlogged
     with gzip.open(Path(run) / ENRICHED, "rt", encoding="utf-8") as f:
         records = [json.loads(line) for line in f]
     with Path(input_csv).open(encoding="utf-8-sig", newline="") as f:
@@ -74,9 +92,10 @@ def export_pilot(run, failed_runs, input_csv, full_run, out, parser):
     fallback = {**{k: defaults[k] for k in ("max_rps", "save_every", "verify_sample", "verify_batch", "seed", "memo_effort")},
                 "verify_effort": None, "group_effort": None}
     for s in sessions:
-        s["settings"] = s["settings"] or {**fallback, "source": "command defaults (not overridden for this session)"}
+        if s.get("clock_source", "run summary") == "run summary":
+            s["settings"] = s["settings"] or {**fallback, "source": "command defaults (not overridden for this session)"}
     configs = {c["role"]: c["label_config"] for c in calls if c["run"] == Path(run).name}
-    settings = {"verify_effort": None, "group_effort": None, **sessions[0]["settings"]}
+    settings = {"verify_effort": None, "group_effort": None, **next(x["settings"] for x in sessions if x.get("clock_source") == "run summary")}
     no_effort = "not applicable: Haiku 4.5 without extended thinking"
     measurements = {
         "input": {"file": Path(input_csv).name, "sha256": file_sha(input_csv), "rows": len(input_ids),
@@ -96,6 +115,7 @@ def export_pilot(run, failed_runs, input_csv, full_run, out, parser):
                      "output_token_cap": 16000, "note": "Opus 5.5 always thinks; thinking tokens are billed inside output tokens"},
         },
         "provider_prompt_cache": "No cache reads or writes occurred: cache_read_tokens and cache_write_tokens are 0 on every call.",
+        "unlogged_calls": unlogged,
     }
     if full_run:
         manifest = json.loads((Path(full_run) / "data_manifest.json").read_text(encoding="utf-8"))

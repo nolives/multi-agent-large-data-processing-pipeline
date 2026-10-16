@@ -141,7 +141,7 @@
     "drawn": 2000,
     "failed_this_session": 0,
     "method": "lowest SHA-256(seed:text_sha256) values",
-    "new_this_session": 2000,
+    "new_this_session": 0,
     "requested": 2000,
     "seed": "verify-v1",
     "unit": "distinct completed review texts",

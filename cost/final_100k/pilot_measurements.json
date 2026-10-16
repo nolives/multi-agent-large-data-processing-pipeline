@@ -1,0 +1,243 @@
+{
+  "full_corpus_ingest": {
+    "rows": 660622,
+    "seconds": 9.56,
+    "source": "full/data_manifest.json"
+  },
+  "input": {
+    "every_input_id_has_a_record": true,
+    "file": "final_100k.csv",
+    "rows": 100013,
+    "sha256": "b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842"
+  },
+  "provider_prompt_cache": "No cache reads or writes occurred: cache_read_tokens and cache_write_tokens are 0 on every call.",
+  "sessions": [
+    {
+      "attempts": 2000,
+      "clock_source": "first to last call in the call log (the session ended before writing a run summary)",
+      "downstream_calls": 0,
+      "failed_attempts": 0,
+      "issues_named_at_end": 39,
+      "models_configured": {},
+      "new_enrichment_calls": 2000,
+      "rate_limited_attempts": 0,
+      "records_at_end": {
+        "completed": 100000,
+        "quarantined": 13
+      },
+      "run": "final_100k",
+      "run_type": "cold",
+      "session": 1,
+      "settings": null,
+      "spend_cap_usd": 10.0,
+      "stage_seconds": {
+        "enrich": 54.362
+      },
+      "summed_call_seconds": 210.586,
+      "texts_enriched": 2000,
+      "texts_verified_at_end": 2000,
+      "unique_texts": 78099,
+      "wall_seconds": 54.362,
+      "workers": 8
+    },
+    {
+      "attempts": 6250,
+      "clock_source": "first to last call in the call log (the session ended before writing a run summary)",
+      "downstream_calls": 0,
+      "failed_attempts": 0,
+      "issues_named_at_end": 39,
+      "models_configured": {},
+      "new_enrichment_calls": 6250,
+      "rate_limited_attempts": 0,
+      "records_at_end": {
+        "completed": 100000,
+        "quarantined": 13
+      },
+      "run": "final_100k",
+      "run_type": "cold",
+      "session": 2,
+      "settings": null,
+      "spend_cap_usd": 9.5,
+      "stage_seconds": {
+        "enrich": 177.311
+      },
+      "summed_call_seconds": 660.096,
+      "texts_enriched": 6250,
+      "texts_verified_at_end": 2000,
+      "unique_texts": 78099,
+      "wall_seconds": 177.311,
+      "workers": 8
+    },
+    {
+      "attempts": 2280,
+      "clock_source": "first to last call in the call log (the session ended before writing a run summary)",
+      "downstream_calls": 0,
+      "failed_attempts": 0,
+      "issues_named_at_end": 39,
+      "models_configured": {},
+      "new_enrichment_calls": 2280,
+      "rate_limited_attempts": 0,
+      "records_at_end": {
+        "completed": 100000,
+        "quarantined": 13
+      },
+      "run": "final_100k",
+      "run_type": "cold",
+      "session": 3,
+      "settings": null,
+      "spend_cap_usd": 9.0,
+      "stage_seconds": {
+        "enrich": 39.91
+      },
+      "summed_call_seconds": 231.544,
+      "texts_enriched": 2280,
+      "texts_verified_at_end": 2000,
+      "unique_texts": 78099,
+      "wall_seconds": 39.91,
+      "workers": 8
+    },
+    {
+      "attempts": 67772,
+      "clock_source": "run summary",
+      "downstream_calls": 203,
+      "failed_attempts": 0,
+      "issues_named_at_end": 39,
+      "models_configured": {
+        "enrich": "jev-1.13.0",
+        "group": "claude-haiku-5-5",
+        "memo": "claude-opus-5-5",
+        "verify": "claude-haiku-5-5"
+      },
+      "new_enrichment_calls": 67569,
+      "rate_limited_attempts": 0,
+      "records_at_end": {
+        "completed": 100000,
+        "quarantined": 13
+      },
+      "run": "final_100k",
+      "run_type": "cold",
+      "session": 4,
+      "settings": {
+        "group_effort": "low",
+        "max_rps": 60.0,
+        "memo_effort": "high",
+        "save_every": 200,
+        "seed": "verify-v1",
+        "verify_batch": 10,
+        "verify_effort": "low",
+        "verify_sample": 2000
+      },
+      "spend_cap_usd": 8.5,
+      "stage_seconds": {
+        "enrich": 1191.293,
+        "group": 17.204,
+        "ingest": 1.331,
+        "memo": 24.25,
+        "rank": 1.954,
+        "verify": 1101.248
+      },
+      "summed_call_seconds": 8095.261,
+      "texts_enriched": 67569,
+      "texts_verified_at_end": 2000,
+      "unique_texts": 78099,
+      "wall_seconds": 2338.013,
+      "workers": 8
+    },
+    {
+      "attempts": 0,
+      "clock_source": "run summary",
+      "downstream_calls": 0,
+      "failed_attempts": 0,
+      "issues_named_at_end": 39,
+      "models_configured": {
+        "enrich": "jev-1.13.0",
+        "group": "claude-haiku-5-5",
+        "memo": "claude-opus-5-5",
+        "verify": "claude-haiku-5-5"
+      },
+      "new_enrichment_calls": 0,
+      "rate_limited_attempts": 0,
+      "records_at_end": {
+        "completed": 100000,
+        "quarantined": 13
+      },
+      "run": "final_100k",
+      "run_type": "warm",
+      "session": 5,
+      "settings": {
+        "group_effort": "low",
+        "max_rps": 60.0,
+        "memo_effort": "high",
+        "save_every": 200,
+        "seed": "verify-v1",
+        "verify_batch": 10,
+        "verify_effort": "low",
+        "verify_sample": 2000
+      },
+      "spend_cap_usd": 1.0,
+      "stage_seconds": {
+        "enrich": 0.331,
+        "group": 0.413,
+        "ingest": 1.273,
+        "memo": 0.157,
+        "rank": 2.01,
+        "verify": 0.177
+      },
+      "summed_call_seconds": 0.0,
+      "texts_enriched": 0,
+      "texts_verified_at_end": 2000,
+      "unique_texts": 78099,
+      "wall_seconds": 5.172,
+      "workers": 8
+    }
+  ],
+  "stages": {
+    "enrich": {
+      "effort": "not applicable: Jev has no effort or thinking setting",
+      "label_config": "jev-1.13.0+enrich-jev-v2.22642b2a+schema-v1",
+      "max_requests_per_second": 60.0,
+      "provider": "typesafe",
+      "reviews_per_request": 1,
+      "saved_batch_texts": 200
+    },
+    "group": {
+      "effort": "low",
+      "issues_per_request": 20,
+      "label_config": "claude-haiku-5-5@effort-low+group-claude-v1.98a50ae5+issues-v2+schema-v1",
+      "output_token_cap": 4000,
+      "provider": "anthropic"
+    },
+    "ingest": {
+      "model": "none (code)",
+      "provider": "local"
+    },
+    "memo": {
+      "effort": "high",
+      "label_config": "claude-opus-5-5@effort-high+memo-claude-v3.c7fa4db7+schema-v1",
+      "note": "Opus 5.5 always thinks; thinking tokens are billed inside output tokens",
+      "output_token_cap": 16000,
+      "provider": "anthropic"
+    },
+    "rank": {
+      "model": "none (code)",
+      "provider": "local"
+    },
+    "verify": {
+      "declared_sample_texts": 2000,
+      "effort": "low",
+      "label_config": "claude-haiku-5-5@effort-low+verify-claude-v2.65b2e839+schema-v1",
+      "output_token_cap": 4000,
+      "provider": "anthropic",
+      "reviews_per_request": 10,
+      "sample_seed": "verify-v1"
+    }
+  },
+  "unlogged_calls": [
+    {
+      "basis": "one batch of 200 requests had finished when the interrupt landed; its calls were paid but never logged. Cost estimated at the session's average per call.",
+      "calls_estimate": 200,
+      "cost_usd_estimate": 0.0121,
+      "session": 1
+    }
+  ]
+}

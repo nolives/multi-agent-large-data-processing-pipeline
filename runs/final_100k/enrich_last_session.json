@@ -1,11 +1,11 @@
 {
   "calls": {
-    "attempts": 67569,
-    "cost_usd": 4.105531,
+    "attempts": 0,
+    "cost_usd": 0,
     "failed": 0,
-    "input_tokens": 97750728,
-    "output_tokens": 13900648,
-    "succeeded": 67569,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "succeeded": 0,
     "usage_unknown": 0
   },
   "fatal_detail": null,
@@ -15,19 +15,19 @@
     "completed": 100000,
     "quarantined": 13
   },
-  "session": 4,
-  "spend_cap_usd": 8.5,
+  "session": 5,
+  "spend_cap_usd": 1.0,
   "stop_reason": "queue_empty",
   "texts": {
-    "completed": 67569,
+    "completed": 0,
     "fatal": 0,
     "quarantined": 0,
     "skipped": 0,
     "transient": 0
   },
   "texts_pending_at_end": 0,
-  "texts_pending_at_start": 67569,
-  "texts_per_second": 56.74,
-  "wall_seconds": 1190.92,
+  "texts_pending_at_start": 0,
+  "texts_per_second": 0.0,
+  "wall_seconds": 0.19,
   "workers": 8
 }

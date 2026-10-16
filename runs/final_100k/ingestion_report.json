@@ -3,8 +3,8 @@
     "accounted_for": true,
     "distinct_nonempty_texts": 78099,
     "nonempty_reviews": 100000,
-    "pending_distinct_texts": 67569,
-    "pending_reviews": 72695,
+    "pending_distinct_texts": 0,
+    "pending_reviews": 0,
     "quarantine_reasons": {
       "empty_review_text": 13
     },
@@ -12,8 +12,7 @@
     "reviews_served_by_exact_text_reuse": 21901,
     "source_rows": 100013,
     "status_counts": {
-      "completed": 27305,
-      "pending": 72695,
+      "completed": 100000,
       "quarantined": 13
     },
     "stored_review_ids": 100013,

@@ -55,6 +55,10 @@ def read_jsonl(path):
     return [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def fmt_int(value):
+    return f"{value:,}" if isinstance(value, int) else str(value)
+
+
 def money(value, places=4):
     return "unknown" if value is None else f"${value:,.{places}f}"
 
@@ -154,9 +158,14 @@ def project(unit, assumptions, measurements, name, reuse=True, volume="projectio
     measured = unit["worker_speeds"].get(workers)
     if measured:
         raw, how = measured["texts_per_second"], f"measured with {workers} worker(s) on {measured['texts']:,} texts"
-    else:
+    elif unit["enrich_texts_per_second_one_worker"]:
         raw = workers * unit["enrich_texts_per_second_one_worker"] * sc["parallel_efficiency"]
         how = f"modeled: {workers} workers at {sc['parallel_efficiency']:.0%} of linear from the one-worker measurement"
+    else:
+        # No one-worker measurement in this set: scale from the nearest measured worker count, per worker.
+        base = min(unit["worker_speeds"], key=lambda k: abs(k - workers))
+        raw = unit["worker_speeds"][base]["texts_per_second"] / base * workers * (sc["parallel_efficiency"] if workers < base else 1)
+        how = f"modeled: {workers} workers scaled per worker from the {base}-worker measurement"
     rate = min(raw, controls["max_requests_per_second"], controls["provider_requests_per_second_limit"])
     enrich_requests = texts * (1 + sc["enrich_retry_fraction"])
     sample = a["verification"]["full_run_sample_texts"]
@@ -231,10 +240,23 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w()
     w("| Run | Type | Completed | Failed | Result-cache hits | Attempts (failed) | New enrichment calls | Downstream calls | API cost | Wall clock | Summed call time | Records/s | Cost per 1,000 rows | Cost per completed record |")
     w("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    sliced = sum(s["run_type"] == "cold" for s in m["sessions"]) > 1
     for s in m["sessions"]:
-        w(f"| {s['run']} session {s['session']} | {s['run_type']} | {s['completed']} | {s['failed_records']} | {s['result_cache_hits']} | "
-          f"{s['attempts']} ({s['failed_attempts']}) | {s['new_enrichment_calls']} | {s['downstream_calls']} | {money(s['api_cost'])} | "
+        if sliced and s["run_type"] == "cold":
+            # One slice of a cold run made in several sessions: per-slice figures, with run totals on the row below.
+            texts = s.get("texts_enriched", 0)
+            w(f"| {s['run']} session {s['session']} | cold, slice | {fmt_int(texts)} texts | — | — | {s['attempts']:,} ({s['failed_attempts']}) | "
+              f"{s['new_enrichment_calls']:,} | {s['downstream_calls']} | {money(s['api_cost'])} | {duration(s['wall_seconds'])} | "
+              f"{duration(s['summed_call_seconds'])} | {texts / s['stage_seconds'].get('enrich', s['wall_seconds']):.1f} texts/s enriched | — | — |")
+            continue
+        w(f"| {s['run']} session {s['session']} | {s['run_type']} | {fmt_int(s['completed'])} | {s['failed_records']} | {fmt_int(s['result_cache_hits'])} | "
+          f"{s['attempts']:,} ({s['failed_attempts']}) | {s['new_enrichment_calls']:,} | {s['downstream_calls']} | {money(s['api_cost'])} | "
           f"{duration(s['wall_seconds'])} | {duration(s['summed_call_seconds'])} | {s['records_per_second']:.2f} | {money(s['cost_per_1000_rows'])} | {money(s['cost_per_completed'], 6)} |")
+    if sliced:
+        rows = inp["rows"]
+        w(f"| **all cold sessions** | cold total | {fmt_int(cold['completed'])} | {cold['failed_records']} | {fmt_int(rows - cold['unique_texts'])} | "
+          f"{sum(st['attempts'] for st in cold['stages'].values()):,} | | | **{money(cold['api_cost'])}** | {duration(cold['wall_seconds'])} | | "
+          f"{rows / cold['wall_seconds']:.2f} | {money(cold['api_cost'] / rows * 1000)} | {money(cold['api_cost'] / cold['completed'], 6)} |")
     w()
     w("Wall clock is measured end to end with a monotonic clock. Summed call time adds each request's duration; with one worker it is below "
       "wall clock, and with several workers it can exceed it.")
@@ -290,6 +312,9 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w()
     w(f"- Recomputed from usage and rates: {money(m['recomputed_total'], 6)} across all {m['attempts']} logged attempts. "
       f"Cost logged at run time: {money(m['logged_total'], 6)}." + ("" if multiplier != 1 else f" Difference: {money(abs(m['recomputed_total'] - m['logged_total']), 9)}."))
+    for u in measurements.get("unlogged_calls", []):
+        w(f"- **Calls made but never logged:** about {u['calls_estimate']} in session {u['session']}, an estimated {money(u['cost_usd_estimate'] * rates[0]['multiplier'], 4)}. "
+          f"{u['basis'][0].upper() + u['basis'][1:]} This estimate is not in the totals above.")
     w(f"- Calls with unknown usage (for example timeouts): {m['unknown_usage_calls']}." + (
         f" The provider returned no usage for them, so their true charge is unresolved. They are carried as an **estimate** of {money(m['unknown_usage_estimate'], 6)} "
         "in total (the worst-case reservation made before each call) and do not appear in `usage.csv`, which lists reported usage only." if m["unknown_usage_calls"] else ""))
@@ -309,7 +334,8 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w(f"- All {p['source_rows']:,} rows accounted for: {p['nonempty_reviews']:,} nonempty reviews to classify and {p['empty_text_quarantines']} empty-text quarantines.")
     w(f"- With exact-text reuse, first-pass enrichment covers {p['distinct_nonempty_texts']:,} distinct texts; the no-reuse comparison sends all {p['nonempty_reviews']:,}.")
     w(f"- Per-unit figures come from the measured cold run: {unit['enrich_input_tokens_per_text']:,.1f} input tokens and {money(unit['enrich_cost_per_text'], 7)} per enriched text, "
-      f"{unit['enrich_texts_per_second_one_worker']:.2f} texts/s with one worker, {money(unit['verify_cost_per_text'], 6)} per verified text, "
+      + (f"{unit['enrich_texts_per_second_one_worker']:.2f} texts/s with one worker, " if unit['enrich_texts_per_second_one_worker'] else "")
+      + f"{money(unit['verify_cost_per_text'], 6)} per verified text, "
       f"{money(unit['group_cost_per_issue'], 5)} per named issue, {money(unit['memo_cost'])} per memo.")
     w(f"- These are estimates from {inp['rows']:,} reviews. They say little about rare failures or sustained throughput, and are refreshed at each checkpoint (100, 500, 10,000) before the full run.")
     w()
@@ -341,6 +367,26 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
     w("> **Budget warning:** " + ", ".join(over) + f" exceed the declared budget of ${assumptions['budget_usd']:g}." if over
       else f"All scenarios are within the declared budget of ${assumptions['budget_usd']:g}.")
     w()
+    plan = assumptions.get("planned_run")
+    if plan and inp["rows"] == plan["source_rows"]:
+        planned = [s for s in scenarios if s["volume"] == "planned_run"]
+        unlogged = sum(u["cost_usd_estimate"] for u in measurements.get("unlogged_calls", [])) * rates[0]["multiplier"]
+        w("### This run against its projection")
+        w()
+        w("This report measures the planned run itself, so the projection can be checked against what happened.")
+        w()
+        w("| | API cost | Enrichment time |")
+        w("|---|---|---|")
+        for s in planned:
+            enrich = next(st for st in s["stages"] if st["stage"] == "enrich")
+            w(f"| Projected, {s['name']} scenario (from these measurements) | {money(s['api_cost'], 2)} | {duration(enrich['seconds'])} |")
+        w(f"| **Measured** | **{money(cold['api_cost'], 2)}** logged, plus about {money(unlogged, 2)} unlogged | "
+          f"**{duration(cold['stage_seconds'].get('enrich'))}** summed over enrichment sessions |")
+        w()
+        w("The projections in the first two rows are computed from this run's own measurements, so they mainly check the arithmetic. "
+          "The projection that mattered was made before the run, from the 10,000-review checkpoint (`refresh_10k/report.md`): "
+          "$5.56 base and $6.85 conservative.")
+        w()
     w("## 3. Controls")
     w()
     c = assumptions["controls"]
