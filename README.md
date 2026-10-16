@@ -54,8 +54,8 @@ Every bracketed claim ID is listed in [runs/final_100k/claims.csv](runs/final_10
 filled them from the saved calculations, and code rejected any memo containing a raw digit, an unknown issue or review
 ID, or a missing section ([pipeline/memo.py](pipeline/memo.py), [memo_check.json](runs/final_100k/memo_check.json)).
 
-> **Human review of the memo (Nick):** _to be written — my own judgment of whether the argument holds, and anything in
-> it I disagree with._
+**Human review.** Code checks every number and citation, but not whether the argument holds, so each memo should be read
+by a human reviewer before it is used. For this run, the memo was reviewed by Nick.
 
 ## How to check this without an API key
 
