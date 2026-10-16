@@ -9,13 +9,23 @@
     },
     "backend": {
       "root": "backend/",
-      "buildCommand": "npm run build",
+      "buildCommand": "npm ci --include=dev && npm run build",
       "framework": "express",
       "entrypoint": "dist/index.js"
     }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": { "service": "backend" } },
-    { "source": "/(.*)", "destination": { "service": "frontend" } }
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
   ]
 }

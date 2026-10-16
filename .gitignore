@@ -30,3 +30,6 @@ dashboard/*/dist/
 
 # Final-run input (15 MB; rebuilt by tools/build_final_subset.py, checksum in data/final_100k.manifest.json)
 data/final_100k.csv
+
+# Vercel project link (local)
+.vercel/
