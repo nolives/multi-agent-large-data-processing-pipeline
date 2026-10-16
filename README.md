@@ -394,8 +394,8 @@ Keys live only in a local `.env`, which git ignores; `.env.example` is blank.
 - Labels come from an automated classifier. It agrees with a human on 76% of golden reviews for topic, intent and severity
   together, is weaker on non-English and garbled text, and can be swayed by text that argues for its own label.
 - `needs_review` is a weak signal, and the largest issue is a catch-all of unspecific complaints.
-- Costs are computed from the usage each API reported. They have not been reconciled with the TypeSafe and Anthropic
-  billing dashboards.
+- Costs are computed from the usage each API reported. On Oct 16, 2026 they were compared with the TypeSafe and Anthropic
+  usage dashboards, and they agree.
 - The evidence quotes in the memo are representative examples chosen by likes, not a statistical sample.
 
 ## Design notes

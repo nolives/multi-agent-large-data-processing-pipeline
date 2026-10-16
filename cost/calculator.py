@@ -319,7 +319,8 @@ def build_report(m, unit, scenarios, assumptions, measurements, rates, multiplie
         f" The provider returned no usage for them, so their true charge is unresolved. They are carried as an **estimate** of {money(m['unknown_usage_estimate'], 6)} "
         "in total (the worst-case reservation made before each call) and do not appear in `usage.csv`, which lists reported usage only." if m["unknown_usage_calls"] else ""))
     w("- `usage.csv` lists billed units per run, stage, model and billing item; each row maps to the calls in `pilot_calls.jsonl` with the same run, session, role and model.")
-    w("- Reconciliation with the providers' usage dashboards has not been done; these figures are computed from the usage each response reported.")
+    w("- Figures are computed from the usage each response reported. Reconciliation with the providers' usage dashboards: "
+      + assumptions.get("billing_reconciliation", "not done."))
     w()
     w("### Local compute")
     w()

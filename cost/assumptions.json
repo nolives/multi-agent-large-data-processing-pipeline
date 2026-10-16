@@ -58,5 +58,6 @@
       "memo_attempts": 2,
       "memo_size_multiplier": 2.0
     }
-  }
+  },
+  "billing_reconciliation": "On 2026-10-16 Nick compared the logged totals with the TypeSafe and Anthropic usage dashboards, and they agree."
 }

@@ -68,7 +68,7 @@ Each row is a different slice of the same random sample, run cold. The slices ar
 - Recomputed from usage and rates: $0.783233 across all 8502 logged attempts. Cost logged at run time: $0.783233. Difference: $0.000000000.
 - Calls with unknown usage (for example timeouts): 1. The provider returned no usage for them, so their true charge is unresolved. They are carried as an **estimate** of $0.000099 in total (the worst-case reservation made before each call) and do not appear in `usage.csv`, which lists reported usage only.
 - `usage.csv` lists billed units per run, stage, model and billing item; each row maps to the calls in `pilot_calls.jsonl` with the same run, session, role and model.
-- Reconciliation with the providers' usage dashboards has not been done; these figures are computed from the usage each response reported.
+- Figures are computed from the usage each response reported. Reconciliation with the providers' usage dashboards: On 2026-10-16 Nick compared the logged totals with the TypeSafe and Anthropic usage dashboards, and they agree.
 
 ### Local compute
 

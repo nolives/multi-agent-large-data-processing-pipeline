@@ -71,4 +71,4 @@ Opening or running the calculator never starts a paid call. The pilot itself is 
   one-worker measurement; the 10,000-review report uses speeds measured at 1, 2, 4 and 8 workers. The fallback line is
   modeled because the pipeline has no fallback role.
 - **Unknown:** local compute cost, and the time for export and ranking at full scale. They are shown as unknown, not as zero.
-- **Not reconciled:** the figures have not been compared with the providers' billing dashboards.
+- **Reconciled:** on Oct 16, 2026 the logged totals were compared with the TypeSafe and Anthropic usage dashboards, and they agree.

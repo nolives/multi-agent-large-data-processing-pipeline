@@ -55,7 +55,7 @@ The warm run made 0 new enrichment calls and 0 downstream calls, for an incremen
 - Recomputed from usage and rates: $0.269795 across all 503 logged attempts. Cost logged at run time: $0.269795. Difference: $0.000000000.
 - Calls with unknown usage (for example timeouts): 0.
 - `usage.csv` lists billed units per run, stage, model and billing item; each row maps to the calls in `pilot_calls.jsonl` with the same run, session, role and model.
-- Reconciliation with the providers' usage dashboards has not been done; these figures are computed from the usage each response reported.
+- Figures are computed from the usage each response reported. Reconciliation with the providers' usage dashboards: On 2026-10-16 Nick compared the logged totals with the TypeSafe and Anthropic usage dashboards, and they agree.
 
 ### Local compute
 
