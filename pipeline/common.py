@@ -80,3 +80,14 @@ def load_env(path=".env"):
         key, sep, value = line.partition("=")
         if sep and key.strip() and not key.lstrip().startswith("#") and value.strip():
             os.environ.setdefault(key.strip(), value.strip())
+
+
+def open_saved_state(run_dir):
+    """Open a finished run's state.db for reading. It is not committed (it holds the whole run, over 100 MB), so a fresh
+    checkout has none; stop with a clear message rather than let SQLite create an empty file."""
+    import sqlite3
+    path = Path(run_dir) / "state.db"
+    if not path.exists():
+        raise SystemExit(f"{path} is missing. This command reads the local state of the original run, which is not committed. "
+                         "Its committed outputs are in the run directory and grading/; see the README's setup section.")
+    return sqlite3.connect(path)

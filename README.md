@@ -60,6 +60,10 @@ by a human reviewer before it is used. For this run, the memo was reviewed by Ni
 ## How to check this without an API key
 
 ```sh
+# 0. Place the course's spotify_reviews_18months.csv in data/ (see Data and scope), then rebuild the final run's
+#    100,013-row input from it; its SHA-256 must be b87ca3b1… (data/final_100k.manifest.json)
+python3 tools/build_final_subset.py
+
 # 1. The course's zero-API checker on the grading export (build the reference against the 100,013-row analysis file)
 python3 data/check_submission.py reference --full data/spotify_reviews_18months.csv --analysis data/final_100k.csv --out local-reference.json
 python3 data/check_submission.py check --reference local-reference.json --submission grading --out self-check.json
@@ -75,9 +79,10 @@ python3 cost/calculator.py --self-test
 curl https://spotify-review-insights-rho.vercel.app/api/checks
 ```
 
-`data/final_100k.csv` is rebuilt from the full source file by `python3 tools/build_final_subset.py`; its SHA-256 is
+`data/final_100k.csv` is not committed; step 0 rebuilds it byte for byte, SHA-256
 `b87ca3b10e8ff88d3a4a203f69ae9a9dc8c36fa4ed67ea8e1e3dda4363808842` ([data/final_100k.manifest.json](data/final_100k.manifest.json)).
-The checker reported status `pass`, no issues, and a coverage candidate of 1.0 on this export.
+On a fresh clone with only the course CSV added, these steps gave checker status `pass` with no issues and a coverage
+candidate of 1.0, an identical `ranking.csv`, and a passing calculator self-test.
 
 ## Rubric map
 
@@ -300,25 +305,37 @@ severity 4. The case counts as a disagreement in the evaluation, and its note ex
 
 ## One review traced end to end
 
-Review `d6865cc0-5fe1-4d2e-b6e0-5bebbe5b5b23`, source row 22,017 of the final run:
+Review `23df805a-aeea-47fe-af72-24bd4bdcbd13`, source row 19,599 of the final run, is one of the 2,000 verified texts, so it
+passes through every stage:
 
-1. **Source.** "App's the best in everything. No clutter. … Ads are a bit troublesome but other than that it's the best.
-   Here's one feature I would really like … A playback speed controller." Four stars, 703 likes, version 8.7.72.546,
-   posted 2022-10-10. Row hash `f70a2cb0c9b6…`.
-2. **Classification.** Jev call `jev-c405dc10bce142b695eccdcb7b6108be` in session 4: 1,699 input tokens, $0.000071.
-   Labels: topic `usability`, intent `complaint` (mixed praise and criticism counts as a complaint), severity 2,
-   sentiment 0.5. Jev chose the evidence quote "Ads are a bit troublesome but other than that it's the best." from the
-   sentences code split out. Entities from the lexicon: premium, free version, ads, update. Not flagged for review.
-3. **Verification.** Not in the 2,000-text verification sample.
-4. **Issue.** Assigned by rule to `usability.ads`, because the topic is usability and the entity list contains "ads".
+1. **Source.** "Feels like the ads have doubled in frequency since last update." One star, 1 like, version 8.7.66.534,
+   posted 2022-09-22. Row hash `7f8ac3a93ca3…`.
+2. **Classification.** Jev call `jev-95a1ba7efb6a47ada222de631a2823af` in session 4 (phase `resume`): 1,415 input tokens,
+   $0.000059. Labels: topic `usability`, intent `complaint`, severity 2 (a minor annoyance with no lost function; the one
+   star does not raise it), sentiment -0.5. The text is short, so code uses all of it as the evidence quote. Entities from
+   the lexicon: ads, update. Confidence 1.0 on every field; not flagged for review.
+3. **Verification.** In the seeded verification sample. Haiku 5.5 re-labeled it from the text and rubric alone in call
+   `claude-a1c536fdd814410cab0a1107960df382` (10 reviews in that request, $0.000827): usability, complaint, severity 2,
+   sentiment -0.5. Code found no disagreement ([verify_predictions.jsonl](runs/final_100k/verify_predictions.jsonl)).
+4. **Issue.** Assigned by rule to `usability.ads`, because the topic is usability and the entity list contains "ads"
+   ([membership.csv](runs/final_100k/membership.csv)).
 5. **Ranking.** `usability.ads` is rank 2: 5,574 complaints, severity sum 12,221, mean 2.192501, score 12,221. This review
-   adds 1 to the count and 2 to the sum.
-6. **Memo.** Cited in the memo's Evidence section, next to claims C005 to C008, which `claims.csv` and the checker confirm
-   equal the ranking.
+   adds 1 to the count and 2 to the sum ([ranking.csv](runs/final_100k/ranking.csv)).
+6. **Memo.** The memo's recommendation rests on `usability.ads` and cites its numbers as claims C005 to C008, which
+   [claims.csv](runs/final_100k/claims.csv) and the checker confirm equal the ranking. This review is one of the 5,574 behind
+   C005; it is not quoted individually.
 
-The [dashboard's trace page](https://spotify-review-insights-rho.vercel.app/#/reviews/d6865cc0-5fe1-4d2e-b6e0-5bebbe5b5b23)
-shows the same chain from the database. This example also shows a limit of the memo: the quote is mild, and a reader
-should weigh the counts more than any single example.
+Both calls are in [grading/calls.jsonl.gz](grading/calls.jsonl.gz), and the
+[dashboard's trace page](https://spotify-review-insights-rho.vercel.app/#/reviews/23df805a-aeea-47fe-af72-24bd4bdcbd13)
+shows the same chain from the database.
+
+**A review the memo quotes.** None of the nine reviews the memo quotes fell in the verification sample, so their chain
+skips step 3. Review `d6865cc0-5fe1-4d2e-b6e0-5bebbe5b5b23` (row 22,017; four stars, 703 likes) mixes praise with "Ads are
+a bit troublesome but other than that it's the best." Jev call `jev-c405dc10bce142b695eccdcb7b6108be` labeled it usability,
+complaint (mixed praise and criticism counts as a complaint), severity 2, sentiment 0.5, and chose that sentence as the
+quote from the parts code split out. It joins `usability.ads` the same way and is quoted in the memo's Evidence section
+next to C005 to C008 ([trace page](https://spotify-review-insights-rho.vercel.app/#/reviews/d6865cc0-5fe1-4d2e-b6e0-5bebbe5b5b23)).
+Its quote is mild, a reminder to weigh the counts more than any single example.
 
 ## Ranking rules, scope and trend
 
@@ -372,19 +389,24 @@ cp .env.example .env          # add TYPESAFE_API_KEY and ANTHROPIC_API_KEY for p
 ```
 
 ```sh
-# No model calls
+# No model calls; these work on a fresh clone once the course CSV is in data/
 python3 -m pipeline ingest --input data/spotify_reviews_18months.csv --run-id full
 python3 tools/build_final_subset.py
 python3 -m pipeline rank --run-id final_100k
+python3 tools/golden_eval.py --run runs/golden_50
+
+# No model calls, but these read the original run's local state (runs/<run>/state.db, about 134 MB for final_100k),
+# which is not committed. On a fresh clone they stop with a message saying so. Their outputs are committed:
+# grading/ and the cost reports, and the deployed dashboard is what publish loaded.
 python3 -m pipeline export-grading --run-id final_100k --analysis data/final_100k.csv \
   --before-checkpoint runs/final_100k/checkpoints/003_resume_interrupted.json   # the recorded interruption
-python3 tools/golden_eval.py --run runs/golden_50
+python3 -m pipeline pilot-export --run runs/pilot_100 --input data/cost_100.csv --full-run runs/full --out cost
 
 # Paid: every stage for any input CSV. Rerunning the same command resumes; completed reviews are not sent again.
 .venv/bin/python -m pipeline run --input data/final_100k.csv --run-id final_100k --max-spend-usd 10 \
   --workers 8 --max-rps 60 --save-every 200 --verify-sample 2000
 
-# Dashboard
+# Dashboard (publish also reads the run's local state.db)
 .venv/bin/python -m pipeline publish --run-id final_100k
 (cd dashboard && npm run install:all && npm run dev)        # local: http://localhost:5173
 (cd dashboard && vercel deploy --prod)                      # needs DATABASE_URL set in the Vercel project
@@ -400,6 +422,11 @@ Keys live only in a local `.env`, which git ignores; `.env.example` is blank.
 - Labels come from an automated classifier. It agrees with a human on 76% of golden reviews for topic, intent and severity
   together, is weaker on non-English and garbled text, and can be swayed by text that argues for its own label.
 - `needs_review` is a weak signal, and the largest issue is a catch-all of unspecific complaints.
+- The entity lexicon counts "adds" as "ads", because reviewers often misspell it ("too many adds"). It also catches the verb:
+  "it adds songs to my playlist". Of the 750 `usability.ads` complaints that mention ads only as "adds", about 80 (1.4%
+  of the issue's 5,574) are about Spotify adding songs to playlists and would belong in `usability.queue-and-playlists`. Both
+  issues are in usability, so the area totals and the recommendation are unaffected, and `usability.ads` stays rank 2 (score 12,221 against 8,049 for rank 3).
+  The estimate comes from a text pattern whose matches were read by hand; found in an external review after the run.
 - Costs are computed from the usage each API reported. On Oct 16, 2026 they were compared with the TypeSafe and Anthropic
   usage dashboards, and they agree.
 - The evidence quotes in the memo are representative examples chosen by likes, not a statistical sample.

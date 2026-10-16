@@ -10,10 +10,9 @@ import csv
 import gzip
 import json
 import shutil
-import sqlite3
 from pathlib import Path
 
-from .common import canonical, file_sha, write_json, write_text_atomic
+from .common import canonical, file_sha, open_saved_state, write_json, write_text_atomic
 from .export import ENRICHED
 
 VERSION = "a5-audit-v1"
@@ -33,7 +32,7 @@ def gz_lines(path, rows):
 def export_grading(run_dir, analysis_csv, full_run_dir, out, before_checkpoint=None):
     run_dir, out = Path(run_dir), Path(out)
     out.mkdir(parents=True, exist_ok=True)
-    db = sqlite3.connect(run_dir / "state.db")
+    db = open_saved_state(run_dir)
     label_config = db.execute("SELECT value FROM meta WHERE key = 'label_config'").fetchone()[0]
     with Path(analysis_csv).open(encoding="utf-8-sig", newline="") as f:
         analysis_count = sum(1 for _ in csv.DictReader(f, strict=True))

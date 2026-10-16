@@ -10,10 +10,9 @@ Everything written here comes from files the pipeline already saved; nothing is 
 import csv
 import json
 import os
-import sqlite3
 from pathlib import Path
 
-from .common import load_env
+from .common import load_env, open_saved_state
 
 SCHEMA = Path(__file__).resolve().parent.parent / "dashboard" / "db" / "schema.sql"
 REVIEW_COLUMNS = ("review_id", "row_num", "review_text", "review_rating", "review_likes", "app_version", "review_timestamp", "review_month",
@@ -49,7 +48,7 @@ def publish(run_dir, database_url, golden_report=None, full_corpus_run=None):
     import psycopg  # imported here so the rest of the pipeline does not need the Postgres driver
 
     run_dir = Path(run_dir)
-    state = sqlite3.connect(run_dir / "state.db")
+    state = open_saved_state(run_dir)
     ingestion = read_json(run_dir / "ingestion_report.json")
     issues = {i["issue_id"]: i for i in read_json(run_dir / "issues.json")["issues"]}
     aggregates = read_csv(run_dir / "aggregates.csv")

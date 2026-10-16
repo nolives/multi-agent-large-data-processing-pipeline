@@ -7,10 +7,9 @@ request IDs) and pilot_measurements.json (clock times, counts and settings). Not
 import csv
 import gzip
 import json
-import sqlite3
 from pathlib import Path
 
-from .common import file_sha, write_json, write_jsonl
+from .common import file_sha, open_saved_state, write_json, write_jsonl
 from .export import ENRICHED
 
 CALL_FIELDS = ("request_id", "session", "role", "phase", "provider", "model", "label_config", "review_ids", "attempt", "outcome",
@@ -20,7 +19,7 @@ CALL_FIELDS = ("request_id", "session", "role", "phase", "provider", "model", "l
 
 def read_run(run_dir, run_type_for):
     run_dir = Path(run_dir)
-    db = sqlite3.connect(run_dir / "state.db")
+    db = open_saved_state(run_dir)
     if run_type_for is None:
         # A session that made model calls is part of the cold measurement; a session that made none is a warm rerun.
         active = {row[0] for row in db.execute("SELECT DISTINCT session FROM calls")}
