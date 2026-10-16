@@ -1,0 +1,15 @@
+{
+  "issue": "usability.ads",
+  "issue_members": 5574,
+  "members_whose_only_ad_word_is_adds": 750,
+  "matching_the_verb_pattern": 94,
+  "verdicts_for_pattern_matches": {
+    "verb": 78,
+    "misspelling": 15,
+    "both": 1
+  },
+  "verb_share_of_issue": 0.014,
+  "not_read_individually": 656,
+  "verb_pattern": "\\badds\\s+(in\\s+|on\\s+)?(a\\s+|random\\s+|the\\s+|some\\s+|other\\s+|more\\s+|new\\s+|extra\\s+|its\\s+own\\s+|recommended\\s+|suggested\\s+)*(songs?|tracks?|music|it|them|stuff)\\b|\\b(it|spotify|app|that|which|automatically|just|also|now|keeps|still|always|randomly)\\s+adds\\b",
+  "method": "Pattern matches were each read by hand. The members that do not match the pattern were not read individually, so a verb use phrased differently could remain among them: the verb count is a lower bound."
+}

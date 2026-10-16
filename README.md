@@ -423,10 +423,14 @@ Keys live only in a local `.env`, which git ignores; `.env.example` is blank.
   together, is weaker on non-English and garbled text, and can be swayed by text that argues for its own label.
 - `needs_review` is a weak signal, and the largest issue is a catch-all of unspecific complaints.
 - The entity lexicon counts "adds" as "ads", because reviewers often misspell it ("too many adds"). It also catches the verb:
-  "it adds songs to my playlist". Of the 750 `usability.ads` complaints that mention ads only as "adds", about 80 (1.4%
-  of the issue's 5,574) are about Spotify adding songs to playlists and would belong in `usability.queue-and-playlists`. Both
-  issues are in usability, so the area totals and the recommendation are unaffected, and `usability.ads` stays rank 2 (score 12,221 against 8,049 for rank 3).
-  The estimate comes from a text pattern whose matches were read by hand; found in an external review after the run.
+  "it adds songs to my playlist". Found by an external review after the run. Of the 5,574 `usability.ads` complaints, 750
+  mention ads only as "adds". A text pattern picked out 94 of them that look like the verb, and each was read by hand: 78 are
+  the verb (mostly Spotify adding songs to playlists, a few the queue, smart shuffle or liked songs), 15 are the
+  misspelling, and 1 is both. The other 656 were not read individually, so 78 (1.4% of the issue) is a lower bound. The
+  misgrouped reviews would belong in other usability issues, so the area totals and the recommendation are unaffected,
+  and `usability.ads` stays rank 2 (score 12,221 against 8,049 for rank 3).
+  Every one of the 750, with its verdict, is in [evals/adds_check/](evals/adds_check/adds_only_members.csv), reproduced
+  without a model by `python3 tools/adds_check.py`.
 - Costs are computed from the usage each API reported. On Oct 16, 2026 they were compared with the TypeSafe and Anthropic
   usage dashboards, and they agree.
 - The evidence quotes in the memo are representative examples chosen by likes, not a statistical sample.
@@ -450,8 +454,8 @@ Keys live only in a local `.env`, which git ignores; `.env.example` is blank.
 | [runs/](runs/) | Saved outputs of every run; `final_100k` is the final run (`state.db` files are not committed) |
 | [grading/](grading/) | Standardized export for the course checker |
 | [cost/](cost/) | Calculator, rates, assumptions, and the pilot and checkpoint reports |
-| [evals/](evals/) | Golden labels and evaluation, injection test, recovery recording |
+| [evals/](evals/) | Golden labels and evaluation, injection test, recovery recording, the "adds" check |
 | [dashboard/](dashboard/) | Database schema, backend, front end, Vercel configuration |
-| [tools/](tools/) | Labeling page, subset builder, golden evaluation, injection report |
+| [tools/](tools/) | Labeling page, subset builder, golden evaluation, injection report, "adds" check |
 | [tests/](tests/) | Offline tests for the pipeline |
 | [data/](data/) | Course dataset files (place the full CSV here) |
