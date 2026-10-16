@@ -1,6 +1,6 @@
 # Golden-set error analysis
 
-Draft written from `golden_report.md` and `golden_cases.jsonl` for Nick to review and put in his own words.
+Written from `golden_report.md` and `golden_cases.jsonl` with an AI assistant and reviewed by Nick, who made the labels.
 The numbers are computed by `tools/golden_eval.py`; the reading of them below is interpretation.
 
 ## Setup
