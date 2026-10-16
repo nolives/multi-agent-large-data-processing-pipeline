@@ -116,7 +116,9 @@ The format follows `data/GRADING_CONTRACT.md`.
 
 The full source file was ingested and profiled. Classification covers `{Path(analysis_csv).name}`: the 100,000 reviews with the lowest
 SHA-256(seed:review_id) values, which is the course's own sampling rule and includes the golden 50 and all development files, plus the
-13 empty-text reviews, which are quarantined as `empty_review_text`. Build the checker's reference with `--analysis {analysis_csv}`.
+13 empty-text reviews, which are quarantined as `empty_review_text`. The updated assignment brief accepts a run of "at least 100,000"
+reviews, and the instructor confirmed a 100,000-review run by email on October 11, 2026. Build the checker's reference with
+`--analysis {analysis_csv}`; a reference built from the full file expects 660,622 records and will report a mismatch.
 
 ## Interruption and resume
 

@@ -157,12 +157,17 @@ sources are in [cost/rates.csv](cost/rates.csv).
 
 - **Source:** BwandoWando, [3.4 Million Spotify Google Store Reviews](https://www.kaggle.com/datasets/bwandowando/3-4-million-spotify-google-store-reviews),
   version 2, CC0, as extracted by the course: `spotify_reviews_18months.csv`, 660,622 rows, 97,400,616 bytes, SHA-256
-  `1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6`. Download the course dataset ZIP from the link in the
-  assignment and place its files in `data/`. The large CSV and the ZIP are not committed.
+  `1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6`. Download the course dataset ZIP
+  ([Google Drive, supplied with the assignment](https://drive.google.com/file/d/1P0rUoAS_wVjp3BYKqXMEyD4u0uJP1Bvf/view))
+  and place its files in `data/`. The Kaggle link above is the original source; its files differ from the course
+  extract and do not match this checksum. The large CSV and the ZIP are not committed.
 - **Ingestion covers the whole file.** The full profile reproduces every figure in the course manifest: 660,622 rows, 0
   repeated IDs, 13 empty texts, 159,701 missing app versions, 484,189 distinct nonempty texts. It is byte-identical to
   `check_submission.py profile`.
-- **Classification covers 100,000 reviews,** as the instructor allowed for this assignment to keep costs down. They are
+- **Classification covers 100,000 reviews,** as the instructor allowed for this assignment to keep costs down: the
+  updated assignment brief accepts a run of "at least 100,000" reviews, and the instructor confirmed a 100,000-review run
+  by email on October 11, 2026. Build the checker's reference with `--analysis data/final_100k.csv`; a reference built
+  from the full file expects 660,622 records and will report a mismatch. The sample is
   the 100,000 reviews with the lowest SHA-256(seed:review_id) values, which is the course's own sampling rule, so they
   contain the golden 50, the 100-review pilot, and the 500 and 10,000 development files. They cover all 19 months. The
   13 empty-text reviews were added so that they are quarantined explicitly.
@@ -371,7 +376,8 @@ cp .env.example .env          # add TYPESAFE_API_KEY and ANTHROPIC_API_KEY for p
 python3 -m pipeline ingest --input data/spotify_reviews_18months.csv --run-id full
 python3 tools/build_final_subset.py
 python3 -m pipeline rank --run-id final_100k
-python3 -m pipeline export-grading --run-id final_100k --analysis data/final_100k.csv
+python3 -m pipeline export-grading --run-id final_100k --analysis data/final_100k.csv \
+  --before-checkpoint runs/final_100k/checkpoints/003_resume_interrupted.json   # the recorded interruption
 python3 tools/golden_eval.py --run runs/golden_50
 
 # Paid: every stage for any input CSV. Rerunning the same command resumes; completed reviews are not sent again.
